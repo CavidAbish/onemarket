@@ -1,4 +1,4 @@
-package com.example.onemarket
+package com.example.oneMarket
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

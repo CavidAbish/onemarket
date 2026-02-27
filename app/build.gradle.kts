@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.onemarket"
+    namespace = "com.example.oneMarket"
     compileSdk = 36
 
     defaultConfig {
