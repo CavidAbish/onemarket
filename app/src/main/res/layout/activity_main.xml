@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:fitsSystemWindows="true">
 
 
     <androidx.fragment.app.FragmentContainerView
@@ -26,11 +27,13 @@
         android:layout_height="wrap_content"
         android:paddingTop="12dp"
         android:paddingBottom="0dp"
-        app:itemIconSize="35dp"
+        app:itemIconSize="30dp"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+        app:menu="@menu/bottom_nav_menu"
+        android:background="@color/transparent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
