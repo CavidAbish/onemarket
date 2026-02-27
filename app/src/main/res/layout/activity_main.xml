@@ -35,5 +35,4 @@
         app:menu="@menu/bottom_nav_menu"
         android:background="@color/transparent"
         />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
