@@ -7,27 +7,27 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.oneMarket.presentation.home.HomeFragment"
+        android:name="com.example.onemarket.presentation.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/catalogFragment"
-        android:name="com.example.oneMarket.presentation.catalog.CatalogFragment"
+        android:name="com.example.onemarket.presentation.catalog.CatalogFragment"
         android:label="fragment_catalog"
         tools:layout="@layout/fragment_catalog" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.oneMarket.presentation.profile.ProfileFragment"
+        android:name="com.example.onemarket.presentation.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.example.oneMarket.presentation.cart.CartFragment"
+        android:name="com.example.onemarket.presentation.cart.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" />
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.example.oneMarket.presentation.favorites.FavoritesFragment"
+        android:name="com.example.onemarket.presentation.favorites.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" />
 </navigation>

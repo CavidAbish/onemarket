@@ -1,4 +1,4 @@
-package com.example.oneMarket
+package com.example.onemarket
 
 import org.junit.Test
 

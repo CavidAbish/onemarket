@@ -1,4 +1,4 @@
-package com.example.oneMarket.presentation.cart
+package com.example.onemarket.presentation.cart
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

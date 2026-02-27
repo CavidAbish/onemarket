@@ -1,4 +1,4 @@
-package com.example.oneMarket
+package com.example.onemarket
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
