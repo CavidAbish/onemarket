@@ -7,6 +7,12 @@ plugins {
 }
 
 android {
+    //Viewbindingi elave etdim
+    buildFeatures {
+        viewBinding = true
+    }
+    //
+
     namespace = "com.example.onemarket"
     compileSdk = 36
 
@@ -44,6 +50,7 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
     //
+
     //BottomNavigation add
     implementation("com.google.android.material:material:1.10.0")
     //
