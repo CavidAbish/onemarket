@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.onemarket.Product
 import com.example.onemarket.R
@@ -31,7 +32,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         adapter= ProductAdapter()
         binding.productRevcyclerView.adapter=adapter
-        binding.productRevcyclerView.layoutManager= LinearLayoutManager(requireContext())
+        binding.productRevcyclerView.layoutManager= GridLayoutManager(requireContext(),2)
         //    ------------------------------------------------------------
 
         val testProducts = listOf(
