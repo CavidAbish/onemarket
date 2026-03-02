@@ -2,40 +2,36 @@ package com.example.onemarket.presentation.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.onemarket.Product
 import com.example.onemarket.databinding.ProductItemBinding
+import com.example.onemarket.domain.model.ProductModel
 
-class ProductAdapter(
-    private var products: List<Product> = emptyList() // default boş list
-): RecyclerView.Adapter<ProductAdapter.ProductViewHolder>(){
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): ProductViewHolder {
-       val binding= ProductItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-        return ProductViewHolder(binding)
+class ProductAdapter : ListAdapter<ProductModel, ProductAdapter.ViewHolder>(DiffCallback()) {
+    inner class ViewHolder(private val binding: ProductItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(product: ProductModel) {
+            binding.productInfo.text = product.title
+            binding.productPrice.text = "${product.price} $"
+        }
+    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = ProductItemBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
+        return ViewHolder(binding)
+    }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 
-    override fun onBindViewHolder(
-        holder: ProductViewHolder,
-        position: Int
-    ) {
-        val product = products[position]
-        holder.binding.productPrice.text = "${product.price}₼"
-        holder.binding.productInfo.text=product.title
-    }
+    class DiffCallback : DiffUtil.ItemCallback<ProductModel>() {
+        override fun areItemsTheSame(oldItem: ProductModel, newItem: ProductModel) =
+            oldItem.id == newItem.id
 
-    override fun getItemCount(): Int {
-        return  products.size
-    }
-
-    inner class ProductViewHolder(val binding: ProductItemBinding): RecyclerView.ViewHolder(binding.root){
-
-    }
-
-    fun submitList(list: List<Product>) {
-        products = list
-        notifyDataSetChanged()
+        override fun areContentsTheSame(oldItem: ProductModel, newItem: ProductModel) =
+            oldItem == newItem
     }
 }
