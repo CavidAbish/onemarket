@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.onemarket.databinding.FragmentHomeBinding
 import kotlinx.coroutines.launch
@@ -36,7 +37,7 @@ class HomeFragment : Fragment() {
 
     private fun setupRecyclerView() {
         adapter = ProductAdapter()
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(),2)
         binding.recyclerView.adapter = adapter
     }
 
