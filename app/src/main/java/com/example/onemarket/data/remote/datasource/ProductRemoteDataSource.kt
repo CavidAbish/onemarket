@@ -1,25 +1,22 @@
 package com.example.onemarket.data.remote.datasource
 
-import com.example.onemarket.data.remote.RetrofitClient
 import com.example.onemarket.data.remote.api.ProductApi
 import com.example.onemarket.data.remote.dto.ProductDto
+import javax.inject.Inject
 
-
-//Butun mehsullari getirmek ucun
-class ProductRemoteDataSource(
-    private val api: ProductApi = RetrofitClient.productApi
+class ProductRemoteDataSource @Inject constructor(
+    private val api: ProductApi
 ) {
     suspend fun getProducts(): List<ProductDto> {
         return try {
             api.getProducts().products
-                ?. filterNotNull()
+                ?.filterNotNull()
                 ?: emptyList()
-        } catch (ex: Exception) {
+        } catch (e: Exception) {
             emptyList()
         }
     }
 
-//1 mehsul getirmek ucun (clickledikde falan detail hissesinin acilmasi ucun ist olunacaq)
     suspend fun getProductById(id: Int): ProductDto? {
         return try {
             api.getProductById(id)
@@ -27,5 +24,4 @@ class ProductRemoteDataSource(
             null
         }
     }
-
 }

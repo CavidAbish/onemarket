@@ -1,9 +1,17 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    // DaggerHilt elave edirem
+    alias(libs.plugins.ksp)        
+    alias(libs.plugins.hilt)
+    //
+
+
     //Navigation add
     kotlin("plugin.serialization") version "2.0.21"
     //
+
+
 }
 
 android {
@@ -59,6 +67,12 @@ dependencies {
     implementation ("com.google.code.gson:gson:2.9.1")
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    //
+
+
+    //daggerHilt add
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    ksp("com.google.dagger:hilt-compiler:2.51.1")
     //
 
 

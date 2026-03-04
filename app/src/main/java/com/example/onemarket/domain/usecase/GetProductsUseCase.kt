@@ -1,11 +1,11 @@
 package com.example.onemarket.domain.usecase
 
-import com.example.onemarket.data.repository.ProductRepositoryImpl
 import com.example.onemarket.domain.model.ProductModel
 import com.example.onemarket.domain.repository.ProductRepository
+import javax.inject.Inject
 
-class GetProductsUseCase(
-    private val repository: ProductRepository = ProductRepositoryImpl()
+class GetProductsUseCase @Inject constructor(
+    private val repository: ProductRepository
 ) {
     suspend operator fun invoke(): List<ProductModel> {
         return repository.getProducts()

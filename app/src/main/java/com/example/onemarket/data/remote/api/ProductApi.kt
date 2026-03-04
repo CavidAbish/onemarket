@@ -8,7 +8,6 @@ import retrofit2.http.Path
 
 interface ProductApi{
 
-
 //Umumi productlari getirir
 @GET ("products")
 suspend fun getProducts(): ProductResponseDto
