@@ -1,6 +1,7 @@
 package com.example.onemarket.data.remote.dto
 
 import com.example.onemarket.domain.model.ProductModel
+import java.lang.Math
 
 fun ProductDto.toProductModel(): ProductModel {
     return ProductModel(
@@ -18,7 +19,7 @@ fun ProductDto.toProductModel(): ProductModel {
             price ?: 0.0,
             discountPercentage ?: 0.0
         ),
-        monthlyPayment = (price ?: 0.0) / 12
+        monthlyPayment =   Math.round(((price ?: 0.0) / 12) * 100.0) / 100.0
     )
 }
 
