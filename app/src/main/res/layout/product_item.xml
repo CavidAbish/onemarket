@@ -18,7 +18,7 @@
         android:id="@+id/img_heart"
         android:layout_width="30dp"
         android:layout_height="30dp"
-      android:src="@drawable/heart_black_photo"
+      android:src="@drawable/ic_heart_black"
         app:layout_constraintEnd_toEndOf="@id/img_product"
         app:layout_constraintTop_toTopOf="@id/img_product"/>
 

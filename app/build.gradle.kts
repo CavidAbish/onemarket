@@ -75,6 +75,10 @@ dependencies {
     ksp("com.google.dagger:hilt-compiler:2.51.1")
     //
 
+    //Sekiller ucun Gradle kitabxanasi
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    //
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

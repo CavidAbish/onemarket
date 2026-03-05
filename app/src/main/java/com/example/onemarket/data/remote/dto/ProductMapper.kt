@@ -12,6 +12,22 @@ fun ProductDto.toProductModel(): ProductModel {
         rating = rating ?: 0.0,
         stock = stock ?: 0,
         brand = brand ?: "",
-        category = category ?: ""
+        category = category ?: "",
+        discountPercentage = discountPercentage ?: 0.0,
+        originalPrice = calculateOriginalPrice(
+            price ?: 0.0,
+            discountPercentage ?: 0.0
+        ),
+        monthlyPayment = (price ?: 0.0) / 12
     )
+}
+
+
+private fun calculateOriginalPrice(price: Double, discount: Double): Double {
+    return if (discount > 0) {
+        val original=price / (1 - discount / 100)
+        Math.round(original * 100.0) / 100.0
+    } else {
+        price
+    }
 }
