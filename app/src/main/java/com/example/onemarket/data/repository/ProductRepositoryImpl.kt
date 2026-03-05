@@ -1,6 +1,6 @@
 package com.example.onemarket.data.repository
 
-import ProductRemoteDataSource
+import com.example.onemarket.data.remote.datasource.ProductRemoteDataSource
 import com.example.onemarket.data.remote.dto.toProductModel
 import com.example.onemarket.domain.model.ProductModel
 import com.example.onemarket.domain.repository.ProductRepository

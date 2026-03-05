@@ -1,6 +1,6 @@
 package com.example.onemarket.di
 
-import ProductRemoteDataSource
+import com.example.onemarket.data.remote.datasource.ProductRemoteDataSource
 import com.example.onemarket.data.remote.api.ProductApi
 import com.example.onemarket.data.repository.ProductRepositoryImpl
 import com.example.onemarket.domain.repository.ProductRepository
@@ -16,17 +16,13 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideProductRemoteDataSource(
-        api: ProductApi  // ← ProductApi import lazımdır
-    ): ProductRemoteDataSource {
+    fun provideProductRemoteDataSource(api: ProductApi): ProductRemoteDataSource {
         return ProductRemoteDataSource(api)
     }
 
     @Provides
     @Singleton
-    fun provideProductRepository(
-        dataSource: ProductRemoteDataSource
-    ): ProductRepository {
+    fun provideProductRepository(dataSource: ProductRemoteDataSource): ProductRepository {
         return ProductRepositoryImpl(dataSource)
     }
 }

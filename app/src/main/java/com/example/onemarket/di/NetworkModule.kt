@@ -1,3 +1,5 @@
+package com.example.onemarket.di
+
 import com.example.onemarket.data.remote.api.ProductApi
 import dagger.Module
 import dagger.Provides
