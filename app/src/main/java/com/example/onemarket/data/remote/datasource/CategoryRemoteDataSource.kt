@@ -7,13 +7,22 @@ import javax.inject.Inject
 class CategoryRemoteDataSource @Inject constructor(
     private val api: CategoryApi
 ) {
-    suspend fun getCategories(): List<CategoryDto> {
+    suspend fun getCategories(): List<Pair<CategoryDto, String>> {
         return try {
-            api.getCategories()
+            val categories = api.getCategories()
+            categories.map { category ->
+                val imageUrl = try {
+                    api.getFirstProductByCategory(category.slug ?: "")
+                        .products
+                        ?.firstOrNull()
+                        ?.thumbnail ?: ""
+                } catch (e: Exception) {
+                    ""
+                }
+                Pair(category, imageUrl)
+            }
         } catch (e: Exception) {
             emptyList()
         }
     }
 }
-
-

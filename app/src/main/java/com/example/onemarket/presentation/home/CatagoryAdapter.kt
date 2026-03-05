@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.onemarket.databinding.ItemCategoryBinding
 import com.example.onemarket.domain.model.CategoryModel
 
@@ -17,6 +18,12 @@ class CategoryAdapter(
 
         fun bind(category: CategoryModel) {
             binding.tvCategoryName.text = category.name
+
+            // Glide ilə şəkil yüklə
+            Glide.with(binding.root)
+                .load(category.imageUrl)
+                .centerCrop()
+                .into(binding.ivCategoryImage)
 
             binding.root.setOnClickListener {
                 onCategoryClick(category)

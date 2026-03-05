@@ -16,8 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getProductsUseCase: GetProductsUseCase,
-    private val getCategoriesUseCase: GetCategoriesUseCase,
-    private val getProductsByCategoryUseCase: GetProductsByCategoryUseCase
+    private val getCategoriesUseCase: GetCategoriesUseCase
+    // GetProductsByCategoryUseCase burda yoxdur ✅
 ) : ViewModel() {
 
     private val _products = MutableStateFlow<List<ProductModel>>(emptyList())
@@ -31,7 +31,7 @@ class HomeViewModel @Inject constructor(
         getCategories()
     }
 
-    fun getProducts() {
+    private fun getProducts() {
         viewModelScope.launch {
             _products.value = getProductsUseCase()
         }
@@ -40,12 +40,6 @@ class HomeViewModel @Inject constructor(
     private fun getCategories() {
         viewModelScope.launch {
             _categories.value = getCategoriesUseCase()
-        }
-    }
-
-    fun getProductsByCategory(slug: String) {
-        viewModelScope.launch {
-            _products.value = getProductsByCategoryUseCase(slug)
         }
     }
 }

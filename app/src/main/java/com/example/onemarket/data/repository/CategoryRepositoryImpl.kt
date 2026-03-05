@@ -9,8 +9,11 @@ import javax.inject.Inject
 class CategoryRepositoryImpl @Inject constructor(
     private val dataSource: CategoryRemoteDataSource
 ) : CategoryRepository {
+
     override suspend fun getCategories(): List<CategoryModel> {
         return dataSource.getCategories()
-            .map { it.toCategoryModel() }
+            .map { (categoryDto, imageUrl) ->
+                categoryDto.toCategoryModel(imageUrl)
+            }
     }
 }

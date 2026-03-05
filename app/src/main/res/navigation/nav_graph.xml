@@ -9,25 +9,53 @@
         android:id="@+id/homeFragment"
         android:name="com.example.onemarket.presentation.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+
+        <!-- HomeFragment-dən CategoryProductsFragment-ə action -->
+        <action
+            android:id="@+id/action_homeFragment_to_categoryProductsFragment"
+            app:destination="@id/categoryProductsFragment" />
+
+    </fragment>
+
     <fragment
         android:id="@+id/catalogFragment"
         android:name="com.example.onemarket.presentation.catalog.CatalogFragment"
         android:label="fragment_catalog"
         tools:layout="@layout/fragment_catalog" />
+
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.onemarket.presentation.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.example.onemarket.presentation.cart.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" />
+
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.example.onemarket.presentation.favorites.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" />
+
+    <fragment
+        android:id="@+id/categoryProductsFragment"
+        android:name="com.example.onemarket.presentation.category.CategoryProductsFragment"
+        android:label="fragment_category_products"
+        tools:layout="@layout/fragment_category_products">
+
+        <!-- Argumentlər — slug və categoryName -->
+        <argument
+            android:name="slug"
+            app:argType="string" />
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
+
+    </fragment>
+
 </navigation>

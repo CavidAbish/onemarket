@@ -5,6 +5,9 @@ plugins {
     //DaggerHilt add
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.hilt) apply false
+    //
 
+    //Safeargs
+    alias(libs.plugins.navigation.safeargs) apply false
     //
 }
