@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.onemarket.presentation.home.HomeFragment">
 
+
     <androidx.cardview.widget.CardView
         android:id="@+id/topBarCard"
         android:layout_width="0dp"
@@ -24,14 +25,14 @@
             android:orientation="horizontal"
             android:padding="8dp">
 
-            <!-- SOL ICON -->
+
             <ImageView
                 android:id="@+id/ic_location"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_location" />
 
-            <!-- SEARCH INPUT -->
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/searchLayout"
                 android:layout_width="0dp"
@@ -49,16 +50,29 @@
                     android:drawableStart="@drawable/ic_search"
                     android:inputType="text"
                     android:padding="8dp" />
+
             </com.google.android.material.textfield.TextInputLayout>
-            <!-- SAĞ ICON -->
+
+
             <ImageView
                 android:id="@+id/ic_notifications"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_notifications" />
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categoryRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBarCard" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -67,6 +81,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBarCard" />
+        app:layout_constraintTop_toBottomOf="@id/categoryRecyclerView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

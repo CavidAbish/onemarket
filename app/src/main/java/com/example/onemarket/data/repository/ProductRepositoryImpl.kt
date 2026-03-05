@@ -18,4 +18,9 @@ class ProductRepositoryImpl @Inject constructor(
     override suspend fun getProductById(id: Int): ProductModel? {
         return dataSource.getProductById(id)?.toProductModel()
     }
+
+    override suspend fun getProductsByCategory(slug: String): List<ProductModel> {
+        return dataSource.getProductsByCategory(slug)
+            .map { it.toProductModel() }
+    }
 }

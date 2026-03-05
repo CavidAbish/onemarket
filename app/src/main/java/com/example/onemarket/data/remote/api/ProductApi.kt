@@ -17,4 +17,9 @@ suspend fun getProducts(): ProductResponseDto
 //secilmis idli mehsulu getirir
 @GET("products/{id}")
 suspend fun getProductById(@Path("id") id:Int): ProductDto
+
+
+//categoryyada secim etme
+    @GET("products/category/{slug}")
+    suspend fun getProductsByCategory(@Path("slug") slug: String): ProductResponseDto
 }

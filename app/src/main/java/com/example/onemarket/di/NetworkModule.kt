@@ -1,5 +1,6 @@
 package com.example.onemarket.di
 
+import com.example.onemarket.data.remote.api.CategoryApi
 import com.example.onemarket.data.remote.api.ProductApi
 import dagger.Module
 import dagger.Provides
@@ -26,5 +27,11 @@ object NetworkModule {
     @Singleton
     fun provideProductApi(retrofit: Retrofit): ProductApi {
         return retrofit.create(ProductApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCategoryApi(retrofit: Retrofit): CategoryApi {
+        return retrofit.create(CategoryApi::class.java)
     }
 }

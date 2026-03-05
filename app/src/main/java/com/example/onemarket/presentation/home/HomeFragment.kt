@@ -20,7 +20,8 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: HomeViewModel by viewModels()
-    private lateinit var adapter: ProductAdapter
+    private lateinit var productAdapter: ProductAdapter
+    private lateinit var categoryAdapter: CategoryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,20 +34,40 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView()
-        observeProducts()
+        setupProductRecyclerView()
+        setupCategoryRecyclerView()
+        observeData()
     }
 
-    private fun setupRecyclerView() {
-        adapter = ProductAdapter()
-        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(),2)
-        binding.recyclerView.adapter = adapter
+    private fun setupProductRecyclerView() {
+        productAdapter = ProductAdapter()
+        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.recyclerView.adapter = productAdapter
     }
 
-    private fun observeProducts() {
+    private fun setupCategoryRecyclerView() {
+        categoryAdapter = CategoryAdapter { category ->
+            // Kateqoriyaya klik olunanda məhsulları yenilə
+            viewModel.getProductsByCategory(category.slug)
+        }
+        binding.categoryRecyclerView.layoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+        binding.categoryRecyclerView.adapter = categoryAdapter
+    }
+
+    private fun observeData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.products.collect { productList ->
-                adapter.submitList(productList)
+                productAdapter.submitList(productList)
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.categories.collect { categoryList ->
+                categoryAdapter.submitList(categoryList)
             }
         }
     }

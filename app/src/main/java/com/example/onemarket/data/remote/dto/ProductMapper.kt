@@ -24,6 +24,7 @@ fun ProductDto.toProductModel(): ProductModel {
 }
 
 
+
 private fun calculateOriginalPrice(price: Double, discount: Double): Double {
     return if (discount > 0) {
         val original=price / (1 - discount / 100)
