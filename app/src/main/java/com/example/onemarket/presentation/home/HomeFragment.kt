@@ -38,6 +38,8 @@ class HomeFragment : Fragment() {
         setupProductRecyclerView()
         setupCategoryRecyclerView()
         observeData()
+        setupScrollBehavior()
+        setupBannerClicks()
     }
 
     private fun setupProductRecyclerView() {
@@ -48,7 +50,6 @@ class HomeFragment : Fragment() {
 
     private fun setupCategoryRecyclerView() {
         categoryAdapter = CategoryAdapter { category ->
-            // Kateqoriyaya klik → CategoryProductsFragment-ə get
             val action = HomeFragmentDirections
                 .actionHomeFragmentToCategoryProductsFragment(
                     slug = category.slug,
@@ -75,6 +76,47 @@ class HomeFragment : Fragment() {
             viewModel.categories.collect { categoryList ->
                 categoryAdapter.submitList(categoryList)
             }
+        }
+    }
+
+    private fun setupScrollBehavior() {
+        binding.nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+            if (scrollY > 150) {
+                // Kiçik banner göstər
+                if (binding.stickyBanner.visibility == View.GONE) {
+                    binding.stickyBanner.visibility = View.VISIBLE
+                    binding.stickyBanner.translationY = -binding.stickyBanner.height.toFloat()
+                    binding.stickyBanner.animate()
+                        .translationY(0f)
+                        .alpha(1f)
+                        .setDuration(200)
+                        .start()
+                }
+            } else {
+                // Kiçik banner gizlət
+                if (binding.stickyBanner.visibility == View.VISIBLE) {
+                    binding.stickyBanner.animate()
+                        .alpha(0f)
+                        .setDuration(200)
+                        .withEndAction {
+                            binding.stickyBanner.visibility = View.GONE
+                            binding.stickyBanner.alpha = 1f
+                        }
+                        .start()
+                }
+            }
+        }
+    }
+
+    private fun setupBannerClicks() {
+        // Böyük banner click
+        binding.infoBanner.setOnClickListener {
+            InfoBottomSheet().show(childFragmentManager, "InfoBottomSheet")
+        }
+
+        // Kiçik banner click
+        binding.stickyBanner.setOnClickListener {
+            InfoBottomSheet().show(childFragmentManager, "InfoBottomSheet")
         }
     }
 
