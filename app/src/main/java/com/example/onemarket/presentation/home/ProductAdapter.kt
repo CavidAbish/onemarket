@@ -7,28 +7,27 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.onemarket.R
+import com.example.onemarket.data.local.FavoritesManager
 import com.example.onemarket.databinding.ItemProductBinding
 import com.example.onemarket.domain.model.ProductModel
 
-class ProductAdapter : ListAdapter<ProductModel, ProductAdapter.ViewHolder>(DiffCallback()) {
+class ProductAdapter(
+    private val favoritesManager: FavoritesManager,
+    private val onFavoriteChanged: (() -> Unit)? = null
+) : ListAdapter<ProductModel, ProductAdapter.ViewHolder>(DiffCallback()) {
 
     inner class ViewHolder(private val binding: ItemProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(product: ProductModel) {
-
             binding.tvProductName.text = product.title
-
             binding.tvPrice.text = "${product.price} ₼"
-
             binding.tvOldPrice.text = "${product.originalPrice} ₼"
             binding.tvOldPrice.paintFlags =
                 binding.tvOldPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-
             binding.tvDiscount.text = "-${product.discountPercentage.toInt()}%"
-
             binding.tvMonthlyPayment.text = "${product.monthlyPayment} ₼ x 12 ay"
-
             binding.ratingBar.rating = product.rating.toFloat()
             binding.tvRatingCount.text = "${product.stock} rəy"
 
@@ -36,6 +35,22 @@ class ProductAdapter : ListAdapter<ProductModel, ProductAdapter.ViewHolder>(Diff
                 .load(product.thumbnail)
                 .centerCrop()
                 .into(binding.ivProductImage)
+
+            updateFavoriteIcon(product.id)
+
+            binding.ivFavorite.setOnClickListener {
+                favoritesManager.toggleFavorite(product)
+                updateFavoriteIcon(product.id)
+                onFavoriteChanged?.invoke()
+            }
+        }
+
+        private fun updateFavoriteIcon(productId: Int) {
+            if (favoritesManager.isFavorite(productId)) {
+                binding.ivFavorite.setImageResource(R.drawable.ic_heart_red)
+            } else {
+                binding.ivFavorite.setImageResource(R.drawable.ic_heart_black)
+            }
         }
     }
 

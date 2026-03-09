@@ -10,10 +10,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.onemarket.data.local.FavoritesManager
 import com.example.onemarket.databinding.FragmentCategoryProductsBinding
 import com.example.onemarket.presentation.home.ProductAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CategoryProductsFragment : Fragment() {
@@ -24,6 +26,9 @@ class CategoryProductsFragment : Fragment() {
     private val viewModel: CategoryProductsViewModel by viewModels()
     private val args: CategoryProductsFragmentArgs by navArgs()
     private lateinit var productAdapter: ProductAdapter
+
+    @Inject
+    lateinit var favoritesManager: FavoritesManager  // ← əlavə et
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,7 +54,7 @@ class CategoryProductsFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        productAdapter = ProductAdapter()
+        productAdapter = ProductAdapter(favoritesManager)  // ← dəyiş
         binding.recyclerViewCategoryProducts.layoutManager =
             GridLayoutManager(requireContext(), 2)
         binding.recyclerViewCategoryProducts.adapter = productAdapter

@@ -10,9 +10,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.onemarket.data.local.FavoritesManager
 import com.example.onemarket.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -23,6 +25,9 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var productAdapter: ProductAdapter
     private lateinit var categoryAdapter: CategoryAdapter
+
+    @Inject
+    lateinit var favoritesManager: FavoritesManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,7 +48,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupProductRecyclerView() {
-        productAdapter = ProductAdapter()
+        productAdapter = ProductAdapter(favoritesManager)
         binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.recyclerView.adapter = productAdapter
     }
@@ -82,7 +87,6 @@ class HomeFragment : Fragment() {
     private fun setupScrollBehavior() {
         binding.nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
             if (scrollY > 150) {
-                // Kiçik banner göstər
                 if (binding.stickyBanner.visibility == View.GONE) {
                     binding.stickyBanner.visibility = View.VISIBLE
                     binding.stickyBanner.translationY = -binding.stickyBanner.height.toFloat()
@@ -93,7 +97,6 @@ class HomeFragment : Fragment() {
                         .start()
                 }
             } else {
-                // Kiçik banner gizlət
                 if (binding.stickyBanner.visibility == View.VISIBLE) {
                     binding.stickyBanner.animate()
                         .alpha(0f)
@@ -109,12 +112,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupBannerClicks() {
-        // Böyük banner click
         binding.infoBanner.setOnClickListener {
             InfoBottomSheet().show(childFragmentManager, "InfoBottomSheet")
         }
-
-        // Kiçik banner click
         binding.stickyBanner.setOnClickListener {
             InfoBottomSheet().show(childFragmentManager, "InfoBottomSheet")
         }
