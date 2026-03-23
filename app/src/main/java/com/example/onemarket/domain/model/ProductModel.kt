@@ -1,4 +1,9 @@
 package com.example.onemarket.domain.model
+
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class ProductModel(
     val id: Int,
     val title: String,
@@ -12,4 +17,4 @@ data class ProductModel(
     val discountPercentage: Double = 0.0,
     val originalPrice: Double = 0.0,
     val monthlyPayment: Double = 0.0
-)
+) : Parcelable

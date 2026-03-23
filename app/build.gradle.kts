@@ -15,6 +15,11 @@ plugins {
     alias(libs.plugins.navigation.safeargs)
     //
 
+
+    //parceble elave edirem save args islemek ucun
+    id("kotlin-parcelize")
+    //
+
 }
 
 android {

@@ -48,7 +48,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupProductRecyclerView() {
-        productAdapter = ProductAdapter(favoritesManager)
+        productAdapter = ProductAdapter(
+            favoritesManager = favoritesManager,
+            onProductClick = { product ->
+                val action = HomeFragmentDirections
+                    .actionHomeFragmentToProductDetailFragment(product)
+                findNavController().navigate(action)
+            }
+        )
         binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.recyclerView.adapter = productAdapter
     }
@@ -76,7 +83,6 @@ class HomeFragment : Fragment() {
                 productAdapter.submitList(productList)
             }
         }
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.categories.collect { categoryList ->
                 categoryAdapter.submitList(categoryList)

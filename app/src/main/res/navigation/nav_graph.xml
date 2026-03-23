@@ -15,6 +15,10 @@
             android:id="@+id/action_homeFragment_to_categoryProductsFragment"
             app:destination="@id/categoryProductsFragment" />
 
+        <action
+            android:id="@+id/action_homeFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+
     </fragment>
 
     <fragment
@@ -30,10 +34,16 @@
     </fragment>
 
     <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.example.onemarket.presentation.profile.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.onemarket.presentation.favorites.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites">
+
+        <action
+            android:id="@+id/action_favoritesFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/cartFragment"
@@ -42,10 +52,10 @@
         tools:layout="@layout/fragment_cart" />
 
     <fragment
-        android:id="@+id/favoritesFragment"
-        android:name="com.example.onemarket.presentation.favorites.FavoritesFragment"
-        android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        android:id="@+id/profileFragment"
+        android:name="com.example.onemarket.presentation.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/categoryProductsFragment"
@@ -56,9 +66,26 @@
         <argument
             android:name="slug"
             app:argType="string" />
+
         <argument
             android:name="categoryName"
             app:argType="string" />
+
+        <action
+            android:id="@+id/action_categoryProductsFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.example.onemarket.presentation.detail.ProductDetailFragment"
+        android:label="fragment_product_detail"
+        tools:layout="@layout/fragment_product_detail">
+
+        <argument
+            android:name="product"
+            app:argType="com.example.onemarket.domain.model.ProductModel" />
 
     </fragment>
 

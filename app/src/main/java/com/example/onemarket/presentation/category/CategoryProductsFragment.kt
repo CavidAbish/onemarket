@@ -28,7 +28,7 @@ class CategoryProductsFragment : Fragment() {
     private lateinit var productAdapter: ProductAdapter
 
     @Inject
-    lateinit var favoritesManager: FavoritesManager  // ← əlavə et
+    lateinit var favoritesManager: FavoritesManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,7 +54,14 @@ class CategoryProductsFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        productAdapter = ProductAdapter(favoritesManager)  // ← dəyiş
+        productAdapter = ProductAdapter(
+            favoritesManager = favoritesManager,
+            onProductClick = { product ->
+                val action = CategoryProductsFragmentDirections
+                    .actionCategoryProductsFragmentToProductDetailFragment(product)
+                findNavController().navigate(action)
+            }
+        )
         binding.recyclerViewCategoryProducts.layoutManager =
             GridLayoutManager(requireContext(), 2)
         binding.recyclerViewCategoryProducts.adapter = productAdapter
