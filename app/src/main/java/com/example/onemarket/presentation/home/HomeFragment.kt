@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -25,6 +26,7 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var productAdapter: ProductAdapter
     private lateinit var categoryAdapter: CategoryAdapter
+    private lateinit var recentlyViewedAdapter: RecentlyViewedAdapter
 
     @Inject
     lateinit var favoritesManager: FavoritesManager
@@ -42,9 +44,15 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupProductRecyclerView()
         setupCategoryRecyclerView()
+        setupRecentlyViewedRecyclerView()
         observeData()
         setupScrollBehavior()
         setupBannerClicks()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadRecentlyViewed()
     }
 
     private fun setupProductRecyclerView() {
@@ -77,6 +85,27 @@ class HomeFragment : Fragment() {
         binding.categoryRecyclerView.adapter = categoryAdapter
     }
 
+    private fun setupRecentlyViewedRecyclerView() {
+        recentlyViewedAdapter = RecentlyViewedAdapter(
+            favoritesManager = favoritesManager,
+            onProductClick = { product ->
+                val action = HomeFragmentDirections
+                    .actionHomeFragmentToProductDetailFragment(product)
+                findNavController().navigate(action)
+            },
+            onAddToCart = { product ->
+                // TODO: Səbət funksionallığı əlavə ediləcək
+                Toast.makeText(requireContext(), "${product.title} səbətə əlavə edildi", Toast.LENGTH_SHORT).show()
+            }
+        )
+        binding.recyclerViewRecentlyViewed.layoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+        binding.recyclerViewRecentlyViewed.adapter = recentlyViewedAdapter
+    }
+
     private fun observeData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.products.collect { productList ->
@@ -86,6 +115,18 @@ class HomeFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.categories.collect { categoryList ->
                 categoryAdapter.submitList(categoryList)
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.recentlyViewed.collect { recentList ->
+                recentlyViewedAdapter.submitList(recentList)
+                if (recentList.isEmpty()) {
+                    binding.tvRecentlyViewed.visibility = View.GONE
+                    binding.recyclerViewRecentlyViewed.visibility = View.GONE
+                } else {
+                    binding.tvRecentlyViewed.visibility = View.VISIBLE
+                    binding.recyclerViewRecentlyViewed.visibility = View.VISIBLE
+                }
             }
         }
     }

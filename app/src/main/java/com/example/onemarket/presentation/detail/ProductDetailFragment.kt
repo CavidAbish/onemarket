@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.example.onemarket.R
 import com.example.onemarket.data.local.FavoritesManager
+import com.example.onemarket.data.local.RecentlyViewedManager
 import com.example.onemarket.databinding.FragmentProductDetailBinding
 import com.example.onemarket.presentation.home.ProductAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,6 +33,9 @@ class ProductDetailFragment : Fragment() {
     @Inject
     lateinit var favoritesManager: FavoritesManager
 
+    @Inject
+    lateinit var recentlyViewedManager: RecentlyViewedManager
+
     private lateinit var relatedAdapter: ProductAdapter
 
     override fun onCreateView(
@@ -47,6 +51,9 @@ class ProductDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val product = args.product
+
+        // Baxılan məhsulu saxla
+        recentlyViewedManager.addProduct(product)
 
         // Şəkil
         Glide.with(this)

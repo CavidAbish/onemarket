@@ -61,7 +61,7 @@
 
     </androidx.cardview.widget.CardView>
 
-    <!-- KİÇİK SABİT BANNER — scroll > 300 olanda görünür -->
+    <!-- KİÇİK SABİT BANNER -->
     <androidx.cardview.widget.CardView
         android:id="@+id/stickyBanner"
         android:layout_width="0dp"
@@ -144,7 +144,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- INFO BANNER — scroll ilə birlikdə gedir -->
+            <!-- INFO BANNER -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/infoBanner"
                 android:layout_width="match_parent"
@@ -163,7 +163,6 @@
                     android:orientation="horizontal"
                     android:padding="12dp">
 
-                    <!-- Sol: Çatdırılma -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -202,7 +201,6 @@
 
                     </LinearLayout>
 
-                    <!-- Ayırıcı xətt -->
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
@@ -210,7 +208,6 @@
                         android:layout_marginEnd="8dp"
                         android:background="#CCCCCC" />
 
-                    <!-- Sağ: Kredit -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -261,6 +258,30 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 android:nestedScrollingEnabled="false" />
+
+            <!-- ƏVVƏL BAXDIQLARIN BAŞLIĞI -->
+            <TextView
+                android:id="@+id/tvRecentlyViewed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Əvvəl baxdıqlarınız"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#1A1A1A"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="4dp"
+                android:visibility="gone" />
+
+            <!-- ƏVVƏL BAXDIQLARIN HORIZONTAL RECYCLER -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewRecentlyViewed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:nestedScrollingEnabled="false"
+                android:visibility="gone" />
 
             <!-- MƏHSULLAR -->
             <androidx.recyclerview.widget.RecyclerView
