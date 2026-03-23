@@ -87,6 +87,11 @@
             android:name="product"
             app:argType="com.example.onemarket.domain.model.ProductModel" />
 
+        <!-- Oxşar məhsula klikdə özünə navigate edir -->
+        <action
+            android:id="@+id/action_productDetailFragment_self"
+            app:destination="@id/productDetailFragment" />
+
     </fragment>
 
 </navigation>

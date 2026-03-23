@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -8,9 +8,13 @@
 
     <!-- Scroll olan hissə -->
     <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="80dp">
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomButtons"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,7 +46,7 @@
                     android:paddingEnd="10dp"
                     android:paddingTop="6dp"
                     android:paddingBottom="6dp"
-                    android:text="Taksitli ödəniş 1.00 ₼ x 6 ay"
+                    android:text="Taksitli ödəniş"
                     android:textColor="#FFFFFF"
                     android:textSize="12sp"
                     android:textStyle="bold"
@@ -130,7 +134,6 @@
                     android:gravity="center_vertical"
                     android:layout_marginTop="12dp">
 
-                    <!-- Köhnə qiymət -->
                     <TextView
                         android:id="@+id/tvOldPrice"
                         android:layout_width="wrap_content"
@@ -140,7 +143,6 @@
                         android:textColor="#AAAAAA"
                         android:layout_marginEnd="8dp" />
 
-                    <!-- Yeni qiymət -->
                     <TextView
                         android:id="@+id/tvPrice"
                         android:layout_width="0dp"
@@ -151,7 +153,6 @@
                         android:textStyle="bold"
                         android:textColor="#E91E8C" />
 
-                    <!-- Kredit badge -->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -174,7 +175,7 @@
                             android:id="@+id/tvMonthlyPayment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0.32 ₼ x 24 ay"
+                            android:text="0.32 ₼ x 12 ay"
                             android:textSize="11sp"
                             android:textStyle="bold"
                             android:textColor="#1A1A1A" />
@@ -183,7 +184,7 @@
 
                 </LinearLayout>
 
-                <!-- Ayırıcı xətt -->
+                <!-- Ayırıcı -->
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -191,7 +192,7 @@
                     android:layout_marginBottom="16dp"
                     android:background="#F0F0F0" />
 
-                <!-- Xüsusiyyətlər başlığı -->
+                <!-- Xüsusiyyətlər -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -200,7 +201,6 @@
                     android:textStyle="bold"
                     android:textColor="#1A1A1A" />
 
-                <!-- Brend -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -227,7 +227,6 @@
 
                 </LinearLayout>
 
-                <!-- Kateqoriya -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -254,7 +253,6 @@
 
                 </LinearLayout>
 
-                <!-- Stok -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -281,7 +279,7 @@
 
                 </LinearLayout>
 
-                <!-- Ayırıcı xətt -->
+                <!-- Ayırıcı -->
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -289,7 +287,7 @@
                     android:layout_marginBottom="16dp"
                     android:background="#F0F0F0" />
 
-                <!-- Təsvir başlığı -->
+                <!-- Təsvir -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -308,7 +306,7 @@
                     android:lineSpacingMultiplier="1.5"
                     android:text="..." />
 
-                <!-- Ayırıcı xətt -->
+                <!-- Ayırıcı -->
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -316,7 +314,7 @@
                     android:layout_marginBottom="16dp"
                     android:background="#F0F0F0" />
 
-                <!-- Reytinq hissəsi -->
+                <!-- Rəylər -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -330,7 +328,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="16dp">
 
                     <RatingBar
                         android:id="@+id/ratingBarLarge"
@@ -363,7 +362,35 @@
 
                 </LinearLayout>
 
+                <!-- Ayırıcı -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="#F0F0F0" />
+
+                <!-- Əlaqəli məhsullar başlığı -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Oxşar məhsullar"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textColor="#1A1A1A"
+                    android:layout_marginBottom="8dp" />
+
             </LinearLayout>
+
+            <!-- Əlaqəli məhsullar RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewRelated"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="8dp"
+                android:clipToPadding="false" />
 
         </LinearLayout>
 
@@ -371,17 +398,17 @@
 
     <!-- Aşağıdakı sabit düymələr -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/bottomButtons"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="12dp"
         android:background="#FFFFFF"
         android:elevation="8dp"
-        app:layout_anchor="@android:id/content"
-        app:layout_anchorGravity="bottom"
-        android:layout_gravity="bottom">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- İndi al -->
         <Button
             android:id="@+id/btnBuyNow"
             android:layout_width="0dp"
@@ -398,7 +425,6 @@
             app:cornerRadius="8dp"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
-        <!-- Səbətə əlavə et -->
         <Button
             android:id="@+id/btnAddToCart"
             android:layout_width="0dp"
@@ -413,4 +439,4 @@
 
     </LinearLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

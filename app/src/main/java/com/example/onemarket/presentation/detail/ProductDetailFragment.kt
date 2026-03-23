@@ -6,13 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.example.onemarket.R
 import com.example.onemarket.data.local.FavoritesManager
 import com.example.onemarket.databinding.FragmentProductDetailBinding
+import com.example.onemarket.presentation.home.ProductAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -22,9 +27,12 @@ class ProductDetailFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val args: ProductDetailFragmentArgs by navArgs()
+    private val viewModel: ProductDetailViewModel by viewModels()
 
     @Inject
     lateinit var favoritesManager: FavoritesManager
+
+    private lateinit var relatedAdapter: ProductAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -82,6 +90,32 @@ class ProductDetailFragment : Fragment() {
         // Geri
         binding.btnBack.setOnClickListener {
             findNavController().popBackStack()
+        }
+
+        // Oxşar məhsullar
+        setupRelatedProducts()
+        observeRelatedProducts()
+        viewModel.loadRelatedProducts(product.category, product.id)
+    }
+
+    private fun setupRelatedProducts() {
+        relatedAdapter = ProductAdapter(
+            favoritesManager = favoritesManager,
+            onProductClick = { product ->
+                val action = ProductDetailFragmentDirections
+                    .actionProductDetailFragmentSelf(product)
+                findNavController().navigate(action)
+            }
+        )
+        binding.recyclerViewRelated.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.recyclerViewRelated.adapter = relatedAdapter
+    }
+
+    private fun observeRelatedProducts() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.relatedProducts.collect { products ->
+                relatedAdapter.submitList(products)
+            }
         }
     }
 
