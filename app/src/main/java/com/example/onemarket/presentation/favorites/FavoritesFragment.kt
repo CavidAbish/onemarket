@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.onemarket.R
 import com.example.onemarket.data.local.FavoritesManager
 import com.example.onemarket.databinding.FragmentFavoritesBinding
 import com.example.onemarket.presentation.home.ProductAdapter
@@ -41,7 +43,14 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         observeFavorites()
-        viewModel.loadFavorites()
+
+        // Məhsul kataloqu düyməsi → Kataloq fragmentinə keç
+        binding.btnCatalog.setOnClickListener {
+            // Bottom nav-da kataloq seç
+            requireActivity().findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
+                R.id.bottom_nav
+            ).selectedItemId = R.id.catalogFragment
+        }
     }
 
     override fun onResume() {
@@ -53,8 +62,12 @@ class FavoritesFragment : Fragment() {
         productAdapter = ProductAdapter(
             favoritesManager = favoritesManager,
             onFavoriteChanged = {
-                // Like dəyişdikdə siyahını yenilə
                 viewModel.loadFavorites()
+            },
+            onProductClick = { product ->
+                val action = FavoritesFragmentDirections
+                    .actionFavoritesFragmentToProductDetailFragment(product)
+                findNavController().navigate(action)
             }
         )
         binding.recyclerViewFavorites.layoutManager = GridLayoutManager(requireContext(), 2)
@@ -67,10 +80,14 @@ class FavoritesFragment : Fragment() {
                 productAdapter.submitList(favoriteList)
 
                 if (favoriteList.isEmpty()) {
-                    binding.tvEmpty.visibility = View.VISIBLE
+                    // Boş vəziyyət
+                    binding.emptyStateLayout.visibility = View.VISIBLE
+                    binding.btnCatalog.visibility = View.VISIBLE
                     binding.recyclerViewFavorites.visibility = View.GONE
                 } else {
-                    binding.tvEmpty.visibility = View.GONE
+                    // Dolu vəziyyət
+                    binding.emptyStateLayout.visibility = View.GONE
+                    binding.btnCatalog.visibility = View.GONE
                     binding.recyclerViewFavorites.visibility = View.VISIBLE
                 }
             }

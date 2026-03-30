@@ -15,7 +15,8 @@ import com.example.onemarket.domain.model.ProductModel
 class ProductAdapter(
     private val favoritesManager: FavoritesManager,
     private val onFavoriteChanged: (() -> Unit)? = null,
-    private val onProductClick: ((ProductModel) -> Unit)? = null
+    private val onProductClick: ((ProductModel) -> Unit)? = null,
+    private val onAddToCart: ((ProductModel) -> Unit)? = null
 ) : ListAdapter<ProductModel, ProductAdapter.ViewHolder>(DiffCallback()) {
 
     inner class ViewHolder(private val binding: ItemProductBinding) :
@@ -39,16 +40,19 @@ class ProductAdapter(
 
             updateFavoriteIcon(product.id)
 
-            // Ürək click
             binding.ivFavorite.setOnClickListener {
                 favoritesManager.toggleFavorite(product)
                 updateFavoriteIcon(product.id)
                 onFavoriteChanged?.invoke()
             }
 
-            // Məhsul click → detail
             binding.root.setOnClickListener {
                 onProductClick?.invoke(product)
+            }
+
+            // Səbətə əlavə et düyməsi (əgər item_product.xml-də varsa)
+            binding.btnAddToCart?.setOnClickListener {
+                onAddToCart?.invoke(product)
             }
         }
 

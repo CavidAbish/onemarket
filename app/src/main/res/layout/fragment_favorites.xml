@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
 
     <!-- Başlıq -->
     <TextView
@@ -11,35 +12,89 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Seçilmişlər"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="#1A1A1A"
+        android:gravity="center"
         android:padding="16dp"
+        android:background="#FFFFFF"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Boş mesaj -->
-    <TextView
-        android:id="@+id/tvEmpty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hələ seçilmiş məhsul yoxdur"
-        android:textSize="16sp"
-        android:textColor="#888888"
+    <!-- BOŞ VƏZIYYƏT -->
+    <LinearLayout
+        android:id="@+id/emptyStateLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintBottom_toTopOf="@id/btnCatalog"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Böyük ürək ikonu -->
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:src="@drawable/ic_heart_black"
+            android:alpha="0.15"
+            android:layout_marginBottom="32dp" />
+
+        <!-- Başlıq mətni -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SEÇİLMİŞLƏR bölümündə məhsul yoxdur"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#1A237E"
+            android:gravity="center"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Alt mətn -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Məhsulların sürətlə əldə edilməsi üçün, onları SEÇİLMİŞLƏR bölümünə əlavə edin. İstədiyiniz hər alış-verişi OneMarket ilə başlayın"
+            android:textSize="13sp"
+            android:textColor="#888888"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.4" />
+
+    </LinearLayout>
+
+    <!-- Məhsul kataloqu düyməsi -->
+    <Button
+        android:id="@+id/btnCatalog"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Məhsul kataloqu"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:backgroundTint="#E91E8C"
+        android:visibility="gone"
+        app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Seçilmiş məhsullar -->
+    <!-- DOLU VƏZIYYƏT — məhsullar -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewFavorites"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="6dp"
         android:clipToPadding="false"
+        android:background="#F5F5F5"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
