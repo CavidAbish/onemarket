@@ -53,11 +53,22 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.loadRecentlyViewed()
+        // Hər iki adapteri yenilə — like dəyişmiş ola bilər
+        refreshAdapters()
+    }
+
+    private fun refreshAdapters() {
+        productAdapter.notifyDataSetChanged()
+        recentlyViewedAdapter.notifyDataSetChanged()
     }
 
     private fun setupProductRecyclerView() {
         productAdapter = ProductAdapter(
             favoritesManager = favoritesManager,
+            onFavoriteChanged = {
+                // Like dəyişdikdə hər iki adapteri yenilə
+                recentlyViewedAdapter.notifyDataSetChanged()
+            },
             onProductClick = { product ->
                 val action = HomeFragmentDirections
                     .actionHomeFragmentToProductDetailFragment(product)
@@ -94,8 +105,15 @@ class HomeFragment : Fragment() {
                 findNavController().navigate(action)
             },
             onAddToCart = { product ->
-                // TODO: Səbət funksionallığı əlavə ediləcək
-                Toast.makeText(requireContext(), "${product.title} səbətə əlavə edildi", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "${product.title} səbətə əlavə edildi",
+                    Toast.LENGTH_SHORT
+                ).show()
+            },
+            onFavoriteChanged = {
+                // Like dəyişdikdə əsas adapteri də yenilə
+                productAdapter.notifyDataSetChanged()
             }
         )
         binding.recyclerViewRecentlyViewed.layoutManager = LinearLayoutManager(

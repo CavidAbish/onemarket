@@ -15,7 +15,8 @@ import com.example.onemarket.domain.model.ProductModel
 class RecentlyViewedAdapter(
     private val favoritesManager: FavoritesManager,
     private val onProductClick: (ProductModel) -> Unit,
-    private val onAddToCart: (ProductModel) -> Unit
+    private val onAddToCart: (ProductModel) -> Unit,
+    private val onFavoriteChanged: (() -> Unit)? = null
 ) : ListAdapter<ProductModel, RecentlyViewedAdapter.ViewHolder>(DiffCallback()) {
 
     inner class ViewHolder(private val binding: ItemRecentlyViewedBinding) :
@@ -40,6 +41,7 @@ class RecentlyViewedAdapter(
             binding.ivFavorite.setOnClickListener {
                 favoritesManager.toggleFavorite(product)
                 updateFavoriteIcon(product.id)
+                onFavoriteChanged?.invoke()
             }
 
             binding.btnAddToCart.setOnClickListener {
