@@ -2,5 +2,14 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Əsas rənglər -->
+    <color name="pink_main">#E91E8C</color>
+    <color name="pink_light">#FCE4EC</color>
+
+    <!-- Səbət yaşıl -->
+    <color name="cart_green">#2E7D32</color>
+    <color name="cart_green_bg">#E8F5E9</color>
+
     <color name="transparent">#00000000</color>
 </resources>

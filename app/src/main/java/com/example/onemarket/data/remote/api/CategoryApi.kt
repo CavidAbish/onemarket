@@ -7,7 +7,6 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface CategoryApi {
-
     @GET("products/categories")
     suspend fun getCategories(): List<CategoryDto>
 
@@ -15,5 +14,12 @@ interface CategoryApi {
     suspend fun getFirstProductByCategory(
         @Path("slug") slug: String,
         @Query("limit") limit: Int = 1
+    ): ProductResponseDto
+
+    @GET("products/category/{slug}")
+    suspend fun getProductsByCategory(
+        @Path("slug") slug: String,
+        @Query("limit") limit: Int = 10,
+        @Query("skip") skip: Int = 0
     ): ProductResponseDto
 }

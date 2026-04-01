@@ -3,17 +3,21 @@ package com.example.onemarket.presentation.home
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.onemarket.R
+import com.example.onemarket.data.local.CartManager
 import com.example.onemarket.data.local.FavoritesManager
 import com.example.onemarket.databinding.ItemProductBinding
 import com.example.onemarket.domain.model.ProductModel
+import com.google.android.material.button.MaterialButton
 
 class ProductAdapter(
     private val favoritesManager: FavoritesManager,
+    private val cartManager: CartManager? = null,
     private val onFavoriteChanged: (() -> Unit)? = null,
     private val onProductClick: ((ProductModel) -> Unit)? = null,
     private val onAddToCart: ((ProductModel) -> Unit)? = null
@@ -39,6 +43,7 @@ class ProductAdapter(
                 .into(binding.ivProductImage)
 
             updateFavoriteIcon(product.id)
+            updateCartButton(product.id)
 
             binding.ivFavorite.setOnClickListener {
                 favoritesManager.toggleFavorite(product)
@@ -50,9 +55,9 @@ class ProductAdapter(
                 onProductClick?.invoke(product)
             }
 
-            // Səbətə əlavə et düyməsi (əgər item_product.xml-də varsa)
-            binding.btnAddToCart?.setOnClickListener {
+            (binding.btnAddToCart as? MaterialButton)?.setOnClickListener {
                 onAddToCart?.invoke(product)
+                updateCartButton(product.id)
             }
         }
 
@@ -61,6 +66,24 @@ class ProductAdapter(
                 binding.ivFavorite.setImageResource(R.drawable.ic_heart_red)
             } else {
                 binding.ivFavorite.setImageResource(R.drawable.ic_heart_black)
+            }
+        }
+
+        private fun updateCartButton(productId: Int) {
+            val inCart = cartManager?.isInCart(productId) ?: false
+            val btn = binding.btnAddToCart as? MaterialButton ?: return
+            val context = binding.root.context
+
+            if (inCart) {
+                btn.text = "Səbətdə"
+                btn.setTextColor(ContextCompat.getColor(context, R.color.cart_green))
+                btn.backgroundTintList = ContextCompat.getColorStateList(context, R.color.cart_green_bg)
+                btn.iconTint = ContextCompat.getColorStateList(context, R.color.cart_green)
+            } else {
+                btn.text = "Səbətə"
+                btn.setTextColor(ContextCompat.getColor(context, R.color.pink_main))
+                btn.backgroundTintList = ContextCompat.getColorStateList(context, R.color.pink_light)
+                btn.iconTint = ContextCompat.getColorStateList(context, R.color.pink_main)
             }
         }
     }

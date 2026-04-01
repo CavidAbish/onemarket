@@ -144,6 +144,18 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- BANNER SLİDER -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewBanners"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"
+                android:nestedScrollingEnabled="false"
+                android:clipToPadding="false"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp" />
+
             <!-- INFO BANNER -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/infoBanner"
@@ -282,6 +294,19 @@
                 android:layout_marginBottom="4dp"
                 android:nestedScrollingEnabled="false"
                 android:visibility="gone" />
+
+            <!-- MƏHSULLAR BAŞLIĞI -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sizin üçün seçdik"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#1A1A1A"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="4dp" />
 
             <!-- MƏHSULLAR -->
             <androidx.recyclerview.widget.RecyclerView

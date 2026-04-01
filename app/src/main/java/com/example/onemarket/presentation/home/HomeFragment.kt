@@ -1,6 +1,8 @@
 package com.example.onemarket.presentation.home
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.onemarket.R
 import com.example.onemarket.data.local.CartManager
 import com.example.onemarket.data.local.FavoritesManager
 import com.example.onemarket.databinding.FragmentHomeBinding
@@ -28,21 +31,35 @@ class HomeFragment : Fragment() {
     private lateinit var productAdapter: ProductAdapter
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var recentlyViewedAdapter: RecentlyViewedAdapter
+    private lateinit var bannerAdapter: BannerAdapter
 
     @Inject lateinit var favoritesManager: FavoritesManager
     @Inject lateinit var cartManager: CartManager
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    // Banner auto-scroll
+    private val bannerHandler = Handler(Looper.getMainLooper())
+    private var bannerRunnable: Runnable? = null
+    private var currentBannerPos = 0
+
+    // Banner şəkilləri — res/drawable-a əlavə etdiyin şəkillərin id-ləri
+    private val bannerImages = listOf(
+        R.drawable.banner_1,
+        R.drawable.banner_2,
+        R.drawable.banner_3,
+        R.drawable.banner_4,
+        R.drawable.banner_5,
+        R.drawable.banner_6,
+        R.drawable.banner_7
+    )
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupBannerRecyclerView()
         setupProductRecyclerView()
         setupCategoryRecyclerView()
         setupRecentlyViewedRecyclerView()
@@ -54,27 +71,54 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.loadRecentlyViewed()
-        refreshAdapters()
-    }
-
-    private fun refreshAdapters() {
         productAdapter.notifyDataSetChanged()
         recentlyViewedAdapter.notifyDataSetChanged()
+        startBannerAutoScroll()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopBannerAutoScroll()
+    }
+
+    private fun setupBannerRecyclerView() {
+        bannerAdapter = BannerAdapter(bannerImages)
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerViewBanners.layoutManager = layoutManager
+        binding.recyclerViewBanners.adapter = bannerAdapter
+
+        // Ortadan başla ki hər iki tərəfə scroll olsun
+        currentBannerPos = bannerAdapter.getStartPosition()
+        binding.recyclerViewBanners.scrollToPosition(currentBannerPos)
+    }
+
+    private fun startBannerAutoScroll() {
+        bannerRunnable = Runnable {
+            currentBannerPos++
+            binding.recyclerViewBanners.smoothScrollToPosition(currentBannerPos)
+            bannerRunnable?.let { bannerHandler.postDelayed(it, 3000) }
+        }
+        bannerRunnable?.let { bannerHandler.postDelayed(it, 3000) }
+    }
+
+    private fun stopBannerAutoScroll() {
+        bannerRunnable?.let { bannerHandler.removeCallbacks(it) }
     }
 
     private fun setupProductRecyclerView() {
         productAdapter = ProductAdapter(
             favoritesManager = favoritesManager,
-            onFavoriteChanged = {
-                recentlyViewedAdapter.notifyDataSetChanged()
-            },
+            cartManager = cartManager,
+            onFavoriteChanged = { recentlyViewedAdapter.notifyDataSetChanged() },
             onProductClick = { product ->
-                val action = HomeFragmentDirections
-                    .actionHomeFragmentToProductDetailFragment(product)
-                findNavController().navigate(action)
+                findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(product)
+                )
             },
             onAddToCart = { product ->
                 cartManager.addToCart(product)
+                productAdapter.notifyDataSetChanged()
+                recentlyViewedAdapter.notifyDataSetChanged()
                 Toast.makeText(requireContext(), "${product.title} səbətə əlavə edildi", Toast.LENGTH_SHORT).show()
             }
         )
@@ -84,67 +128,55 @@ class HomeFragment : Fragment() {
 
     private fun setupCategoryRecyclerView() {
         categoryAdapter = CategoryAdapter { category ->
-            val action = HomeFragmentDirections
-                .actionHomeFragmentToCategoryProductsFragment(
-                    slug = category.slug,
-                    categoryName = category.name
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToCategoryProductsFragment(
+                    slug = category.slug, categoryName = category.name
                 )
-            findNavController().navigate(action)
+            )
         }
-        binding.categoryRecyclerView.layoutManager = LinearLayoutManager(
-            requireContext(), LinearLayoutManager.HORIZONTAL, false
-        )
+        binding.categoryRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.categoryRecyclerView.adapter = categoryAdapter
     }
 
     private fun setupRecentlyViewedRecyclerView() {
         recentlyViewedAdapter = RecentlyViewedAdapter(
             favoritesManager = favoritesManager,
+            cartManager = cartManager,
             onProductClick = { product ->
-                val action = HomeFragmentDirections
-                    .actionHomeFragmentToProductDetailFragment(product)
-                findNavController().navigate(action)
+                findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(product)
+                )
             },
             onAddToCart = { product ->
                 cartManager.addToCart(product)
+                productAdapter.notifyDataSetChanged()
+                recentlyViewedAdapter.notifyDataSetChanged()
                 Toast.makeText(requireContext(), "${product.title} səbətə əlavə edildi", Toast.LENGTH_SHORT).show()
             },
-            onFavoriteChanged = {
-                productAdapter.notifyDataSetChanged()
-            }
+            onFavoriteChanged = { productAdapter.notifyDataSetChanged() }
         )
-        binding.recyclerViewRecentlyViewed.layoutManager = LinearLayoutManager(
-            requireContext(), LinearLayoutManager.HORIZONTAL, false
-        )
+        binding.recyclerViewRecentlyViewed.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerViewRecentlyViewed.adapter = recentlyViewedAdapter
     }
 
     private fun observeData() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.products.collect { productList ->
-                productAdapter.submitList(productList)
-            }
+            viewModel.products.collect { productAdapter.submitList(it) }
         }
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.categories.collect { categoryList ->
-                categoryAdapter.submitList(categoryList)
-            }
+            viewModel.categories.collect { categoryAdapter.submitList(it) }
         }
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.recentlyViewed.collect { recentList ->
-                val previousSize = recentlyViewedAdapter.itemCount
+                val prev = recentlyViewedAdapter.itemCount
                 recentlyViewedAdapter.submitList(recentList) {
-                    if (recentList.isNotEmpty() && recentList.size > previousSize) {
+                    if (recentList.isNotEmpty() && recentList.size > prev)
                         binding.recyclerViewRecentlyViewed.smoothScrollToPosition(0)
-                    }
                 }
-                if (recentList.isEmpty()) {
-                    binding.tvRecentlyViewed.visibility = View.GONE
-                    binding.recyclerViewRecentlyViewed.visibility = View.GONE
-                } else {
-                    binding.tvRecentlyViewed.visibility = View.VISIBLE
-                    binding.recyclerViewRecentlyViewed.visibility = View.VISIBLE
-                }
+                binding.tvRecentlyViewed.visibility = if (recentList.isEmpty()) View.GONE else View.VISIBLE
+                binding.recyclerViewRecentlyViewed.visibility = if (recentList.isEmpty()) View.GONE else View.VISIBLE
             }
         }
     }
@@ -155,33 +187,27 @@ class HomeFragment : Fragment() {
                 if (binding.stickyBanner.visibility == View.GONE) {
                     binding.stickyBanner.visibility = View.VISIBLE
                     binding.stickyBanner.translationY = -binding.stickyBanner.height.toFloat()
-                    binding.stickyBanner.animate()
-                        .translationY(0f).alpha(1f).setDuration(200).start()
+                    binding.stickyBanner.animate().translationY(0f).alpha(1f).setDuration(200).start()
                 }
             } else {
                 if (binding.stickyBanner.visibility == View.VISIBLE) {
-                    binding.stickyBanner.animate()
-                        .alpha(0f).setDuration(200)
-                        .withEndAction {
-                            binding.stickyBanner.visibility = View.GONE
-                            binding.stickyBanner.alpha = 1f
-                        }.start()
+                    binding.stickyBanner.animate().alpha(0f).setDuration(200).withEndAction {
+                        binding.stickyBanner.visibility = View.GONE
+                        binding.stickyBanner.alpha = 1f
+                    }.start()
                 }
             }
         }
     }
 
     private fun setupBannerClicks() {
-        binding.infoBanner.setOnClickListener {
-            InfoBottomSheet().show(childFragmentManager, "InfoBottomSheet")
-        }
-        binding.stickyBanner.setOnClickListener {
-            InfoBottomSheet().show(childFragmentManager, "InfoBottomSheet")
-        }
+        binding.infoBanner.setOnClickListener { InfoBottomSheet().show(childFragmentManager, "InfoBottomSheet") }
+        binding.stickyBanner.setOnClickListener { InfoBottomSheet().show(childFragmentManager, "InfoBottomSheet") }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        stopBannerAutoScroll()
         _binding = null
     }
 }

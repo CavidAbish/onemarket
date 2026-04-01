@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="#F5F5F5">
 
-    <!-- Başlıq -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="0dp"
@@ -29,7 +28,6 @@
 
     </LinearLayout>
 
-    <!-- SCROLL OLAN HİSSƏ -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="0dp"
@@ -45,7 +43,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- BOŞ VƏZIYYƏT -->
+            <!-- BOŞ VƏZIYYƏT KARTI -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/emptyCartCard"
                 android:layout_width="match_parent"
@@ -123,7 +121,7 @@
                 android:nestedScrollingEnabled="false"
                 android:visibility="gone" />
 
-            <!-- ƏVVƏL BAXDIQLARIN BAŞLIĞI -->
+            <!-- BOŞ OLDUQDA: ƏVVƏL BAXDIQLARIN BAŞLIĞI -->
             <TextView
                 android:id="@+id/tvRecentlyViewed"
                 android:layout_width="match_parent"
@@ -138,7 +136,7 @@
                 android:paddingBottom="4dp"
                 android:visibility="gone" />
 
-            <!-- ƏVVƏL BAXDIQLARIN HORIZONTAL RECYCLER -->
+            <!-- BOŞ OLDUQDA: ƏVVƏL BAXDIQLARIN HORIZONTAL RECYCLER -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewRecentlyViewed"
                 android:layout_width="match_parent"
@@ -147,7 +145,30 @@
                 android:nestedScrollingEnabled="false"
                 android:visibility="gone" />
 
-            <!-- SİZİ MARAQLANDIRA BİLƏR BAŞLIĞI -->
+            <!-- BOŞ OLDUQDA: SİZİN ÜÇÜN SEÇDİK BAŞLIĞI -->
+            <TextView
+                android:id="@+id/tvForYou"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sizin üçün seçdik"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#1A1A1A"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="4dp"
+                android:visibility="gone" />
+
+            <!-- BOŞ OLDUQDA: MƏHSULLAR -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewForYou"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:visibility="gone" />
+
+            <!-- DOLU OLDUQDA: SİZİ MARAQLANDIRA BİLƏR BAŞLIĞI -->
             <TextView
                 android:id="@+id/tvRecommended"
                 android:layout_width="match_parent"
@@ -158,11 +179,11 @@
                 android:textColor="#1A1A1A"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:paddingTop="8dp"
+                android:paddingTop="12dp"
                 android:paddingBottom="4dp"
                 android:visibility="gone" />
 
-            <!-- TÖVSIYYƏ OLUNAN MƏHSULLAR — horizontal -->
+            <!-- DOLU OLDUQDA: TÖVSIYYƏ OLUNAN MƏHSULLAR — horizontal -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewRecommended"
                 android:layout_width="match_parent"
@@ -193,7 +214,6 @@
             android:layout_height="1dp"
             android:background="#F0F0F0" />
 
-        <!-- Məbləğ -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -223,7 +243,6 @@
 
         </LinearLayout>
 
-        <!-- Sifarişi rəsmiləşdirmək -->
         <Button
             android:id="@+id/btnCheckout"
             android:layout_width="match_parent"
@@ -238,7 +257,6 @@
             android:backgroundTint="#E91E8C"
             app:cornerRadius="12dp" />
 
-        <!-- Kreditlə rəsmiləşdirmək -->
         <Button
             android:id="@+id/btnCheckoutCredit"
             android:layout_width="match_parent"
