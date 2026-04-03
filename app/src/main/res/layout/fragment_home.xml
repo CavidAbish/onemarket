@@ -144,18 +144,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- BANNER SLİDER -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewBanners"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="4dp"
-                android:nestedScrollingEnabled="false"
-                android:clipToPadding="false"
-                android:paddingStart="4dp"
-                android:paddingEnd="4dp" />
-
             <!-- INFO BANNER -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/infoBanner"
@@ -261,6 +249,18 @@
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
+
+            <!-- BANNER SLİDER -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewBanners"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:nestedScrollingEnabled="false"
+                android:clipToPadding="false"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp" />
 
             <!-- KATEQORİYALAR -->
             <androidx.recyclerview.widget.RecyclerView
