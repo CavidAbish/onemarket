@@ -22,11 +22,7 @@ class CatalogFragment : Fragment() {
     private val viewModel: CatalogViewModel by viewModels()
     private lateinit var catalogAdapter: CatalogAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentCatalogBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -35,6 +31,13 @@ class CatalogFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         observeCategories()
+
+        // Axtarışa keç
+        binding.searchBarCard.setOnClickListener {
+            findNavController().navigate(
+                CatalogFragmentDirections.actionCatalogFragmentToSearchFragment()
+            )
+        }
     }
 
     private fun setupRecyclerView() {

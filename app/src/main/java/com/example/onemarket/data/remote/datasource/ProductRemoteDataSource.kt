@@ -25,10 +25,19 @@ class ProductRemoteDataSource @Inject constructor(
         }
     }
 
-
     suspend fun getProductsByCategory(slug: String): List<ProductDto> {
         return try {
             api.getProductsByCategory(slug).products
+                ?.filterNotNull()
+                ?: emptyList()
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    suspend fun searchProducts(query: String): List<ProductDto> {
+        return try {
+            api.searchProducts(query).products
                 ?.filterNotNull()
                 ?: emptyList()
         } catch (e: Exception) {

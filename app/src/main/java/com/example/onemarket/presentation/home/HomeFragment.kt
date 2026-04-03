@@ -36,12 +36,10 @@ class HomeFragment : Fragment() {
     @Inject lateinit var favoritesManager: FavoritesManager
     @Inject lateinit var cartManager: CartManager
 
-    // Banner auto-scroll
     private val bannerHandler = Handler(Looper.getMainLooper())
     private var bannerRunnable: Runnable? = null
     private var currentBannerPos = 0
 
-    // Banner şəkilləri — res/drawable-a əlavə etdiyin şəkillərin id-ləri
     private val bannerImages = listOf(
         R.drawable.banner_1,
         R.drawable.banner_2,
@@ -66,6 +64,7 @@ class HomeFragment : Fragment() {
         observeData()
         setupScrollBehavior()
         setupBannerClicks()
+        setupSearchClick()
     }
 
     override fun onResume() {
@@ -86,8 +85,6 @@ class HomeFragment : Fragment() {
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerViewBanners.layoutManager = layoutManager
         binding.recyclerViewBanners.adapter = bannerAdapter
-
-        // Ortadan başla ki hər iki tərəfə scroll olsun
         currentBannerPos = bannerAdapter.getStartPosition()
         binding.recyclerViewBanners.scrollToPosition(currentBannerPos)
     }
@@ -200,9 +197,22 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun setupSearchClick() {
+        binding.inputSearch.isFocusable = false
+        binding.inputSearch.setOnClickListener {
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToSearchFragment()
+            )
+        }
+    }
+
     private fun setupBannerClicks() {
-        binding.infoBanner.setOnClickListener { InfoBottomSheet().show(childFragmentManager, "InfoBottomSheet") }
-        binding.stickyBanner.setOnClickListener { InfoBottomSheet().show(childFragmentManager, "InfoBottomSheet") }
+        binding.infoBanner.setOnClickListener {
+            InfoBottomSheet().show(childFragmentManager, "InfoBottomSheet")
+        }
+        binding.stickyBanner.setOnClickListener {
+            InfoBottomSheet().show(childFragmentManager, "InfoBottomSheet")
+        }
     }
 
     override fun onDestroyView() {
