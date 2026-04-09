@@ -6,14 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.onemarket.data.local.UserManager
 import com.example.onemarket.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var userManager: UserManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,7 +32,41 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        updateUI()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        updateUI()
+    }
+
+    private fun updateUI() {
+        if (userManager.isLoggedIn()) {
+            showLoggedIn()
+        } else {
+            showLoggedOut()
+        }
+    }
+
+    private fun showLoggedOut() {
+        binding.loggedOutLayout.visibility = View.VISIBLE
+        binding.loggedInLayout.visibility = View.GONE
+
+        binding.btnLogin.setOnClickListener {
+            findNavController().navigate(
+                ProfileFragmentDirections.actionProfileFragmentToLoginFragment()
+            )
+        }
+    }
+
+    private fun showLoggedIn() {
+        binding.loggedOutLayout.visibility = View.GONE
+        binding.loggedInLayout.visibility = View.VISIBLE
+
+        binding.tvUserName.text = userManager.getUserName()
+        binding.tvUserPhone.text = userManager.getUserPhone()
+
+        // Menyu click-ləri
         val menus = listOf(
             binding.menuSpecial to "Special abunəlik",
             binding.menuOrders to "Mənim sifarişlərim",
@@ -36,22 +76,17 @@ class ProfileFragment : Fragment() {
             binding.menuReviews to "Rəylərim",
             binding.menuAddresses to "Sifarişlərin çatdırılması üçün ünvanlarım",
             binding.menuReturns to "Geri qaytarma müraciətləri",
-            binding.menuExtra to "Əlavə xidmətlər",
-            binding.menuCity to "Şəhər",
-            binding.menuLanguage to "Dil",
-            binding.menuNotifications to "Bildirişlər",
-            binding.menuSupport to "Dəstək xidməti",
-            binding.menuDelivery to "Çatdırılma və ödəmə",
-            binding.menuPickup to "Təhvil məntəqələri",
-            binding.menuService to "Servis mərkəzləri",
-            binding.menuFaq to "Ən çox verilən suallar",
-            binding.menuLogout to "Çıxış"
+            binding.menuExtra to "Əlavə xidmətlər"
         )
+        menus.forEach { (v, title) ->
+            v.setOnClickListener { Toast.makeText(requireContext(), title, Toast.LENGTH_SHORT).show() }
+        }
 
-        menus.forEach { (view, title) ->
-            view.setOnClickListener {
-                Toast.makeText(requireContext(), title, Toast.LENGTH_SHORT).show()
-            }
+        // Çıxış
+        binding.menuLogout.setOnClickListener {
+            userManager.logout()
+            updateUI()
+            Toast.makeText(requireContext(), "Çıxış edildi", Toast.LENGTH_SHORT).show()
         }
 
         binding.tvDeleteAccount.setOnClickListener {

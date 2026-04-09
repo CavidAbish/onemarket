@@ -10,12 +10,9 @@
         android:name="com.example.onemarket.presentation.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
-        <action android:id="@+id/action_homeFragment_to_categoryProductsFragment"
-            app:destination="@id/categoryProductsFragment" />
-        <action android:id="@+id/action_homeFragment_to_productDetailFragment"
-            app:destination="@id/productDetailFragment" />
-        <action android:id="@+id/action_homeFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
+        <action android:id="@+id/action_homeFragment_to_categoryProductsFragment" app:destination="@id/categoryProductsFragment" />
+        <action android:id="@+id/action_homeFragment_to_productDetailFragment" app:destination="@id/productDetailFragment" />
+        <action android:id="@+id/action_homeFragment_to_searchFragment" app:destination="@id/searchFragment" />
     </fragment>
 
     <fragment
@@ -23,10 +20,8 @@
         android:name="com.example.onemarket.presentation.catalog.CatalogFragment"
         android:label="fragment_catalog"
         tools:layout="@layout/fragment_catalog">
-        <action android:id="@+id/action_catalogFragment_to_categoryProductsFragment"
-            app:destination="@id/categoryProductsFragment" />
-        <action android:id="@+id/action_catalogFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
+        <action android:id="@+id/action_catalogFragment_to_categoryProductsFragment" app:destination="@id/categoryProductsFragment" />
+        <action android:id="@+id/action_catalogFragment_to_searchFragment" app:destination="@id/searchFragment" />
     </fragment>
 
     <fragment
@@ -34,8 +29,7 @@
         android:name="com.example.onemarket.presentation.favorites.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites">
-        <action android:id="@+id/action_favoritesFragment_to_productDetailFragment"
-            app:destination="@id/productDetailFragment" />
+        <action android:id="@+id/action_favoritesFragment_to_productDetailFragment" app:destination="@id/productDetailFragment" />
     </fragment>
 
     <fragment
@@ -43,15 +37,22 @@
         android:name="com.example.onemarket.presentation.cart.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart">
-        <action android:id="@+id/action_cartFragment_to_productDetailFragment"
-            app:destination="@id/productDetailFragment" />
+        <action android:id="@+id/action_cartFragment_to_productDetailFragment" app:destination="@id/productDetailFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.onemarket.presentation.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile">
+        <action android:id="@+id/action_profileFragment_to_loginFragment" app:destination="@id/loginFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.onemarket.presentation.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
 
     <fragment
         android:id="@+id/categoryProductsFragment"
@@ -60,8 +61,7 @@
         tools:layout="@layout/fragment_category_products">
         <argument android:name="slug" app:argType="string" />
         <argument android:name="categoryName" app:argType="string" />
-        <action android:id="@+id/action_categoryProductsFragment_to_productDetailFragment"
-            app:destination="@id/productDetailFragment" />
+        <action android:id="@+id/action_categoryProductsFragment_to_productDetailFragment" app:destination="@id/productDetailFragment" />
     </fragment>
 
     <fragment
@@ -69,10 +69,8 @@
         android:name="com.example.onemarket.presentation.detail.ProductDetailFragment"
         android:label="fragment_product_detail"
         tools:layout="@layout/fragment_product_detail">
-        <argument android:name="product"
-            app:argType="com.example.onemarket.domain.model.ProductModel" />
-        <action android:id="@+id/action_productDetailFragment_self"
-            app:destination="@id/productDetailFragment" />
+        <argument android:name="product" app:argType="com.example.onemarket.domain.model.ProductModel" />
+        <action android:id="@+id/action_productDetailFragment_self" app:destination="@id/productDetailFragment" />
     </fragment>
 
     <fragment
@@ -80,8 +78,7 @@
         android:name="com.example.onemarket.presentation.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search">
-        <action android:id="@+id/action_searchFragment_to_productDetailFragment"
-            app:destination="@id/productDetailFragment" />
+        <action android:id="@+id/action_searchFragment_to_productDetailFragment" app:destination="@id/productDetailFragment" />
     </fragment>
 
 </navigation>
