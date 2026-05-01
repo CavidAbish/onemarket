@@ -11,26 +11,28 @@ import javax.inject.Singleton
 
 @Singleton
 class RecentlyViewedManager @Inject constructor(
-    @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context,
+    private val userManager: UserManager
 ) {
-    private val prefs: SharedPreferences =
-        context.getSharedPreferences("recently_viewed_prefs", Context.MODE_PRIVATE)
     private val gson = Gson()
     private val maxItems = 20
 
+    private fun prefs(): SharedPreferences {
+        val key = "${userManager.getUserKey()}_recently_viewed"
+        return context.getSharedPreferences(key, Context.MODE_PRIVATE)
+    }
+
     fun getRecentlyViewed(): List<ProductModel> {
-        val json = prefs.getString("recently_viewed", null) ?: return emptyList()
+        val json = prefs().getString("recently_viewed", null) ?: return emptyList()
         val type = object : TypeToken<List<ProductModel>>() {}.type
         return gson.fromJson(json, type)
     }
 
     fun addProduct(product: ProductModel) {
         val list = getRecentlyViewed().toMutableList()
-        // Əgər artıq varsa, sil — yenidən əvvələ əlavə et
         list.removeAll { it.id == product.id }
         list.add(0, product)
-        // Maksimum 20 məhsul saxla
         val trimmed = if (list.size > maxItems) list.take(maxItems) else list
-        prefs.edit().putString("recently_viewed", gson.toJson(trimmed)).apply()
+        prefs().edit().putString("recently_viewed", gson.toJson(trimmed)).apply()
     }
 }

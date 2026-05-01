@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.onemarket.R
 import com.example.onemarket.data.local.CartManager
 import com.example.onemarket.data.local.FavoritesManager
+import com.example.onemarket.data.local.UserManager
 import com.example.onemarket.databinding.FragmentFavoritesBinding
 import com.example.onemarket.presentation.home.ProductAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -30,6 +31,7 @@ class FavoritesFragment : Fragment() {
 
     @Inject lateinit var favoritesManager: FavoritesManager
     @Inject lateinit var cartManager: CartManager
+    @Inject lateinit var userManager: UserManager
 
     private lateinit var productAdapter: ProductAdapter
 
@@ -41,7 +43,11 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        observeFavorites()
+
+        binding.btnLoginBottom.setOnClickListener {
+            requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav)
+                .selectedItemId = R.id.profileFragment
+        }
 
         binding.btnCatalog.setOnClickListener {
             requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav)
@@ -51,8 +57,23 @@ class FavoritesFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.loadFavorites()
-        productAdapter.notifyDataSetChanged()
+        updateUI()
+    }
+
+    private fun updateUI() {
+        if (!userManager.isLoggedIn()) {
+            // Giriş tələb olunur
+            binding.loginRequiredLayout.visibility = View.VISIBLE
+            binding.btnLoginBottom.visibility = View.VISIBLE
+            binding.emptyStateLayout.visibility = View.GONE
+            binding.btnCatalog.visibility = View.GONE
+            binding.recyclerViewFavorites.visibility = View.GONE
+        } else {
+            binding.loginRequiredLayout.visibility = View.GONE
+            binding.btnLoginBottom.visibility = View.GONE
+            observeFavorites()
+            viewModel.loadFavorites()
+        }
     }
 
     private fun setupRecyclerView() {
