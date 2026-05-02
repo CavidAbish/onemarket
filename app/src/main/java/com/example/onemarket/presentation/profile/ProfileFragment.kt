@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.onemarket.data.local.CityManager
 import com.example.onemarket.data.local.UserManager
 import com.example.onemarket.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,8 +19,8 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
-    @Inject
-    lateinit var userManager: UserManager
+    @Inject lateinit var userManager: UserManager
+    @Inject lateinit var cityManager: CityManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,11 +42,8 @@ class ProfileFragment : Fragment() {
     }
 
     private fun updateUI() {
-        if (userManager.isLoggedIn()) {
-            showLoggedIn()
-        } else {
-            showLoggedOut()
-        }
+        if (userManager.isLoggedIn()) showLoggedIn()
+        else showLoggedOut()
     }
 
     private fun showLoggedOut() {
@@ -57,6 +55,8 @@ class ProfileFragment : Fragment() {
                 ProfileFragmentDirections.actionProfileFragmentToLoginFragment()
             )
         }
+
+        setupCommonMenus()
     }
 
     private fun showLoggedIn() {
@@ -66,7 +66,6 @@ class ProfileFragment : Fragment() {
         binding.tvUserName.text = userManager.getUserName()
         binding.tvUserPhone.text = userManager.getUserPhone()
 
-        // Menyu click-ləri
         val menus = listOf(
             binding.menuSpecial to "Special abunəlik",
             binding.menuOrders to "Mənim sifarişlərim",
@@ -89,8 +88,42 @@ class ProfileFragment : Fragment() {
             Toast.makeText(requireContext(), "Çıxış edildi", Toast.LENGTH_SHORT).show()
         }
 
+        // Hesabı silmək
         binding.tvDeleteAccount.setOnClickListener {
             Toast.makeText(requireContext(), "Hesabı silmək", Toast.LENGTH_SHORT).show()
+        }
+
+        setupCommonMenus()
+    }
+
+    private fun setupCommonMenus() {
+        // Şəhər adını dinamik göstər
+        binding.titleCity.text = cityManager.getCity()
+
+        // Şəhərə click → CityFragment
+        binding.menuCity.setOnClickListener {
+            findNavController().navigate(
+                ProfileFragmentDirections.actionProfileFragmentToCityFragment()
+            )
+        }
+
+        binding.menuLanguage.setOnClickListener {
+            Toast.makeText(requireContext(), "Dil", Toast.LENGTH_SHORT).show()
+        }
+        binding.menuNotifications.setOnClickListener {
+            Toast.makeText(requireContext(), "Bildirişlər", Toast.LENGTH_SHORT).show()
+        }
+        binding.menuSupport.setOnClickListener {
+            Toast.makeText(requireContext(), "Dəstək xidməti", Toast.LENGTH_SHORT).show()
+        }
+        binding.menuDelivery.setOnClickListener {
+            Toast.makeText(requireContext(), "Çatdırılma və ödəmə", Toast.LENGTH_SHORT).show()
+        }
+        binding.menuPickup.setOnClickListener {
+            Toast.makeText(requireContext(), "Təhvil məntəqələri", Toast.LENGTH_SHORT).show()
+        }
+        binding.menuFaq.setOnClickListener {
+            Toast.makeText(requireContext(), "Ən çox verilən suallar", Toast.LENGTH_SHORT).show()
         }
     }
 

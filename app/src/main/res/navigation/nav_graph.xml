@@ -13,6 +13,7 @@
         <action android:id="@+id/action_homeFragment_to_categoryProductsFragment" app:destination="@id/categoryProductsFragment" />
         <action android:id="@+id/action_homeFragment_to_productDetailFragment" app:destination="@id/productDetailFragment" />
         <action android:id="@+id/action_homeFragment_to_searchFragment" app:destination="@id/searchFragment" />
+        <action android:id="@+id/action_homeFragment_to_cityFragment" app:destination="@id/cityFragment" />
     </fragment>
 
     <fragment
@@ -46,6 +47,7 @@
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile">
         <action android:id="@+id/action_profileFragment_to_loginFragment" app:destination="@id/loginFragment" />
+        <action android:id="@+id/action_profileFragment_to_cityFragment" app:destination="@id/cityFragment" />
     </fragment>
 
     <fragment
@@ -53,6 +55,12 @@
         android:name="com.example.onemarket.presentation.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
+
+    <fragment
+        android:id="@+id/cityFragment"
+        android:name="com.example.onemarket.presentation.city.CityFragment"
+        android:label="fragment_city"
+        tools:layout="@layout/fragment_city" />
 
     <fragment
         android:id="@+id/categoryProductsFragment"

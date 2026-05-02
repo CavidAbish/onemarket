@@ -65,6 +65,7 @@ class HomeFragment : Fragment() {
         setupScrollBehavior()
         setupBannerClicks()
         setupSearchClick()
+        setupLocationClick()
     }
 
     override fun onResume() {
@@ -194,6 +195,14 @@ class HomeFragment : Fragment() {
                     }.start()
                 }
             }
+        }
+    }
+
+    private fun setupLocationClick() {
+        binding.icLocation.setOnClickListener {
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToCityFragment()
+            )
         }
     }
 
