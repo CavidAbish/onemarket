@@ -7,16 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.onemarket.R
-import com.example.onemarket.data.local.UserManager
 import com.example.onemarket.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -24,11 +21,8 @@ class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
-    @Inject
-    lateinit var userManager: UserManager
-
     private lateinit var countryAdapter: CountryAdapter
-    private var selectedCountry = CountryData.countries[0] // Default: Azərbaycan
+    private var selectedCountry = CountryData.countries[0]
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,11 +38,8 @@ class LoginFragment : Fragment() {
 
         setupCountryPicker()
         setupPhoneInput()
-
-        // Seçilmiş ölkəni göstər
         updateSelectedCountry(selectedCountry)
 
-        // Geri
         binding.btnBack.setOnClickListener {
             if (binding.countryPickerOverlay.visibility == View.VISIBLE) {
                 binding.countryPickerOverlay.visibility = View.GONE
@@ -57,34 +48,35 @@ class LoginFragment : Fragment() {
             }
         }
 
-        // Ölkə seçim açılsın
         binding.btnCountry.setOnClickListener {
             binding.countryPickerOverlay.visibility = View.VISIBLE
             binding.etCountrySearch.requestFocus()
             showKeyboard(binding.etCountrySearch)
         }
 
-        // Ölkə siyahısını bağla
         binding.btnCloseCountry.setOnClickListener {
             binding.countryPickerOverlay.visibility = View.GONE
             hideKeyboard()
         }
 
-        // İrəli — demo giriş
+        // İrəli — OTP ekranına keç
         binding.btnNext.setOnClickListener {
             val phone = "${selectedCountry.code} ${binding.etPhone.text}"
-            userManager.saveUser("İstifadəçi", phone)
-            Toast.makeText(requireContext(), "Xoş gəldiniz!", Toast.LENGTH_SHORT).show()
-            findNavController().popBackStack()
+            navigateToOtp(phone)
         }
 
-        // Daxil ol
+        // Daxil ol — OTP ekranına keç
         binding.btnLogin.setOnClickListener {
             val phone = "${selectedCountry.code} ${binding.etPhone.text}"
-            userManager.saveUser("İstifadəçi", phone)
-            Toast.makeText(requireContext(), "Xoş gəldiniz!", Toast.LENGTH_SHORT).show()
-            findNavController().popBackStack()
+            navigateToOtp(phone)
         }
+    }
+
+    private fun navigateToOtp(phone: String) {
+        hideKeyboard()
+        findNavController().navigate(
+            LoginFragmentDirections.actionLoginFragmentToOtpFragment(phone)
+        )
     }
 
     private fun setupCountryPicker() {
@@ -94,12 +86,10 @@ class LoginFragment : Fragment() {
             binding.countryPickerOverlay.visibility = View.GONE
             hideKeyboard()
         }
-
         binding.recyclerViewCountries.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewCountries.adapter = countryAdapter
         countryAdapter.submitList(CountryData.countries)
 
-        // Ölkə axtarışı
         binding.etCountrySearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}

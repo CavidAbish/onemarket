@@ -54,7 +54,21 @@
         android:id="@+id/loginFragment"
         android:name="com.example.onemarket.presentation.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_otpFragment"
+            app:destination="@id/otpFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/otpFragment"
+        android:name="com.example.onemarket.presentation.login.OtpFragment"
+        android:label="fragment_otp"
+        tools:layout="@layout/fragment_otp">
+        <argument
+            android:name="phone"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/cityFragment"
