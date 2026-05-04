@@ -68,7 +68,7 @@
             android:textColor="#555555"
             android:gravity="center"
             android:lineSpacingMultiplier="1.4"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="6dp" />
 
         <TextView
             android:id="@+id/tvPhone"
@@ -78,66 +78,134 @@
             android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="#E91E8C"
-            android:layout_marginBottom="40dp" />
+            android:layout_marginBottom="48dp" />
 
-        <!-- OTP 4 xana -->
+        <!-- OTP 4 xana — rəqəm üstdə, xətt altda -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-            android:layout_marginBottom="24dp">
+            android:layout_marginBottom="32dp">
 
-            <EditText
-                android:id="@+id/otp1"
-                android:layout_width="60dp"
-                android:layout_height="4dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/bg_otp_inactive"
-                android:inputType="number"
-                android:maxLength="1"
-                android:textSize="20sp"
-                android:textColor="#E91E8C"
-                android:gravity="center"
-                android:textStyle="bold" />
+            <!-- Xana 1 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="12dp"
+                android:orientation="vertical"
+                android:gravity="center">
 
-            <EditText
-                android:id="@+id/otp2"
-                android:layout_width="60dp"
-                android:layout_height="4dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/bg_otp_inactive"
-                android:inputType="number"
-                android:maxLength="1"
-                android:textSize="20sp"
-                android:textColor="#E91E8C"
-                android:gravity="center"
-                android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/otp1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textSize="28sp"
+                    android:textColor="#1A1A1A"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:cursorVisible="false" />
 
-            <EditText
-                android:id="@+id/otp3"
-                android:layout_width="60dp"
-                android:layout_height="4dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/bg_otp_inactive"
-                android:inputType="number"
-                android:maxLength="1"
-                android:textSize="20sp"
-                android:textColor="#E91E8C"
-                android:gravity="center"
-                android:textStyle="bold" />
+                <View
+                    android:id="@+id/line1"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#DDDDDD" />
 
-            <EditText
-                android:id="@+id/otp4"
-                android:layout_width="60dp"
-                android:layout_height="4dp"
-                android:background="@drawable/bg_otp_inactive"
-                android:inputType="number"
-                android:maxLength="1"
-                android:textSize="20sp"
-                android:textColor="#E91E8C"
-                android:gravity="center"
-                android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Xana 2 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="12dp"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <EditText
+                    android:id="@+id/otp2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textSize="28sp"
+                    android:textColor="#1A1A1A"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:cursorVisible="false" />
+
+                <View
+                    android:id="@+id/line2"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#DDDDDD" />
+
+            </LinearLayout>
+
+            <!-- Xana 3 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="12dp"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <EditText
+                    android:id="@+id/otp3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textSize="28sp"
+                    android:textColor="#1A1A1A"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:cursorVisible="false" />
+
+                <View
+                    android:id="@+id/line3"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#DDDDDD" />
+
+            </LinearLayout>
+
+            <!-- Xana 4 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <EditText
+                    android:id="@+id/otp4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textSize="28sp"
+                    android:textColor="#1A1A1A"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:cursorVisible="false" />
+
+                <View
+                    android:id="@+id/line4"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#DDDDDD" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

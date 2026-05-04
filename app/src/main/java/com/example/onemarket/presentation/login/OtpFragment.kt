@@ -1,9 +1,11 @@
 package com.example.onemarket.presentation.login
 
+import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +15,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.onemarket.R
 import com.example.onemarket.data.local.UserManager
 import com.example.onemarket.databinding.FragmentOtpBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,9 +34,6 @@ class OtpFragment : Fragment() {
 
     private var timer: CountDownTimer? = null
 
-    // Demo OTP kodu — real proyektdə Firebase/SMS API istifadə olunur
-    private val demoOtp = "1234"
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,7 +49,11 @@ class OtpFragment : Fragment() {
         val phone = args.phone
         binding.tvPhone.text = phone
 
-        setupOtpInputs()
+        // OTP kodu = nömrənin son 4 rəqəmi
+        val digits = phone.filter { it.isDigit() }
+        val correctOtp = digits.takeLast(4)
+
+        setupOtpInputs(correctOtp)
         startTimer()
 
         binding.btnBack.setOnClickListener {
@@ -62,75 +66,82 @@ class OtpFragment : Fragment() {
             Toast.makeText(requireContext(), "Kod yenidən göndərildi", Toast.LENGTH_SHORT).show()
         }
 
-        // Klaviaturanı aç
+        // Klaviaturanı aç — rəqəm klaviaturası
         binding.otp1.requestFocus()
         val imm = requireContext().getSystemService(android.content.Context.INPUT_METHOD_SERVICE)
                 as InputMethodManager
         imm.showSoftInput(binding.otp1, InputMethodManager.SHOW_IMPLICIT)
     }
 
-    private fun setupOtpInputs() {
-        val otpFields = listOf(binding.otp1, binding.otp2, binding.otp3, binding.otp4)
+    private fun setupOtpInputs(correctOtp: String) {
+        val fields = listOf(binding.otp1, binding.otp2, binding.otp3, binding.otp4)
+        val lines = listOf(binding.line1, binding.line2, binding.line3, binding.line4)
 
         // İlk xana aktiv
-        binding.otp1.background =
-            requireContext().getDrawable(com.example.onemarket.R.drawable.bg_otp_active)
+        setLineActive(lines[0], true)
 
-        otpFields.forEachIndexed { index, field ->
+        fields.forEachIndexed { index, field ->
             field.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: Editable?) {
                     if (s?.length == 1) {
-                        // Növbəti xanaya keç
-                        field.background = requireContext().getDrawable(
-                            com.example.onemarket.R.drawable.bg_otp_active
-                        )
-                        if (index < otpFields.size - 1) {
-                            otpFields[index + 1].requestFocus()
-                            otpFields[index + 1].background = requireContext().getDrawable(
-                                com.example.onemarket.R.drawable.bg_otp_active
-                            )
+                        setLineActive(lines[index], true)
+                        if (index < fields.size - 1) {
+                            fields[index + 1].requestFocus()
+                            setLineActive(lines[index + 1], true)
                         } else {
-                            // Son xana — kodu yoxla
-                            checkOtp(otpFields)
+                            // 4-cü xana doldu — yoxla
+                            val entered = fields.joinToString("") { it.text.toString() }
+                            checkOtp(entered, correctOtp, fields)
                         }
                     } else {
-                        field.background = requireContext().getDrawable(
-                            com.example.onemarket.R.drawable.bg_otp_inactive
-                        )
+                        setLineActive(lines[index], false)
                     }
                 }
             })
 
             // Backspace ilə əvvəlki xanaya keç
-            field.setOnKeyListener { _, keyCode, _ ->
-                if (keyCode == android.view.KeyEvent.KEYCODE_DEL && field.text.isEmpty() && index > 0) {
-                    otpFields[index - 1].requestFocus()
-                    otpFields[index - 1].text?.clear()
+            field.setOnKeyListener { _, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_DEL
+                    && event.action == KeyEvent.ACTION_DOWN
+                    && field.text.isEmpty()
+                    && index > 0
+                ) {
+                    fields[index - 1].requestFocus()
+                    fields[index - 1].text?.clear()
+                    setLineActive(lines[index], false)
                 }
                 false
             }
         }
     }
 
-    private fun checkOtp(fields: List<EditText>) {
-        val entered = fields.joinToString("") { it.text.toString() }
+    private fun setLineActive(line: View, active: Boolean) {
+        line.setBackgroundColor(
+            if (active) Color.parseColor("#E91E8C")
+            else Color.parseColor("#DDDDDD")
+        )
+    }
 
-        // Demo: istənilən 4 rəqəmli kod qəbul edilir
-        if (entered.length == 4) {
+    private fun checkOtp(entered: String, correctOtp: String, fields: List<EditText>) {
+        if (entered == correctOtp) {
             userManager.saveUser("İstifadəçi", args.phone)
             Toast.makeText(requireContext(), "Xoş gəldiniz!", Toast.LENGTH_SHORT).show()
 
-            // Klaviaturanı bağla
             val imm = requireContext().getSystemService(android.content.Context.INPUT_METHOD_SERVICE)
                     as InputMethodManager
             imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
 
-            // Geri qayıt (LoginFragment → ProfileFragment)
-            findNavController().popBackStack(
-                com.example.onemarket.R.id.profileFragment, false
-            )
+            findNavController().popBackStack(R.id.profileFragment, false)
+        } else {
+            // Yanlış kod — xanaları qırmızı göstər və sıfırla
+            Toast.makeText(requireContext(), "Yanlış kod, yenidən cəhd edin", Toast.LENGTH_SHORT).show()
+            fields.forEach { it.text?.clear() }
+            listOf(binding.line1, binding.line2, binding.line3, binding.line4).forEach {
+                it.setBackgroundColor(Color.parseColor("#DDDDDD"))
+            }
+            fields[0].requestFocus()
         }
     }
 
