@@ -39,6 +39,7 @@
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart">
         <action android:id="@+id/action_cartFragment_to_productDetailFragment" app:destination="@id/productDetailFragment" />
+        <action android:id="@+id/action_cartFragment_to_deliveryFragment" app:destination="@id/deliveryFragment" />
     </fragment>
 
     <fragment
@@ -55,9 +56,7 @@
         android:name="com.example.onemarket.presentation.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_loginFragment_to_otpFragment"
-            app:destination="@id/otpFragment" />
+        <action android:id="@+id/action_loginFragment_to_otpFragment" app:destination="@id/otpFragment" />
     </fragment>
 
     <fragment
@@ -65,9 +64,7 @@
         android:name="com.example.onemarket.presentation.login.OtpFragment"
         android:label="fragment_otp"
         tools:layout="@layout/fragment_otp">
-        <argument
-            android:name="phone"
-            app:argType="string" />
+        <argument android:name="phone" app:argType="string" />
     </fragment>
 
     <fragment
@@ -75,6 +72,14 @@
         android:name="com.example.onemarket.presentation.city.CityFragment"
         android:label="fragment_city"
         tools:layout="@layout/fragment_city" />
+
+    <fragment
+        android:id="@+id/deliveryFragment"
+        android:name="com.example.onemarket.presentation.delivery.DeliveryFragment"
+        android:label="fragment_delivery"
+        tools:layout="@layout/fragment_delivery">
+        <action android:id="@+id/action_deliveryFragment_to_cityFragment" app:destination="@id/cityFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/categoryProductsFragment"

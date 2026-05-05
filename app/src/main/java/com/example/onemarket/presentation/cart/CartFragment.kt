@@ -60,7 +60,9 @@ class CartFragment : Fragment() {
                 .selectedItemId = R.id.catalogFragment
         }
         binding.btnCheckout.setOnClickListener {
-            Toast.makeText(requireContext(), "Sifariş rəsmiləşdirilir...", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(
+                CartFragmentDirections.actionCartFragmentToDeliveryFragment()
+            )
         }
         binding.btnCheckoutCredit.setOnClickListener {
             Toast.makeText(requireContext(), "Kreditlə sifariş rəsmiləşdirilir...", Toast.LENGTH_SHORT).show()

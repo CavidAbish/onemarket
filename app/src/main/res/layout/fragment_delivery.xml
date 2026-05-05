@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+    <!-- Top bar -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="12dp"
+        android:background="#FFFFFF"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_back"
+            android:padding="6dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Çatdırılma üsulu"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#1A237E" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/topDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#F0F0F0"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Scroll -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/topDivider"
+        app:layout_constraintBottom_toTopOf="@id/btnNext"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
+
+            <!-- Şəhər seçimi -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:strokeColor="#CCCCCC"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Təhvilalma şəhəri və ya rayonu"
+                        android:textSize="11sp"
+                        android:textColor="#888888"
+                        android:layout_marginBottom="4dp" />
+
+                    <LinearLayout
+                        android:id="@+id/btnSelectCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/tvSelectedCity"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Bakı"
+                            android:textSize="16sp"
+                            android:textColor="#1A1A1A" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_back"
+                            android:rotation="180"
+                            android:alpha="0.4" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Sifarişlər container -->
+            <LinearLayout
+                android:id="@+id/ordersContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Növbəti düyməsi -->
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Növbəti"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:backgroundTint="#E91E8C"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
