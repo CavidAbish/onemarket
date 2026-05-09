@@ -39,6 +39,14 @@ class DeliveryFragment : Fragment() {
 
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
 
+        // Xəritədən gələn ünvanı qəbul et
+        parentFragmentManager.setFragmentResultListener("map_result", viewLifecycleOwner) { _, bundle ->
+            val address = bundle.getString("selected_address", "")
+            if (address.isNotEmpty()) {
+                android.widget.Toast.makeText(requireContext(), "Ünvan: $address", android.widget.Toast.LENGTH_SHORT).show()
+            }
+        }
+
         // Seçili şəhəri göstər
         binding.tvSelectedCity.text = cityManager.getCity()
 
@@ -134,7 +142,9 @@ class DeliveryFragment : Fragment() {
 
         // Ünvan əlavə et
         b.btnAddAddress.setOnClickListener {
-            Toast.makeText(requireContext(), "Ünvan əlavə et", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(
+                DeliveryFragmentDirections.actionDeliveryFragmentToMapPickerFragment()
+            )
         }
 
         // Azərpoçt məntəqəsi seç

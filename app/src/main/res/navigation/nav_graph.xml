@@ -79,7 +79,14 @@
         android:label="fragment_delivery"
         tools:layout="@layout/fragment_delivery">
         <action android:id="@+id/action_deliveryFragment_to_cityFragment" app:destination="@id/cityFragment" />
+        <action android:id="@+id/action_deliveryFragment_to_mapPickerFragment" app:destination="@id/mapPickerFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/mapPickerFragment"
+        android:name="com.example.onemarket.presentation.delivery.MapPickerFragment"
+        android:label="fragment_map_picker"
+        tools:layout="@layout/fragment_map_picker" />
 
     <fragment
         android:id="@+id/categoryProductsFragment"

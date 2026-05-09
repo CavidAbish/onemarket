@@ -87,7 +87,9 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     //
 
-
+    // Xeriteni ucun kitabxana
+    implementation("org.osmdroid:osmdroid-android:6.1.17")
+    //
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
