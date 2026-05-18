@@ -87,8 +87,9 @@ class DeliveryFragment : Fragment() {
         }
 
         binding.btnNext.setOnClickListener {
-            Toast.makeText(requireContext(), "Sifariş rəsmiləşdirildi!", Toast.LENGTH_SHORT).show()
-            findNavController().popBackStack()
+            findNavController().navigate(
+                DeliveryFragmentDirections.actionDeliveryFragmentToOrderSummaryFragment()
+            )
         }
     }
 

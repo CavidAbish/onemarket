@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:layout_marginBottom="12dp"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvOrderNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sifariş 1"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#1A237E"
+        android:layout_marginBottom="12dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tvProductName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Sifarişin məbləği (1 məhsul):"
+            android:textSize="14sp"
+            android:textColor="#555555" />
+        <TextView
+            android:id="@+id/tvOrderAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.00 ₼"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#1A1A1A" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/discountLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="6dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Endirim:"
+            android:textSize="14sp"
+            android:textColor="#555555" />
+        <TextView
+            android:id="@+id/tvDiscount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-0.00 ₼"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#E91E8C"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="6dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Çatdırılma:"
+            android:textSize="14sp"
+            android:textColor="#555555" />
+        <TextView
+            android:id="@+id/tvDelivery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3.00 ₼"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#1A1A1A" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#F0F0F0"
+        android:layout_marginTop="12dp" />
+
+</LinearLayout>

@@ -90,6 +90,10 @@ dependencies {
     // Xeriteni ucun kitabxana
     implementation("org.osmdroid:osmdroid-android:6.1.17")
     //
+
+    //
+    implementation("org.osmdroid:osmdroid-android:6.1.17")
+    //
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

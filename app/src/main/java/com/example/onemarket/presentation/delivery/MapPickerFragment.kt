@@ -26,17 +26,10 @@ class MapPickerFragment : Fragment() {
 
     private lateinit var mapView: MapView
     private var locationOverlay: MyLocationNewOverlay? = null
-
-    // Bakı default koordinatları
     private var currentGeoPoint = GeoPoint(40.4093, 49.8671)
     private var selectedAddress = ""
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // OSMDroid konfiqurasiyası
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         Configuration.getInstance().userAgentValue = requireContext().packageName
         _binding = FragmentMapPickerBinding.inflate(inflater, container, false)
         return binding.root
@@ -47,18 +40,9 @@ class MapPickerFragment : Fragment() {
 
         setupMap()
 
-        binding.btnBack.setOnClickListener {
-            findNavController().popBackStack()
-        }
-
-        binding.btnZoomIn.setOnClickListener {
-            mapView.controller.zoomIn()
-        }
-
-        binding.btnZoomOut.setOnClickListener {
-            mapView.controller.zoomOut()
-        }
-
+        binding.btnBack.setOnClickListener { findNavController().popBackStack() }
+        binding.btnZoomIn.setOnClickListener { mapView.controller.zoomIn() }
+        binding.btnZoomOut.setOnClickListener { mapView.controller.zoomOut() }
         binding.btnMyLocation.setOnClickListener {
             locationOverlay?.myLocation?.let { point ->
                 mapView.controller.animateTo(point)
@@ -81,29 +65,17 @@ class MapPickerFragment : Fragment() {
         mapView = binding.mapView
         mapView.setTileSource(TileSourceFactory.MAPNIK)
         mapView.setMultiTouchControls(true)
-
-        // Bakı mərkəzinə zoom et
         mapView.controller.setZoom(15.0)
         mapView.controller.setCenter(currentGeoPoint)
 
-        // Öz yerini göstər
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(), Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            locationOverlay = MyLocationNewOverlay(
-                GpsMyLocationProvider(requireContext()), mapView
-            )
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            locationOverlay = MyLocationNewOverlay(GpsMyLocationProvider(requireContext()), mapView)
             locationOverlay?.enableMyLocation()
             mapView.overlays.add(locationOverlay)
         } else {
-            requestPermissions(
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                1001
-            )
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1001)
         }
 
-        // Xəritə hərəkət etdikdə mərkəz koordinatını al
         mapView.addMapListener(object : org.osmdroid.events.MapListener {
             override fun onScroll(event: org.osmdroid.events.ScrollEvent?): Boolean {
                 val center = mapView.mapCenter
@@ -111,10 +83,7 @@ class MapPickerFragment : Fragment() {
                 getAddressFromPoint(currentGeoPoint)
                 return false
             }
-
-            override fun onZoom(event: org.osmdroid.events.ZoomEvent?): Boolean {
-                return false
-            }
+            override fun onZoom(event: org.osmdroid.events.ZoomEvent?) = false
         })
     }
 
@@ -122,40 +91,24 @@ class MapPickerFragment : Fragment() {
         try {
             val geocoder = Geocoder(requireContext(), Locale.getDefault())
             val addresses = geocoder.getFromLocation(point.latitude, point.longitude, 1)
-
             if (!addresses.isNullOrEmpty()) {
-                val address = addresses[0]
-                selectedAddress = address.getAddressLine(0) ?: ""
+                selectedAddress = addresses[0].getAddressLine(0) ?: ""
                 binding.tvAddress.text = selectedAddress
                 binding.tvCoordinates.text = ""
                 binding.tvNotFound.visibility = View.GONE
             } else {
-                selectedAddress = "${point.latitude}, ${point.longitude}"
+                selectedAddress = String.format("%.6f, %.6f", point.latitude, point.longitude)
                 binding.tvAddress.text = "Ünvan müəyyənləşdirilir..."
-                binding.tvCoordinates.text =
-                    "Dəqiq ünvanı müəyyən etmək mümkün olmadı: " +
-                            String.format("%.6f, %.6f", point.latitude, point.longitude)
+                binding.tvCoordinates.text = "Dəqiq ünvanı müəyyən etmək mümkün olmadı: $selectedAddress"
                 binding.tvNotFound.visibility = View.VISIBLE
             }
         } catch (e: Exception) {
-            binding.tvCoordinates.text =
-                String.format("%.6f, %.6f", point.latitude, point.longitude)
+            selectedAddress = String.format("%.6f, %.6f", point.latitude, point.longitude)
+            binding.tvCoordinates.text = selectedAddress
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        mapView.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        mapView.onPause()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        mapView.onDetach()
-        _binding = null
-    }
+    override fun onResume() { super.onResume(); mapView.onResume() }
+    override fun onPause() { super.onPause(); mapView.onPause() }
+    override fun onDestroyView() { super.onDestroyView(); mapView.onDetach(); _binding = null }
 }

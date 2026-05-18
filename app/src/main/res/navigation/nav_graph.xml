@@ -80,6 +80,7 @@
         tools:layout="@layout/fragment_delivery">
         <action android:id="@+id/action_deliveryFragment_to_cityFragment" app:destination="@id/cityFragment" />
         <action android:id="@+id/action_deliveryFragment_to_mapPickerFragment" app:destination="@id/mapPickerFragment" />
+        <action android:id="@+id/action_deliveryFragment_to_orderSummaryFragment" app:destination="@id/orderSummaryFragment" />
     </fragment>
 
     <fragment
@@ -87,6 +88,29 @@
         android:name="com.example.onemarket.presentation.delivery.MapPickerFragment"
         android:label="fragment_map_picker"
         tools:layout="@layout/fragment_map_picker" />
+
+    <fragment
+        android:id="@+id/orderSummaryFragment"
+        android:name="com.example.onemarket.presentation.delivery.OrderSummaryFragment"
+        android:label="fragment_order_summary"
+        tools:layout="@layout/fragment_order_summary">
+        <action android:id="@+id/action_orderSummaryFragment_to_paymentFragment" app:destination="@id/paymentFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.example.onemarket.presentation.delivery.PaymentFragment"
+        android:label="fragment_payment"
+        tools:layout="@layout/fragment_payment">
+        <argument android:name="amount" app:argType="float" />
+        <action android:id="@+id/action_paymentFragment_to_paymentFailedFragment" app:destination="@id/paymentFailedFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/paymentFailedFragment"
+        android:name="com.example.onemarket.presentation.delivery.PaymentFailedFragment"
+        android:label="fragment_payment_failed"
+        tools:layout="@layout/fragment_payment_failed" />
 
     <fragment
         android:id="@+id/categoryProductsFragment"
