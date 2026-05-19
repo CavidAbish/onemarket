@@ -68,7 +68,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#1A237E"
-                android:layout_marginBottom="4dp" />
+                android:layout_marginBottom="16dp" />
 
             <!-- OneMarket loqo -->
             <LinearLayout
@@ -76,7 +76,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginTop="16dp"
                 android:layout_marginBottom="24dp">
 
                 <TextView
@@ -96,7 +95,7 @@
 
             </LinearLayout>
 
-            <!-- Kart məlumatları -->
+            <!-- Kart məlumatları başlığı -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -105,7 +104,7 @@
                 android:textColor="#1A1A1A"
                 android:layout_marginBottom="12dp" />
 
-            <!-- Kart nömrəsi -->
+            <!-- Kart nömrəsi — 16 rəqəm -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -119,7 +118,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Kart nömrəsi"
                     android:inputType="number"
-                    android:maxLength="19" />
+                    android:maxLength="19"
+                    android:digits="0123456789 " />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -213,12 +213,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0.00 AZN"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#1A1A1A"
                 android:layout_marginBottom="24dp" />
 
-            <!-- Ödəniş et düyməsi -->
+            <!-- Ödəniş et -->
             <Button
                 android:id="@+id/btnPay"
                 android:layout_width="match_parent"

@@ -40,7 +40,6 @@
 
     </LinearLayout>
 
-    <!-- Məhsul kartı -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -150,9 +149,10 @@
                             android:orientation="horizontal">
 
                             <TextView
+                                android:id="@+id/tvCourierDate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="6 may, "
+                                android:text="-- may, "
                                 android:textSize="13sp"
                                 android:textStyle="bold"
                                 android:textColor="#1A1A1A" />
@@ -176,7 +176,18 @@
 
                 </LinearLayout>
 
-                <!-- Çatdırılma ünvanı əlavə et düyməsi -->
+                <!-- Seçilmiş ünvan -->
+                <TextView
+                    android:id="@+id/tvCourierAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="13sp"
+                    android:textColor="#555555"
+                    android:layout_marginTop="6dp"
+                    android:visibility="gone" />
+
+                <!-- Ünvan əlavə et -->
                 <Button
                     android:id="@+id/btnAddAddress"
                     android:layout_width="match_parent"
@@ -226,9 +237,10 @@
                             android:orientation="horizontal">
 
                             <TextView
+                                android:id="@+id/tvPostDate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="9 may, "
+                                android:text="-- may, "
                                 android:textSize="13sp"
                                 android:textStyle="bold"
                                 android:textColor="#1A1A1A" />
@@ -251,19 +263,6 @@
                         android:buttonTint="#E91E8C" />
 
                 </LinearLayout>
-
-                <!-- Məntəqə seç düyməsi -->
-                <Button
-                    android:id="@+id/btnSelectPost"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Təhvil məntəqəsini seçin"
-                    android:textColor="#E91E8C"
-                    android:textSize="13sp"
-                    android:backgroundTint="#FCE4EC"
-                    android:visibility="gone"
-                    app:cornerRadius="8dp" />
 
             </LinearLayout>
 
@@ -302,9 +301,10 @@
                             android:orientation="horizontal">
 
                             <TextView
+                                android:id="@+id/tvPickupDate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="6 may, "
+                                android:text="-- may, "
                                 android:textSize="13sp"
                                 android:textStyle="bold"
                                 android:textColor="#1A1A1A" />
@@ -357,19 +357,6 @@
                         app:cornerRadius="8dp" />
 
                 </LinearLayout>
-
-                <!-- Məntəqə seç düyməsi (ilk seçimdə) -->
-                <Button
-                    android:id="@+id/btnSelectPickup"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Təhvil məntəqəsini seçin"
-                    android:textColor="#E91E8C"
-                    android:textSize="13sp"
-                    android:backgroundTint="#FCE4EC"
-                    android:visibility="gone"
-                    app:cornerRadius="8dp" />
 
             </LinearLayout>
 
