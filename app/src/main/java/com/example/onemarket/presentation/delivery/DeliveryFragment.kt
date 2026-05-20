@@ -127,7 +127,6 @@ class DeliveryFragment : Fragment() {
             b.radioPickup.isChecked = false
             b.btnAddAddress.visibility = View.GONE
             b.tvCourierAddress.visibility = View.GONE
-            b.pickupAddressLayout.visibility = View.GONE
         }
 
         // Kuryerlə çatdırılma
@@ -160,25 +159,17 @@ class DeliveryFragment : Fragment() {
         val pickupClick = View.OnClickListener {
             clearAll()
             b.radioPickup.isChecked = true
-            b.pickupAddressLayout.visibility = View.VISIBLE
-            b.tvPickupAddress.text = "Bakı şəh. Nərimanov r., Möhsün Sənani küç., 153"
         }
         b.optionPickup.setOnClickListener(pickupClick)
         b.radioPickup.setOnClickListener(pickupClick)
 
         // Ünvan əlavə et — xəritə açılır
         b.btnAddAddress.setOnClickListener {
-            // Order index-i ötür ki, qayıdanda hansı sifariş üçün olduğunu bilək
             val bundle = Bundle().apply { putInt("order_index", orderIndex) }
             parentFragmentManager.setFragmentResult("order_index", bundle)
             findNavController().navigate(
                 DeliveryFragmentDirections.actionDeliveryFragmentToMapPickerFragment()
             )
-        }
-
-        // Götürülmə məntəqəsi
-        b.btnChangePickup.setOnClickListener {
-            Toast.makeText(requireContext(), "Məntəqəni dəyişdirin", Toast.LENGTH_SHORT).show()
         }
     }
 

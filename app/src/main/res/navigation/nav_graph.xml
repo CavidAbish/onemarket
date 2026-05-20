@@ -49,7 +49,14 @@
         tools:layout="@layout/fragment_profile">
         <action android:id="@+id/action_profileFragment_to_loginFragment" app:destination="@id/loginFragment" />
         <action android:id="@+id/action_profileFragment_to_cityFragment" app:destination="@id/cityFragment" />
+        <action android:id="@+id/action_profileFragment_to_myOrdersFragment" app:destination="@id/myOrdersFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/myOrdersFragment"
+        android:name="com.example.onemarket.presentation.profile.MyOrdersFragment"
+        android:label="fragment_my_orders"
+        tools:layout="@layout/fragment_my_orders" />
 
     <fragment
         android:id="@+id/loginFragment"

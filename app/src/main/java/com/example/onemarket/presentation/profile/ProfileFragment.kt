@@ -69,9 +69,14 @@ class ProfileFragment : Fragment() {
         binding.tvUserName.text = userManager.getUserName()
         binding.tvUserPhone.text = userManager.getUserPhone()
 
+        binding.menuOrders.setOnClickListener {
+            findNavController().navigate(
+                ProfileFragmentDirections.actionProfileFragmentToMyOrdersFragment()
+            )
+        }
+
         val menus = listOf(
             binding.menuSpecial to "Special abunəlik",
-            binding.menuOrders to "Mənim sifarişlərim",
             binding.menuCards to "Mənim Kartlarım",
             binding.menuPromo to "Promokodlar",
             binding.menuCredit to "Kredit müraciətləri",
