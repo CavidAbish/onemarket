@@ -38,7 +38,8 @@ class OrderSummaryFragment : Fragment() {
         binding.tvContactPhone.text = userManager.getUserPhone()
 
         // Səbət məhsulları
-        val cartItems = cartManager.getCartItems()
+        // Yalnız seçilmiş məhsulları göstər
+        val cartItems = cartManager.getSelectedItems().ifEmpty { cartManager.getCartItems() }
         var totalAmount = 0.0
         val deliveryCost = 3.0
 

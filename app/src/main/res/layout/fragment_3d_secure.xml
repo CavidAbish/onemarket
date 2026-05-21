@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+    <!-- Top bar -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#F5F5F5"
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_back"
+            android:padding="2dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="3-D Secure"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#1A1A1A"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnBack"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/topDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#E0E0E0"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- İçərik -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FFFFFF"
+        android:padding="24dp"
+        app:layout_constraintTop_toBottomOf="@id/topDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- X düyməsi -->
+        <ImageView
+            android:id="@+id/btnClose"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_close"
+            android:padding="2dp"
+            app:tint="#E53935"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- OneMarket loqo və ad -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/logoLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@id/btnClose"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/ivLogo"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_shopping_cart"
+                app:tint="#E91E8C"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OneMarket"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textColor="#E91E8C"
+                android:layout_marginStart="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivLogo" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Amount card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/amountCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#F5F5F5"
+            app:layout_constraintTop_toBottomOf="@id/logoLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp">
+
+                <TextView
+                    android:id="@+id/tvAmountLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Amount"
+                    android:textSize="14sp"
+                    android:textColor="#888888"
+                    android:gravity="center"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.00 AZN"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:textColor="#1A1A1A"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintTop_toBottomOf="@id/tvAmountLabel"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Telefon nömrəsi hint -->
+        <TextView
+            android:id="@+id/tvPhoneHint"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Enter the code sent to"
+            android:textSize="13sp"
+            android:textColor="#888888"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@id/amountCard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/tvPhoneNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="#888888"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/tvPhoneHint"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- 6 OTP xanası — sadəcə alt xətt -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/otpContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@id/tvPhoneNumber"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <EditText android:id="@+id/dotp1" android:layout_width="40dp" android:layout_height="52dp"
+                android:inputType="number" android:maxLength="1" android:gravity="center|bottom"
+                android:textSize="22sp" android:textStyle="bold" android:background="@android:color/transparent"
+                android:textColor="#1A1A1A" android:paddingBottom="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <View android:id="@+id/dline1" android:layout_width="32dp" android:layout_height="2dp"
+                android:background="#CCCCCC"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/dotp1"
+                app:layout_constraintEnd_toEndOf="@id/dotp1" />
+
+            <EditText android:id="@+id/dotp2" android:layout_width="40dp" android:layout_height="52dp"
+                android:inputType="number" android:maxLength="1" android:gravity="center|bottom"
+                android:textSize="22sp" android:textStyle="bold" android:background="@android:color/transparent"
+                android:textColor="#1A1A1A" android:paddingBottom="4dp" android:layout_marginStart="8dp"
+                app:layout_constraintStart_toEndOf="@id/dotp1"
+                app:layout_constraintTop_toTopOf="parent" />
+            <View android:id="@+id/dline2" android:layout_width="32dp" android:layout_height="2dp"
+                android:background="#CCCCCC"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/dotp2"
+                app:layout_constraintEnd_toEndOf="@id/dotp2" />
+
+            <EditText android:id="@+id/dotp3" android:layout_width="40dp" android:layout_height="52dp"
+                android:inputType="number" android:maxLength="1" android:gravity="center|bottom"
+                android:textSize="22sp" android:textStyle="bold" android:background="@android:color/transparent"
+                android:textColor="#1A1A1A" android:paddingBottom="4dp" android:layout_marginStart="8dp"
+                app:layout_constraintStart_toEndOf="@id/dotp2"
+                app:layout_constraintTop_toTopOf="parent" />
+            <View android:id="@+id/dline3" android:layout_width="32dp" android:layout_height="2dp"
+                android:background="#CCCCCC"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/dotp3"
+                app:layout_constraintEnd_toEndOf="@id/dotp3" />
+
+            <EditText android:id="@+id/dotp4" android:layout_width="40dp" android:layout_height="52dp"
+                android:inputType="number" android:maxLength="1" android:gravity="center|bottom"
+                android:textSize="22sp" android:textStyle="bold" android:background="@android:color/transparent"
+                android:textColor="#1A1A1A" android:paddingBottom="4dp" android:layout_marginStart="8dp"
+                app:layout_constraintStart_toEndOf="@id/dotp3"
+                app:layout_constraintTop_toTopOf="parent" />
+            <View android:id="@+id/dline4" android:layout_width="32dp" android:layout_height="2dp"
+                android:background="#CCCCCC"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/dotp4"
+                app:layout_constraintEnd_toEndOf="@id/dotp4" />
+
+            <EditText android:id="@+id/dotp5" android:layout_width="40dp" android:layout_height="52dp"
+                android:inputType="number" android:maxLength="1" android:gravity="center|bottom"
+                android:textSize="22sp" android:textStyle="bold" android:background="@android:color/transparent"
+                android:textColor="#1A1A1A" android:paddingBottom="4dp" android:layout_marginStart="8dp"
+                app:layout_constraintStart_toEndOf="@id/dotp4"
+                app:layout_constraintTop_toTopOf="parent" />
+            <View android:id="@+id/dline5" android:layout_width="32dp" android:layout_height="2dp"
+                android:background="#CCCCCC"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/dotp5"
+                app:layout_constraintEnd_toEndOf="@id/dotp5" />
+
+            <EditText android:id="@+id/dotp6" android:layout_width="40dp" android:layout_height="52dp"
+                android:inputType="number" android:maxLength="1" android:gravity="center|bottom"
+                android:textSize="22sp" android:textStyle="bold" android:background="@android:color/transparent"
+                android:textColor="#1A1A1A" android:paddingBottom="4dp" android:layout_marginStart="8dp"
+                app:layout_constraintStart_toEndOf="@id/dotp5"
+                app:layout_constraintTop_toTopOf="parent" />
+            <View android:id="@+id/dline6" android:layout_width="32dp" android:layout_height="2dp"
+                android:background="#CCCCCC"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/dotp6"
+                app:layout_constraintEnd_toEndOf="@id/dotp6" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Kod almadınız? -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/resendLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@id/otpContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/ivInfo"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_notifications"
+                app:tint="#1565C0"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvDidntReceive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kodu almadınız?"
+                android:textSize="14sp"
+                android:textColor="#1565C0"
+                android:layout_marginStart="6dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivInfo" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Yenidən göndər timer -->
+        <TextView
+            android:id="@+id/tvResendTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="13sp"
+            android:textColor="#888888"
+            app:layout_constraintTop_toBottomOf="@id/resendLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

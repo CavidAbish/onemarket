@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:padding="24dp">
+
+    <!-- Başlıq -->
+    <TextView
+        android:id="@+id/dtvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="SMS ilə təsdiq"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#1A237E"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/dtvSubtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Nömrənizə göndərilən kodu daxil edin"
+        android:textSize="13sp"
+        android:textColor="#888888"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/dtvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/dtvAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0.00 AZN"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#E91E8C"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/dtvSubtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 6 OTP xanası -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/otpContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/dtvAmount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <EditText android:id="@+id/dotp1" android:layout_width="38dp" android:layout_height="48dp"
+            android:inputType="number" android:maxLength="1" android:gravity="center"
+            android:textSize="20sp" android:textStyle="bold" android:background="@android:color/transparent"
+            android:textColor="#1A1A1A"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <View android:id="@+id/dline1" android:layout_width="38dp" android:layout_height="2dp"
+            android:background="#DDDDDD"
+            app:layout_constraintTop_toBottomOf="@id/dotp1"
+            app:layout_constraintStart_toStartOf="@id/dotp1" />
+
+        <EditText android:id="@+id/dotp2" android:layout_width="38dp" android:layout_height="48dp"
+            android:inputType="number" android:maxLength="1" android:gravity="center"
+            android:textSize="20sp" android:textStyle="bold" android:background="@android:color/transparent"
+            android:textColor="#1A1A1A" android:layout_marginStart="6dp"
+            app:layout_constraintStart_toEndOf="@id/dotp1"
+            app:layout_constraintTop_toTopOf="parent" />
+        <View android:id="@+id/dline2" android:layout_width="38dp" android:layout_height="2dp"
+            android:background="#DDDDDD"
+            app:layout_constraintTop_toBottomOf="@id/dotp2"
+            app:layout_constraintStart_toStartOf="@id/dotp2" />
+
+        <EditText android:id="@+id/dotp3" android:layout_width="38dp" android:layout_height="48dp"
+            android:inputType="number" android:maxLength="1" android:gravity="center"
+            android:textSize="20sp" android:textStyle="bold" android:background="@android:color/transparent"
+            android:textColor="#1A1A1A" android:layout_marginStart="6dp"
+            app:layout_constraintStart_toEndOf="@id/dotp2"
+            app:layout_constraintTop_toTopOf="parent" />
+        <View android:id="@+id/dline3" android:layout_width="38dp" android:layout_height="2dp"
+            android:background="#DDDDDD"
+            app:layout_constraintTop_toBottomOf="@id/dotp3"
+            app:layout_constraintStart_toStartOf="@id/dotp3" />
+
+        <EditText android:id="@+id/dotp4" android:layout_width="38dp" android:layout_height="48dp"
+            android:inputType="number" android:maxLength="1" android:gravity="center"
+            android:textSize="20sp" android:textStyle="bold" android:background="@android:color/transparent"
+            android:textColor="#1A1A1A" android:layout_marginStart="6dp"
+            app:layout_constraintStart_toEndOf="@id/dotp3"
+            app:layout_constraintTop_toTopOf="parent" />
+        <View android:id="@+id/dline4" android:layout_width="38dp" android:layout_height="2dp"
+            android:background="#DDDDDD"
+            app:layout_constraintTop_toBottomOf="@id/dotp4"
+            app:layout_constraintStart_toStartOf="@id/dotp4" />
+
+        <EditText android:id="@+id/dotp5" android:layout_width="38dp" android:layout_height="48dp"
+            android:inputType="number" android:maxLength="1" android:gravity="center"
+            android:textSize="20sp" android:textStyle="bold" android:background="@android:color/transparent"
+            android:textColor="#1A1A1A" android:layout_marginStart="6dp"
+            app:layout_constraintStart_toEndOf="@id/dotp4"
+            app:layout_constraintTop_toTopOf="parent" />
+        <View android:id="@+id/dline5" android:layout_width="38dp" android:layout_height="2dp"
+            android:background="#DDDDDD"
+            app:layout_constraintTop_toBottomOf="@id/dotp5"
+            app:layout_constraintStart_toStartOf="@id/dotp5" />
+
+        <EditText android:id="@+id/dotp6" android:layout_width="38dp" android:layout_height="48dp"
+            android:inputType="number" android:maxLength="1" android:gravity="center"
+            android:textSize="20sp" android:textStyle="bold" android:background="@android:color/transparent"
+            android:textColor="#1A1A1A" android:layout_marginStart="6dp"
+            app:layout_constraintStart_toEndOf="@id/dotp5"
+            app:layout_constraintTop_toTopOf="parent" />
+        <View android:id="@+id/dline6" android:layout_width="38dp" android:layout_height="2dp"
+            android:background="#DDDDDD"
+            app:layout_constraintTop_toBottomOf="@id/dotp6"
+            app:layout_constraintStart_toStartOf="@id/dotp6" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Geri sayım -->
+    <TextView
+        android:id="@+id/dtvTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="03:00"
+        android:textSize="15sp"
+        android:textColor="#888888"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/otpContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Yenidən göndər -->
+    <TextView
+        android:id="@+id/dtvResend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kodu yenidən göndər"
+        android:textSize="14sp"
+        android:textColor="#E91E8C"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintTop_toBottomOf="@id/dtvTimer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

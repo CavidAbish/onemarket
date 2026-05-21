@@ -56,6 +56,11 @@ class CartFragment : Fragment() {
         observeRecommended()
         setupSelectAll()
 
+        binding.btnMyOrders.setOnClickListener {
+            requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav)
+                .selectedItemId = R.id.profileFragment
+        }
+
         binding.btnCatalog.setOnClickListener {
             requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav)
                 .selectedItemId = R.id.catalogFragment
@@ -164,6 +169,13 @@ class CartFragment : Fragment() {
 
         binding.tvTotalPrice.text = String.format("%.2f ₼", total)
         binding.tvOrderSummary.text = "Sifarişin məbləği ($count məhsul):"
+
+        // Seçim olmayanda buttonlar solğun olsun
+        val hasSelection = selected.isNotEmpty()
+        binding.btnCheckout.alpha = if (hasSelection) 1.0f else 0.4f
+        binding.btnCheckout.isEnabled = hasSelection
+        binding.btnCheckoutCredit.alpha = if (hasSelection) 1.0f else 0.4f
+        binding.btnCheckoutCredit.isEnabled = hasSelection
 
         // cbSelectAll yenilə
         binding.cbSelectAll.setOnCheckedChangeListener(null)

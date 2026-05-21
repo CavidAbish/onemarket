@@ -1,5 +1,7 @@
 package com.example.onemarket.presentation.delivery
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -22,6 +24,10 @@ class PaymentFragment : Fragment() {
     private val args: PaymentFragmentArgs by navArgs()
     private var isFormatting = false
 
+    private val cardPrefs: SharedPreferences by lazy {
+        requireContext().getSharedPreferences("saved_card", Context.MODE_PRIVATE)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentPaymentBinding.inflate(inflater, container, false)
         return binding.root
@@ -35,6 +41,7 @@ class PaymentFragment : Fragment() {
 
         setupCardNumberFormat()
         setupExpiryFormat()
+        loadSavedCard()
 
         binding.btnClose.setOnClickListener {
             findNavController().popBackStack()
@@ -58,8 +65,19 @@ class PaymentFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            Toast.makeText(requireContext(), "Ödəniş uğurla tamamlandı!", Toast.LENGTH_SHORT).show()
-            findNavController().popBackStack(com.example.onemarket.R.id.cartFragment, false)
+            // Kartı yadda saxla
+            if (binding.cbSaveCard.isChecked) {
+                saveCard(
+                    cardNumber = binding.etCardNumber.text.toString(),
+                    expiry = expiry,
+                    cvv = cvv
+                )
+            }
+
+            // 3D Secure ekranına keç
+            findNavController().navigate(
+                PaymentFragmentDirections.actionPaymentFragmentToThreeDSecureFragment(amount)
+            )
         }
 
         binding.btnCancel.setOnClickListener {
@@ -69,7 +87,28 @@ class PaymentFragment : Fragment() {
         }
     }
 
-    // Kart nömrəsi — hər 4 rəqəmdən sonra boşluq
+    private fun saveCard(cardNumber: String, expiry: String, cvv: String) {
+        cardPrefs.edit()
+            .putString("card_number", cardNumber)
+            .putString("expiry", expiry)
+            .putString("cvv", cvv)
+            .apply()
+        Toast.makeText(requireContext(), "Kart məlumatları saxlanıldı", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun loadSavedCard() {
+        val savedNumber = cardPrefs.getString("card_number", null)
+        val savedExpiry = cardPrefs.getString("expiry", null)
+        val savedCvv = cardPrefs.getString("cvv", null)
+
+        if (!savedNumber.isNullOrEmpty()) {
+            binding.etCardNumber.setText(savedNumber)
+            binding.etExpiry.setText(savedExpiry)
+            binding.etCvv.setText(savedCvv)
+            binding.cbSaveCard.isChecked = true
+        }
+    }
+
     private fun setupCardNumberFormat() {
         binding.etCardNumber.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -77,14 +116,12 @@ class PaymentFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
                 if (isFormatting) return
                 isFormatting = true
-
                 val digits = s.toString().replace(" ", "")
                 val formatted = StringBuilder()
                 for (i in digits.indices) {
                     if (i > 0 && i % 4 == 0) formatted.append(" ")
                     formatted.append(digits[i])
                 }
-
                 binding.etCardNumber.setText(formatted.toString())
                 binding.etCardNumber.setSelection(formatted.length)
                 isFormatting = false
@@ -92,7 +129,6 @@ class PaymentFragment : Fragment() {
         })
     }
 
-    // AY/İL — 2 rəqəm yazıldıqda / əlavə olur, max 12/xx
     private fun setupExpiryFormat() {
         binding.etExpiry.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -100,17 +136,13 @@ class PaymentFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
                 if (isFormatting) return
                 isFormatting = true
-
                 var input = s.toString().replace("/", "")
                 if (input.length > 4) input = input.take(4)
-
                 val formatted = StringBuilder()
                 for (i in input.indices) {
                     if (i == 2) formatted.append("/")
                     formatted.append(input[i])
                 }
-
-                // Ay max 12 yoxlaması
                 if (formatted.length >= 2) {
                     val month = formatted.substring(0, 2).toIntOrNull() ?: 0
                     if (month > 12) {
@@ -120,7 +152,6 @@ class PaymentFragment : Fragment() {
                         return
                     }
                 }
-
                 binding.etExpiry.setText(formatted.toString())
                 binding.etExpiry.setSelection(formatted.length)
                 isFormatting = false

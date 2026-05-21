@@ -24,6 +24,19 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNav.setupWithNavController(navController)
 
+        // Tab dəyişdikdə delivery/payment stack-ini təmizlə
+        binding.bottomNav.setOnItemSelectedListener { item ->
+            // Əgər cart-a gedirsə, delivery stack-ini sil
+            if (item.itemId == R.id.cartFragment) {
+                // delivery fragmentindən gəlirsə stack-i sil
+                try {
+                    navController.popBackStack(R.id.deliveryFragment, true)
+                } catch (_: Exception) {}
+            }
+            navController.navigate(item.itemId)
+            true
+        }
+
         // Bottom nav-ı gizlət/göstər
         val hideBottomNavFragments = setOf(
             R.id.deliveryFragment,
@@ -36,7 +49,10 @@ class MainActivity : AppCompatActivity() {
             R.id.cityFragment,
             R.id.searchFragment,
             R.id.productDetailFragment,
-            R.id.categoryProductsFragment
+            R.id.categoryProductsFragment,
+            R.id.myOrdersFragment,
+            R.id.orderDetailFragment,
+            R.id.threeDSecureFragment
         )
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
