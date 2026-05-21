@@ -9,11 +9,33 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.onemarket.data.local.CartManager
 import com.example.onemarket.databinding.ItemCartProductBinding
+import java.util.Calendar
 
 class CartAdapter(
     private val cartManager: CartManager,
     private val onCartChanged: () -> Unit
 ) : ListAdapter<CartManager.CartItem, CartAdapter.ViewHolder>(DiffCallback()) {
+
+    // Seçilmiş məhsulların id-ləri
+    private val selectedIds = mutableSetOf<Int>()
+
+    fun getSelectedItems(): List<CartManager.CartItem> =
+        currentList.filter { it.product.id in selectedIds }
+
+    fun selectAll() {
+        selectedIds.addAll(currentList.map { it.product.id })
+        notifyDataSetChanged()
+        onCartChanged()
+    }
+
+    fun deselectAll() {
+        selectedIds.clear()
+        notifyDataSetChanged()
+        onCartChanged()
+    }
+
+    fun isAllSelected(): Boolean =
+        currentList.isNotEmpty() && currentList.all { it.product.id in selectedIds }
 
     inner class ViewHolder(private val binding: ItemCartProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -31,23 +53,62 @@ class CartAdapter(
             binding.tvQuantity.text = item.quantity.toString()
             binding.tvTotalPrice.text = String.format("%.2f ₼", product.price * item.quantity)
 
+            // Çatdırılma tarixi
+            val cal = Calendar.getInstance()
+            cal.add(Calendar.DAY_OF_YEAR, 3)
+            val day = cal.get(Calendar.DAY_OF_MONTH)
+            val months = listOf("yan","fev","mar","apr","may","iyn",
+                "iyl","avq","sen","okt","noy","dek")
+            val month = months[cal.get(Calendar.MONTH)]
+            // Əgər layout-da tvDeliveryDate varsa yeniləyirik
+            try {
+                binding.root.findViewWithTag<android.widget.TextView>("tvDeliveryDate")
+                    ?.text = "Çatdırılma: $day $month"
+            } catch (_: Exception) {}
+
             Glide.with(binding.root)
                 .load(product.thumbnail)
                 .centerCrop()
                 .into(binding.ivProductImage)
 
-            binding.btnPlus.setOnClickListener {
-                cartManager.updateQuantity(product.id, item.quantity + 1)
+            // Checkbox
+            binding.checkbox.setOnCheckedChangeListener(null)
+            binding.checkbox.isChecked = product.id in selectedIds
+            binding.checkbox.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) selectedIds.add(product.id)
+                else selectedIds.remove(product.id)
                 onCartChanged()
+            }
+
+            binding.btnPlus.setOnClickListener {
+                val newQty = item.quantity + 1
+                cartManager.updateQuantity(product.id, newQty)
+                binding.tvQuantity.text = newQty.toString()
+                binding.tvTotalPrice.text = String.format("%.2f ₼", product.price * newQty)
+                onCartChanged()
+                submitList(cartManager.getCartItems())
             }
 
             binding.btnMinus.setOnClickListener {
-                cartManager.updateQuantity(product.id, item.quantity - 1)
-                onCartChanged()
+                if (item.quantity > 1) {
+                    val newQty = item.quantity - 1
+                    cartManager.updateQuantity(product.id, newQty)
+                    binding.tvQuantity.text = newQty.toString()
+                    binding.tvTotalPrice.text = String.format("%.2f ₼", product.price * newQty)
+                    onCartChanged()
+                    submitList(cartManager.getCartItems())
+                } else {
+                    selectedIds.remove(product.id)
+                    cartManager.removeFromCart(product.id)
+                    submitList(cartManager.getCartItems())
+                    onCartChanged()
+                }
             }
 
             binding.btnRemove.setOnClickListener {
+                selectedIds.remove(product.id)
                 cartManager.removeFromCart(product.id)
+                submitList(cartManager.getCartItems())
                 onCartChanged()
             }
         }
@@ -67,7 +128,6 @@ class CartAdapter(
     class DiffCallback : DiffUtil.ItemCallback<CartManager.CartItem>() {
         override fun areItemsTheSame(a: CartManager.CartItem, b: CartManager.CartItem) =
             a.product.id == b.product.id
-
         override fun areContentsTheSame(a: CartManager.CartItem, b: CartManager.CartItem) =
             a == b
     }

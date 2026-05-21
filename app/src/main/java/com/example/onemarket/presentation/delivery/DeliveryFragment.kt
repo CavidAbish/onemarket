@@ -14,9 +14,7 @@ import com.example.onemarket.data.local.CityManager
 import com.example.onemarket.databinding.FragmentDeliveryBinding
 import com.example.onemarket.databinding.ItemOrderDeliveryBinding
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -31,6 +29,9 @@ class DeliveryFragment : Fragment() {
     // Hər sifariş üçün seçilmiş ünvanı saxla
     private val selectedAddresses = mutableMapOf<Int, String>()
 
+    // Hər sifariş üçün ItemOrderDeliveryBinding saxla
+    private val orderBindings = mutableListOf<ItemOrderDeliveryBinding>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,7 +45,6 @@ class DeliveryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
-
         binding.tvSelectedCity.text = cityManager.getCity()
 
         binding.btnSelectCity.setOnClickListener {
@@ -59,13 +59,16 @@ class DeliveryFragment : Fragment() {
             val orderIndex = bundle.getInt("order_index", 0)
             if (address.isNotEmpty()) {
                 selectedAddresses[orderIndex] = address
-                // Həmin sifarişin ünvan textview-unu yenilə
-                val itemView = binding.ordersContainer.getChildAt(orderIndex)
-                val addressText = itemView?.findViewById<android.widget.TextView>(
-                    com.example.onemarket.R.id.tvCourierAddress
-                )
-                addressText?.text = address
-                addressText?.visibility = View.VISIBLE
+
+                // Həmin sifarişin binding-ini tap
+                val b = orderBindings.getOrNull(orderIndex) ?: return@setFragmentResultListener
+
+                // Kuryerlə çatdırılma seçili olsun
+                clearDeliveryOptions(b)
+                b.radioCourier.isChecked = true
+                b.tvCourierAddress.text = address
+                b.tvCourierAddress.visibility = View.VISIBLE
+                b.btnAddAddress.visibility = View.GONE
             }
         }
 
@@ -79,7 +82,8 @@ class DeliveryFragment : Fragment() {
     }
 
     private fun setupOrders() {
-        val cartItems = cartManager.getCartItems()
+        // Seçilmiş məhsulları göstər, yoxdursa bütün səbəti göstər
+        val cartItems = cartManager.getSelectedItems().ifEmpty { cartManager.getCartItems() }
 
         cartItems.forEachIndexed { index, item ->
             val itemBinding = ItemOrderDeliveryBinding.inflate(
@@ -87,6 +91,7 @@ class DeliveryFragment : Fragment() {
                 binding.ordersContainer,
                 false
             )
+            orderBindings.add(itemBinding)
 
             itemBinding.tvOrderNumber.text = "SİFARİŞ ${index + 1}"
             itemBinding.tvSellerName.text = item.product.brand.uppercase().ifEmpty { "ONEMARKET" }
@@ -108,7 +113,6 @@ class DeliveryFragment : Fragment() {
             itemBinding.tvPickupDate.text = "${getDate(3)} may, "
 
             setupDeliveryOptions(itemBinding, index)
-
             binding.ordersContainer.addView(itemBinding.root)
         }
     }
@@ -119,30 +123,27 @@ class DeliveryFragment : Fragment() {
         return cal.get(Calendar.DAY_OF_MONTH).toString()
     }
 
-    private fun setupDeliveryOptions(b: ItemOrderDeliveryBinding, orderIndex: Int) {
+    private fun clearDeliveryOptions(b: ItemOrderDeliveryBinding) {
+        b.radioCourier.isChecked = false
+        b.radioPost.isChecked = false
+        b.radioPickup.isChecked = false
+        b.btnAddAddress.visibility = View.GONE
+        b.tvCourierAddress.visibility = View.GONE
+        b.pickupAddressLayout.visibility = View.GONE
+    }
 
-        fun clearAll() {
-            b.radioCourier.isChecked = false
-            b.radioPost.isChecked = false
-            b.radioPickup.isChecked = false
-            b.btnAddAddress.visibility = View.GONE
-            b.tvCourierAddress.visibility = View.GONE
-            b.pickupAddressLayout.visibility = View.GONE
-        }
+    private fun setupDeliveryOptions(b: ItemOrderDeliveryBinding, orderIndex: Int) {
 
         // Kuryerlə çatdırılma
         val courierClick = View.OnClickListener {
-            clearAll()
+            clearDeliveryOptions(b)
             b.radioCourier.isChecked = true
-            // Əgər ünvan artıq seçilibsə göstər
             val savedAddress = selectedAddresses[orderIndex]
             if (savedAddress != null) {
                 b.tvCourierAddress.text = savedAddress
                 b.tvCourierAddress.visibility = View.VISIBLE
-                b.btnAddAddress.visibility = View.GONE
             } else {
                 b.btnAddAddress.visibility = View.VISIBLE
-                b.tvCourierAddress.visibility = View.GONE
             }
         }
         b.optionCourier.setOnClickListener(courierClick)
@@ -150,7 +151,7 @@ class DeliveryFragment : Fragment() {
 
         // Azərpoçt
         val postClick = View.OnClickListener {
-            clearAll()
+            clearDeliveryOptions(b)
             b.radioPost.isChecked = true
         }
         b.optionPost.setOnClickListener(postClick)
@@ -158,7 +159,7 @@ class DeliveryFragment : Fragment() {
 
         // Özün götür
         val pickupClick = View.OnClickListener {
-            clearAll()
+            clearDeliveryOptions(b)
             b.radioPickup.isChecked = true
             b.pickupAddressLayout.visibility = View.VISIBLE
             b.tvPickupAddress.text = "Bakı şəh. Nərimanov r., Möhsün Sənani küç., 153"
@@ -168,7 +169,6 @@ class DeliveryFragment : Fragment() {
 
         // Ünvan əlavə et — xəritə açılır
         b.btnAddAddress.setOnClickListener {
-            // Order index-i ötür ki, qayıdanda hansı sifariş üçün olduğunu bilək
             val bundle = Bundle().apply { putInt("order_index", orderIndex) }
             parentFragmentManager.setFragmentResult("order_index", bundle)
             findNavController().navigate(
@@ -176,7 +176,6 @@ class DeliveryFragment : Fragment() {
             )
         }
 
-        // Götürülmə məntəqəsi
         b.btnChangePickup.setOnClickListener {
             Toast.makeText(requireContext(), "Məntəqəni dəyişdirin", Toast.LENGTH_SHORT).show()
         }
@@ -189,6 +188,7 @@ class DeliveryFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        orderBindings.clear()
         _binding = null
     }
 }

@@ -23,6 +23,9 @@ class CartManager @Inject constructor(
         return context.getSharedPreferences(key, Context.MODE_PRIVATE)
     }
 
+    private fun selectedPrefs(): SharedPreferences =
+        context.getSharedPreferences("selected_items_temp", Context.MODE_PRIVATE)
+
     fun getCartItems(): List<CartItem> {
         val json = prefs().getString("cart_items", null) ?: return emptyList()
         val type = object : TypeToken<List<CartItem>>() {}.type
@@ -49,6 +52,27 @@ class CartManager @Inject constructor(
             else items[idx] = items[idx].copy(quantity = quantity)
         }
         save(items)
+    }
+
+    // Seçilmiş itemləri müvəqqəti saxla — Delivery/OrderSummary üçün
+    fun saveSelectedItems(items: List<CartItem>) {
+        selectedPrefs().edit()
+            .putString("selected", gson.toJson(items))
+            .apply()
+    }
+
+    fun getSelectedItems(): List<CartItem> {
+        val json = selectedPrefs().getString("selected", null) ?: return emptyList()
+        val type = object : TypeToken<List<CartItem>>() {}.type
+        return gson.fromJson(json, type)
+    }
+
+    // Yalnız seçilmiş məhsulları sil
+    fun removeSelectedItems() {
+        val selected = getSelectedItems().map { it.product.id }.toSet()
+        val remaining = getCartItems().filter { it.product.id !in selected }
+        save(remaining)
+        selectedPrefs().edit().remove("selected").apply()
     }
 
     fun getTotalPrice(): Double = getCartItems().sumOf { it.product.price * it.quantity }

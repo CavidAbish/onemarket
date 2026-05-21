@@ -54,18 +54,39 @@ class CartFragment : Fragment() {
         setupRecommendedRecyclerView()
         setupInfiniteScroll()
         observeRecommended()
+        setupSelectAll()
 
         binding.btnCatalog.setOnClickListener {
             requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav)
                 .selectedItemId = R.id.catalogFragment
         }
+
         binding.btnCheckout.setOnClickListener {
+            val selected = cartAdapter.getSelectedItems()
+            if (selected.isEmpty()) {
+                Toast.makeText(requireContext(), "Ödəniş üçün məhsul seçin", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            // Seçilmiş məhsulları müvəqqəti saxla
+            cartManager.saveSelectedItems(selected)
             findNavController().navigate(
                 CartFragmentDirections.actionCartFragmentToDeliveryFragment()
             )
         }
+
         binding.btnCheckoutCredit.setOnClickListener {
             Toast.makeText(requireContext(), "Kreditlə sifariş rəsmiləşdirilir...", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.tvDeleteSelected.setOnClickListener {
+            val selected = cartAdapter.getSelectedItems()
+            if (selected.isEmpty()) {
+                Toast.makeText(requireContext(), "Heç bir məhsul seçilməyib", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            selected.forEach { cartManager.removeFromCart(it.product.id) }
+            cartAdapter.deselectAll()
+            refreshCart()
         }
     }
 
@@ -74,19 +95,26 @@ class CartFragment : Fragment() {
         refreshCart()
     }
 
+    private fun setupSelectAll() {
+        binding.cbSelectAll.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) cartAdapter.selectAll()
+            else cartAdapter.deselectAll()
+        }
+    }
+
     private fun refreshCart() {
         val cartItems = cartManager.getCartItems()
         cartAdapter.submitList(cartItems.toList())
 
         if (cartItems.isEmpty()) {
-            // BOŞ VƏZİYYƏT
             binding.emptyCartCard.visibility = View.VISIBLE
             binding.recyclerViewCart.visibility = View.GONE
             binding.bottomCheckout.visibility = View.GONE
             binding.tvRecommended.visibility = View.GONE
             binding.recyclerViewRecommended.visibility = View.GONE
+            binding.selectAllBar.visibility = View.GONE
+            binding.selectDivider.visibility = View.GONE
 
-            // Əvvəl baxdıqlarını göstər
             val recent = recentlyViewedManager.getRecentlyViewed()
             if (recent.isNotEmpty()) {
                 recentlyViewedAdapter.submitList(recent)
@@ -96,14 +124,10 @@ class CartFragment : Fragment() {
                 binding.tvRecentlyViewed.visibility = View.GONE
                 binding.recyclerViewRecentlyViewed.visibility = View.GONE
             }
-
-            // Sizin üçün seçdik
             binding.tvForYou.visibility = View.VISIBLE
             binding.recyclerViewForYou.visibility = View.VISIBLE
             viewModel.loadRecommended("fragrances", emptyList())
-
         } else {
-            // DOLU VƏZİYYƏT
             binding.emptyCartCard.visibility = View.GONE
             binding.recyclerViewCart.visibility = View.VISIBLE
             binding.bottomCheckout.visibility = View.VISIBLE
@@ -111,23 +135,51 @@ class CartFragment : Fragment() {
             binding.recyclerViewRecentlyViewed.visibility = View.GONE
             binding.tvForYou.visibility = View.GONE
             binding.recyclerViewForYou.visibility = View.GONE
-
-            val total = cartManager.getTotalPrice()
-            val count = cartManager.getItemCount()
-            binding.tvOrderSummary.text = "Sifarişin məbləği ($count məhsul):"
-            binding.tvTotalPrice.text = String.format("%.2f ₼", total)
+            binding.selectAllBar.visibility = View.VISIBLE
+            binding.selectDivider.visibility = View.VISIBLE
 
             val firstCategory = cartItems.first().product.category
             val excludeIds = cartItems.map { it.product.id }
             viewModel.loadRecommended(firstCategory, excludeIds)
+
+            updateTotal()
         }
 
         recommendedAdapter.notifyDataSetChanged()
         recentlyViewedAdapter.notifyDataSetChanged()
     }
 
+    private fun updateTotal() {
+        val selected = cartAdapter.getSelectedItems()
+        // Ən son quantity-ləri cartManager-dən götür
+        val cartItems = cartManager.getCartItems()
+        val total = selected.sumOf { sel ->
+            val cur = cartItems.find { it.product.id == sel.product.id }
+            sel.product.price * (cur?.quantity ?: sel.quantity)
+        }
+        val count = selected.sumOf { sel ->
+            val cur = cartItems.find { it.product.id == sel.product.id }
+            cur?.quantity ?: sel.quantity
+        }
+
+        binding.tvTotalPrice.text = String.format("%.2f ₼", total)
+        binding.tvOrderSummary.text = "Sifarişin məbləği ($count məhsul):"
+
+        // cbSelectAll yenilə
+        binding.cbSelectAll.setOnCheckedChangeListener(null)
+        binding.cbSelectAll.isChecked = cartAdapter.isAllSelected()
+        binding.cbSelectAll.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) cartAdapter.selectAll()
+            else cartAdapter.deselectAll()
+        }
+    }
+
     private fun setupCartRecyclerView() {
-        cartAdapter = CartAdapter(cartManager = cartManager, onCartChanged = { refreshCart() })
+        cartAdapter = CartAdapter(cartManager = cartManager, onCartChanged = {
+            updateTotal()
+            val cartItems = cartManager.getCartItems()
+            if (cartItems.isEmpty()) refreshCart()
+        })
         binding.recyclerViewCart.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewCart.adapter = cartAdapter
     }
@@ -203,10 +255,8 @@ class CartFragment : Fragment() {
             viewModel.recommended.collect { products ->
                 val cartItems = cartManager.getCartItems()
                 if (cartItems.isEmpty()) {
-                    // Boş vəziyyət — grid şəklində göstər
                     forYouAdapter.submitList(products)
                 } else {
-                    // Dolu vəziyyət — horizontal göstər
                     recommendedAdapter.submitList(products)
                     if (products.isNotEmpty()) {
                         binding.tvRecommended.visibility = View.VISIBLE
