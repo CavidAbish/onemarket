@@ -10,7 +10,9 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.onemarket.data.local.CityManager
 import com.example.onemarket.databinding.FragmentMapPickerBinding
+import dagger.hilt.android.AndroidEntryPoint
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
@@ -18,18 +20,26 @@ import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 import java.util.Locale
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MapPickerFragment : Fragment() {
 
     private var _binding: FragmentMapPickerBinding? = null
     private val binding get() = _binding!!
+
+    @Inject lateinit var cityManager: CityManager
 
     private lateinit var mapView: MapView
     private var locationOverlay: MyLocationNewOverlay? = null
     private var currentGeoPoint = GeoPoint(40.4093, 49.8671)
     private var selectedAddress = ""
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         Configuration.getInstance().userAgentValue = requireContext().packageName
         _binding = FragmentMapPickerBinding.inflate(inflater, container, false)
         return binding.root
@@ -37,6 +47,10 @@ class MapPickerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Centre on the currently selected city
+        val (lat, lng) = cityManager.getCoordinates()
+        currentGeoPoint = GeoPoint(lat, lng)
 
         setupMap()
 
@@ -68,7 +82,11 @@ class MapPickerFragment : Fragment() {
         mapView.controller.setZoom(15.0)
         mapView.controller.setCenter(currentGeoPoint)
 
-        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             locationOverlay = MyLocationNewOverlay(GpsMyLocationProvider(requireContext()), mapView)
             locationOverlay?.enableMyLocation()
             mapView.overlays.add(locationOverlay)

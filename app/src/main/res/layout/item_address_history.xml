@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
+    android:background="?attr/selectableItemBackground">
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_location"
+        android:layout_marginEnd="12dp" />
+
+    <TextView
+        android:id="@+id/tvAddressItem"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Çatdırılma ünvanı"
+        android:textSize="14sp"
+        android:textColor="#1A1A1A"
+        android:lineSpacingMultiplier="1.2" />
+
+    <RadioButton
+        android:id="@+id/rbAddressItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="#E91E8C"
+        android:clickable="false"
+        android:focusable="false" />
+
+</LinearLayout>

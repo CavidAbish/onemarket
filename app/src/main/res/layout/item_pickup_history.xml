@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
+    android:background="?attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvHistoryPointName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Birmarket Nəsimi"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#1A1A1A" />
+
+        <TextView
+            android:id="@+id/tvHistoryPointAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bakı şəh. Nərimanov r., Möhsün Sənani küç., 153"
+            android:textSize="12sp"
+            android:textColor="#888888"
+            android:layout_marginTop="2dp"
+            android:lineSpacingMultiplier="1.2" />
+
+    </LinearLayout>
+
+    <RadioButton
+        android:id="@+id/rbHistoryPoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="#E91E8C"
+        android:clickable="false"
+        android:focusable="false" />
+
+</LinearLayout>

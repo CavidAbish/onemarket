@@ -6,20 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.HorizontalScrollView
-import android.widget.RadioButton
 import android.widget.TextView
-import android.widget.Toast
-import androidx.cardview.widget.CardView
-import com.google.android.material.card.MaterialCardView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.onemarket.R
 import com.example.onemarket.data.local.CartManager
 import com.example.onemarket.data.local.CityManager
+import com.example.onemarket.data.local.PickupHistoryManager
 import com.example.onemarket.databinding.FragmentDeliveryBinding
 import com.example.onemarket.databinding.ItemOrderDeliveryBinding
+import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 import javax.inject.Inject
@@ -32,11 +29,23 @@ class DeliveryFragment : Fragment() {
 
     @Inject lateinit var cartManager: CartManager
     @Inject lateinit var cityManager: CityManager
+    @Inject lateinit var historyManager: PickupHistoryManager
 
     private val selectedAddresses = mutableMapOf<Int, String>()
     private val orderBindings = mutableListOf<ItemOrderDeliveryBinding>()
+    private val pickupAddresses = mutableMapOf<Int, String>()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    // Persist time-slot date selection per order
+    private val selectedSlotDates = mutableMapOf<Int, String>()
+
+    // Track which order index triggered the map picker
+    private var currentMapPickerOrderIndex = 0
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentDeliveryBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -52,7 +61,47 @@ class DeliveryFragment : Fragment() {
             )
         }
 
+        // Result from PickupMapFragment — update pickup address
+        parentFragmentManager.setFragmentResultListener("pickup_result", viewLifecycleOwner) { _, bundle ->
+            val address = bundle.getString("pickup_address", "")
+            if (address.isNotEmpty()) {
+                orderBindings.forEachIndexed { index, b ->
+                    if (b.radioPickup.isChecked) {
+                        pickupAddresses[index] = address
+                        b.tvPickupAddress.text = address
+                    }
+                }
+            }
+        }
+
+        // Result from PickupBottomSheetFragment — open pickup map
+        parentFragmentManager.setFragmentResultListener("open_pickup_map", viewLifecycleOwner) { _, _ ->
+            findNavController().navigate(
+                DeliveryFragmentDirections.actionDeliveryFragmentToPickupMapFragment()
+            )
+        }
+
+        // Result from MapPickerFragment — update courier address
         parentFragmentManager.setFragmentResultListener("map_result", viewLifecycleOwner) { _, bundle ->
+            val address = bundle.getString("selected_address", "")
+            if (address.isNotEmpty()) {
+                val orderIndex = currentMapPickerOrderIndex
+                selectedAddresses[orderIndex] = address
+                historyManager.addAddress(address)
+                val b = orderBindings.getOrNull(orderIndex) ?: return@setFragmentResultListener
+                clearDeliveryOptions(b)
+                b.radioCourier.isChecked = true
+                b.tvCourierAddress.text = address
+                b.tvCourierAddress.visibility = View.VISIBLE
+                // Keep button visible with "dəyiş" text
+                b.btnAddAddress.text = "Çatdırılma ünvanını dəyiş"
+                b.btnAddAddress.visibility = View.VISIBLE
+                showTimeSlots(b, orderIndex)
+            }
+        }
+
+        // Result from AddressBottomSheetFragment — user selected a saved address
+        parentFragmentManager.setFragmentResultListener("address_selected", viewLifecycleOwner) { _, bundle ->
             val address = bundle.getString("selected_address", "")
             val orderIndex = bundle.getInt("order_index", 0)
             if (address.isNotEmpty()) {
@@ -62,9 +111,18 @@ class DeliveryFragment : Fragment() {
                 b.radioCourier.isChecked = true
                 b.tvCourierAddress.text = address
                 b.tvCourierAddress.visibility = View.VISIBLE
-                b.btnAddAddress.visibility = View.GONE
-                showTimeSlots(b)
+                b.btnAddAddress.text = "Çatdırılma ünvanını dəyiş"
+                b.btnAddAddress.visibility = View.VISIBLE
+                showTimeSlots(b, orderIndex)
             }
+        }
+
+        // Result from AddressBottomSheetFragment — open map picker
+        parentFragmentManager.setFragmentResultListener("open_address_map", viewLifecycleOwner) { _, bundle ->
+            currentMapPickerOrderIndex = bundle.getInt("order_index", 0)
+            findNavController().navigate(
+                DeliveryFragmentDirections.actionDeliveryFragmentToMapPickerFragment()
+            )
         }
 
         setupOrders()
@@ -98,12 +156,11 @@ class DeliveryFragment : Fragment() {
 
             Glide.with(this).load(item.product.thumbnail).centerCrop().into(itemBinding.ivProductImage)
 
-            // Default: Özün götür seçili olsun
+            // Default: "Özün götür" seçili
             clearDeliveryOptions(itemBinding)
             itemBinding.radioPickup.isChecked = true
             itemBinding.pickupAddressLayout.visibility = View.VISIBLE
             itemBinding.tvPickupAddress.text = "Bakı şəh. Nərimanov r., Möhsün Sənani küç., 153"
-            // 1 gün sonrakı tarixi göstər
             itemBinding.tvPickupDate.text = getDateLabel(1)
 
             setupDeliveryOptions(itemBinding, index)
@@ -113,10 +170,10 @@ class DeliveryFragment : Fragment() {
 
     private fun getDateLabel(daysAfter: Int): String {
         val months = listOf("yan","fev","mar","apr","may","iyn","iyl","avq","sen","okt","noy","dek")
-        val cal = java.util.Calendar.getInstance()
-        cal.add(java.util.Calendar.DAY_OF_YEAR, daysAfter)
-        val day = cal.get(java.util.Calendar.DAY_OF_MONTH)
-        val month = months[cal.get(java.util.Calendar.MONTH)]
+        val cal = Calendar.getInstance()
+        cal.add(Calendar.DAY_OF_YEAR, daysAfter)
+        val day = cal.get(Calendar.DAY_OF_MONTH)
+        val month = months[cal.get(Calendar.MONTH)]
         return if (daysAfter == 1) "Sabah, $day $month" else "$day $month"
     }
 
@@ -126,29 +183,33 @@ class DeliveryFragment : Fragment() {
         b.btnAddAddress.visibility = View.GONE
         b.tvCourierAddress.visibility = View.GONE
         b.pickupAddressLayout.visibility = View.GONE
-        // Azərpoçt gizlət
         b.optionPost.visibility = View.GONE
-        // Vaxt slotlarını gizlət
         hideTimeSlots(b)
     }
 
     private fun setupDeliveryOptions(b: ItemOrderDeliveryBinding, orderIndex: Int) {
-        // Azərpoçtu gizlət
         b.optionPost.visibility = View.GONE
 
         // Kuryerlə çatdırılma
         val courierClick = View.OnClickListener {
             clearDeliveryOptions(b)
             b.radioCourier.isChecked = true
+
+            // Restore or set default date
+            val savedDate = selectedSlotDates[orderIndex]
+            b.tvCourierDate.text = if (savedDate != null) "$savedDate, " else "${getDateLabel(1)}, "
+
             val savedAddress = selectedAddresses[orderIndex]
             if (savedAddress != null) {
                 b.tvCourierAddress.text = savedAddress
                 b.tvCourierAddress.visibility = View.VISIBLE
-                b.btnAddAddress.visibility = View.GONE
+                b.btnAddAddress.text = "Çatdırılma ünvanını dəyiş"
+                b.btnAddAddress.visibility = View.VISIBLE
             } else {
+                b.btnAddAddress.text = "Çatdırılma ünvanını əlavə et"
                 b.btnAddAddress.visibility = View.VISIBLE
             }
-            showTimeSlots(b)
+            showTimeSlots(b, orderIndex)
         }
         b.optionCourier.setOnClickListener(courierClick)
         b.radioCourier.setOnClickListener(courierClick)
@@ -158,22 +219,24 @@ class DeliveryFragment : Fragment() {
             clearDeliveryOptions(b)
             b.radioPickup.isChecked = true
             b.pickupAddressLayout.visibility = View.VISIBLE
-            b.tvPickupAddress.text = "Bakı şəh. Nərimanov r., Möhsün Sənani küç., 153"
+            b.tvPickupAddress.text = pickupAddresses[orderIndex]
+                ?: "Bakı şəh. Nərimanov r., Möhsün Sənani küç., 153"
         }
         b.optionPickup.setOnClickListener(pickupClick)
         b.radioPickup.setOnClickListener(pickupClick)
 
-        // Ünvan əlavə et
+        // Ünvan əlavə et / dəyiş — show address bottom sheet
         b.btnAddAddress.setOnClickListener {
-            val bundle = Bundle().apply { putInt("order_index", orderIndex) }
-            parentFragmentManager.setFragmentResult("order_index", bundle)
-            findNavController().navigate(
-                DeliveryFragmentDirections.actionDeliveryFragmentToMapPickerFragment()
-            )
+            val currentAddr = selectedAddresses[orderIndex] ?: ""
+            AddressBottomSheetFragment.newInstance(orderIndex, currentAddr)
+                .show(parentFragmentManager, AddressBottomSheetFragment.TAG)
         }
 
+        // Pickup dəyiş
         b.btnChangePickup.setOnClickListener {
-            Toast.makeText(requireContext(), "Məntəqəni dəyişdirin", Toast.LENGTH_SHORT).show()
+            val currentAddress = pickupAddresses[orderIndex] ?: b.tvPickupAddress.text.toString()
+            PickupBottomSheetFragment.newInstance(currentAddress)
+                .show(parentFragmentManager, PickupBottomSheetFragment.TAG)
         }
     }
 
@@ -181,15 +244,13 @@ class DeliveryFragment : Fragment() {
         b.root.findViewWithTag<View>("timeSlotsContainer")?.visibility = View.GONE
     }
 
-    private fun showTimeSlots(b: ItemOrderDeliveryBinding) {
-        // Mövcud slot container-i yoxla
+    private fun showTimeSlots(b: ItemOrderDeliveryBinding, orderIndex: Int) {
         val existing = b.root.findViewWithTag<View>("timeSlotsContainer")
         if (existing != null) {
             existing.visibility = View.VISIBLE
             return
         }
 
-        // Yeni slot container yarat
         val scrollView = HorizontalScrollView(requireContext()).apply {
             tag = "timeSlotsContainer"
             layoutParams = android.widget.LinearLayout.LayoutParams(
@@ -205,16 +266,14 @@ class DeliveryFragment : Fragment() {
         }
 
         val slots = generateTimeSlots()
-        var selectedSlot: com.google.android.material.card.MaterialCardView? = null
+        var selectedSlot: MaterialCardView? = null
 
         slots.forEach { slot ->
-            val card = com.google.android.material.card.MaterialCardView(requireContext()).apply {
+            val card = MaterialCardView(requireContext()).apply {
                 val lp = android.widget.LinearLayout.LayoutParams(
                     android.widget.LinearLayout.LayoutParams.WRAP_CONTENT,
                     android.widget.LinearLayout.LayoutParams.WRAP_CONTENT
-                ).also {
-                    it.marginEnd = 8.dpToPx()
-                }
+                ).also { it.marginEnd = 8.dpToPx() }
                 layoutParams = lp
                 radius = 8.dpToPx().toFloat()
                 cardElevation = 0f
@@ -248,7 +307,7 @@ class DeliveryFragment : Fragment() {
             card.addView(inner)
 
             card.setOnClickListener {
-                // Seçili olanı sıfırla
+                // Deselect previous
                 selectedSlot?.setCardBackgroundColor(android.graphics.Color.WHITE)
                 selectedSlot?.strokeColor = android.graphics.Color.parseColor("#E0E0E0")
                 selectedSlot?.let { prev ->
@@ -257,12 +316,13 @@ class DeliveryFragment : Fragment() {
                         (ll.getChildAt(1) as? TextView)?.setTextColor(android.graphics.Color.parseColor("#888888"))
                     }
                 }
-                // Yenisini seç
-                card.setCardBackgroundColor(android.graphics.Color.WHITE)
+                // Select this card
                 card.strokeColor = android.graphics.Color.parseColor("#1A237E")
-                tvTime.setTextColor(android.graphics.Color.parseColor("#1A1A1A"))
-                tvDate.setTextColor(android.graphics.Color.parseColor("#888888"))
                 selectedSlot = card
+
+                // Save and display selected date
+                selectedSlotDates[orderIndex] = slot.second
+                b.tvCourierDate.text = "${slot.second}, "
             }
 
             container.addView(card)
@@ -270,7 +330,6 @@ class DeliveryFragment : Fragment() {
 
         scrollView.addView(container)
 
-        // b.root-a əlavə et (b.root LinearLayout olmalıdır)
         try {
             val parent = b.optionCourier.parent as? android.widget.LinearLayout
             val idx = parent?.indexOfChild(b.optionCourier) ?: -1

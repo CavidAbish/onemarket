@@ -152,7 +152,9 @@ class ProfileFragment : Fragment() {
             Toast.makeText(requireContext(), "Çatdırılma və ödəmə", Toast.LENGTH_SHORT).show()
         }
         binding.menuPickup.setOnClickListener {
-            Toast.makeText(requireContext(), "Təhvil məntəqələri", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(
+                ProfileFragmentDirections.actionProfileFragmentToPickupListFragment()
+            )
         }
         binding.menuFaq.setOnClickListener {
             Toast.makeText(requireContext(), "Ən çox verilən suallar", Toast.LENGTH_SHORT).show()

@@ -14,7 +14,8 @@ data class Order(
     val product: ProductModel,
     val quantity: Int,
     val totalAmount: Double,
-    val date: String
+    val date: String,
+    val paymentMethod: String = "Bank kartı vasitəsi ilə onlayn"
 )
 
 @Singleton
@@ -41,7 +42,7 @@ class OrderManager @Inject constructor(
         prefs().edit().putString("orders", gson.toJson(orders)).apply()
     }
 
-    fun addOrdersFromCart(cartItems: List<CartManager.CartItem>) {
+    fun addOrdersFromCart(cartItems: List<CartManager.CartItem>, paymentMethod: String = "Bank kartı vasitəsi ilə onlayn") {
         val orders = getOrders().toMutableList()
         val date = java.text.SimpleDateFormat("dd.MM.yyyy", java.util.Locale.getDefault())
             .format(java.util.Date())
@@ -52,7 +53,8 @@ class OrderManager @Inject constructor(
                     product = item.product,
                     quantity = item.quantity,
                     totalAmount = item.product.price * item.quantity,
-                    date = date
+                    date = date,
+                    paymentMethod = paymentMethod
                 )
             )
         }

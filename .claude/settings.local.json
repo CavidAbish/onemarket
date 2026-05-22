@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ic_location)",
+      "Bash(ic_close)",
+      "Bash(ic_back\")"
+    ]
+  }
+}

@@ -50,6 +50,7 @@
         <action android:id="@+id/action_profileFragment_to_loginFragment" app:destination="@id/loginFragment" />
         <action android:id="@+id/action_profileFragment_to_cityFragment" app:destination="@id/cityFragment" />
         <action android:id="@+id/action_profileFragment_to_myOrdersFragment" app:destination="@id/myOrdersFragment" />
+        <action android:id="@+id/action_profileFragment_to_pickupListFragment" app:destination="@id/pickupListFragment" />
     </fragment>
 
     <fragment
@@ -82,6 +83,23 @@
         <action android:id="@+id/action_deliveryFragment_to_cityFragment" app:destination="@id/cityFragment" />
         <action android:id="@+id/action_deliveryFragment_to_mapPickerFragment" app:destination="@id/mapPickerFragment" />
         <action android:id="@+id/action_deliveryFragment_to_orderSummaryFragment" app:destination="@id/orderSummaryFragment" />
+        <action android:id="@+id/action_deliveryFragment_to_pickupMapFragment" app:destination="@id/pickupMapFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/pickupMapFragment"
+        android:name="com.example.onemarket.presentation.delivery.PickupMapFragment"
+        android:label="fragment_pickup_map"
+        tools:layout="@layout/fragment_pickup_map">
+        <argument android:name="pointId" app:argType="integer" android:defaultValue="-1" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/pickupListFragment"
+        android:name="com.example.onemarket.presentation.profile.PickupListFragment"
+        android:label="fragment_pickup_list"
+        tools:layout="@layout/fragment_pickup_list">
+        <action android:id="@+id/action_pickupListFragment_to_pickupMapFragment" app:destination="@id/pickupMapFragment" />
     </fragment>
 
     <fragment

@@ -61,7 +61,7 @@ class OrderDetailFragment : Fragment() {
         // Ödəniş məlumatları
         binding.tvBuyerName.text = userManager.getUserName().ifEmpty { "Alıcı" }
         binding.tvBuyerPhone.text = userManager.getUserPhone()
-        binding.tvPaymentMethod.text = "Bank kartı vasitəsi ilə onlayn"
+        binding.tvPaymentMethod.text = order.paymentMethod
         binding.tvPaymentStatus.text = "Ödənilib"
         binding.tvPaymentStatus.setTextColor(
             requireContext().getColor(com.example.onemarket.R.color.cart_green)

@@ -55,8 +55,8 @@ class OrderSummaryFragment : Fragment() {
         binding.tvContactName.text = userManager.getUserName().uppercase()
         binding.tvContactPhone.text = userManager.getUserPhone()
 
-        // Səbət məhsulları
-        val cartItems = cartManager.getCartItems()
+        // Yalnız seçilmiş məhsullar
+        val cartItems = cartManager.getSelectedItems().ifEmpty { cartManager.getCartItems() }
         val deliveryCost = 3.0
 
         cartItems.forEachIndexed { index, item ->
@@ -95,12 +95,20 @@ class OrderSummaryFragment : Fragment() {
     }
 
     private fun onPayButtonClicked() {
+        val selectedItems = cartManager.getSelectedItems().ifEmpty { cartManager.getCartItems() }
+        val paymentLabel = when (selectedPaymentMethod) {
+            "DELIVERY" -> "Təhvil alarkən bank kartı vasitəsi ilə"
+            "BIRBANK"  -> "Birbank taksit kartı ilə"
+            "CREDIT"   -> "Kredit"
+            else       -> "Bank kartı vasitəsi ilə onlayn"
+        }
         if (selectedPaymentMethod == "DELIVERY") {
-            orderManager.addOrdersFromCart(cartManager.getCartItems())
-            cartManager.clearCart()
-            findNavController().navigate(
-                OrderSummaryFragmentDirections.actionOrderSummaryFragmentToMyOrdersFragment()
-            )
+            orderManager.addOrdersFromCart(selectedItems, paymentLabel)
+            cartManager.removeSelectedItems()
+            // Home-a keç
+            requireActivity().findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
+                com.example.onemarket.R.id.bottom_nav
+            ).selectedItemId = com.example.onemarket.R.id.homeFragment
         } else {
             findNavController().navigate(
                 OrderSummaryFragmentDirections.actionOrderSummaryFragmentToPaymentFragment(totalAmount.toFloat())
