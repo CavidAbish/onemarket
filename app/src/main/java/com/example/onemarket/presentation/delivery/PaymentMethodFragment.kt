@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.onemarket.databinding.FragmentPaymentMethodBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -14,6 +15,8 @@ class PaymentMethodFragment : Fragment() {
 
     private var _binding: FragmentPaymentMethodBinding? = null
     private val binding get() = _binding!!
+
+    private val args: PaymentMethodFragmentArgs by navArgs()
 
     private val paymentCards get() = listOf(
         binding.cardPayOnline,
@@ -38,16 +41,25 @@ class PaymentMethodFragment : Fragment() {
 
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
 
+        // Cari seçimi əvvəlcədən göstər
+        val preSelectedIndex = when (args.currentMethod) {
+            "BIRBANK"  -> 1
+            "CREDIT"   -> 2
+            "DELIVERY" -> 3
+            else       -> 0 // ONLINE
+        }
+        selectPayment(preSelectedIndex)
+
         paymentCards.forEachIndexed { index, card ->
             card.setOnClickListener { selectPayment(index) }
         }
 
         binding.btnApply.setOnClickListener {
             val selectedMethod = when {
-                binding.rbPayBirbank.isChecked -> "BIRBANK"
-                binding.rbPayCredit.isChecked -> "CREDIT"
+                binding.rbPayBirbank.isChecked   -> "BIRBANK"
+                binding.rbPayCredit.isChecked    -> "CREDIT"
                 binding.rbPayOnDelivery.isChecked -> "DELIVERY"
-                else -> "ONLINE"
+                else                             -> "ONLINE"
             }
             val bundle = android.os.Bundle().apply {
                 putString("selected_method", selectedMethod)

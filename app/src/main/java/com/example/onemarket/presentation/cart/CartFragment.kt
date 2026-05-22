@@ -80,7 +80,15 @@ class CartFragment : Fragment() {
         }
 
         binding.btnCheckoutCredit.setOnClickListener {
-            Toast.makeText(requireContext(), "Kreditlə sifariş rəsmiləşdirilir...", Toast.LENGTH_SHORT).show()
+            val selected = cartAdapter.getSelectedItems()
+            if (selected.isEmpty()) {
+                Toast.makeText(requireContext(), "Ödəniş üçün məhsul seçin", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            cartManager.saveSelectedItems(selected)
+            findNavController().navigate(
+                CartFragmentDirections.actionCartFragmentToDeliveryFragment(isCredit = true)
+            )
         }
 
         binding.tvDeleteSelected.setOnClickListener {

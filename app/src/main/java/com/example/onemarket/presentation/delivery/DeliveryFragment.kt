@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.HorizontalScrollView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.onemarket.R
 import com.example.onemarket.data.local.CartManager
@@ -26,6 +28,8 @@ class DeliveryFragment : Fragment() {
 
     private var _binding: FragmentDeliveryBinding? = null
     private val binding get() = _binding!!
+
+    private val args: DeliveryFragmentArgs by navArgs()
 
     @Inject lateinit var cartManager: CartManager
     @Inject lateinit var cityManager: CityManager
@@ -69,6 +73,7 @@ class DeliveryFragment : Fragment() {
                     if (b.radioPickup.isChecked) {
                         pickupAddresses[index] = address
                         b.tvPickupAddress.text = address
+                        b.tvPickupAddress.visibility = View.VISIBLE
                     }
                 }
             }
@@ -128,8 +133,22 @@ class DeliveryFragment : Fragment() {
         setupOrders()
 
         binding.btnNext.setOnClickListener {
+            // Ünvan seçilmədən keçməyə imkan vermə
+            val unfilledIndex = orderBindings.indices.firstOrNull { index ->
+                val b = orderBindings[index]
+                (b.radioCourier.isChecked && selectedAddresses[index] == null) ||
+                (b.radioPickup.isChecked && pickupAddresses[index] == null)
+            }
+            if (unfilledIndex != null) {
+                Toast.makeText(
+                    requireContext(),
+                    "Sifariş ${unfilledIndex + 1} üçün ünvan seçin",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
             findNavController().navigate(
-                DeliveryFragmentDirections.actionDeliveryFragmentToOrderSummaryFragment()
+                DeliveryFragmentDirections.actionDeliveryFragmentToOrderSummaryFragment(isCredit = args.isCredit)
             )
         }
     }
@@ -156,11 +175,11 @@ class DeliveryFragment : Fragment() {
 
             Glide.with(this).load(item.product.thumbnail).centerCrop().into(itemBinding.ivProductImage)
 
-            // Default: "Özün götür" seçili
+            // Default: "Özün götür" seçili, amma ünvan seçilməyib
             clearDeliveryOptions(itemBinding)
             itemBinding.radioPickup.isChecked = true
             itemBinding.pickupAddressLayout.visibility = View.VISIBLE
-            itemBinding.tvPickupAddress.text = "Bakı şəh. Nərimanov r., Möhsün Sənani küç., 153"
+            itemBinding.tvPickupAddress.visibility = View.GONE  // ünvan seçilənə qədər gizlə
             itemBinding.tvPickupDate.text = getDateLabel(1)
 
             setupDeliveryOptions(itemBinding, index)
@@ -219,8 +238,13 @@ class DeliveryFragment : Fragment() {
             clearDeliveryOptions(b)
             b.radioPickup.isChecked = true
             b.pickupAddressLayout.visibility = View.VISIBLE
-            b.tvPickupAddress.text = pickupAddresses[orderIndex]
-                ?: "Bakı şəh. Nərimanov r., Möhsün Sənani küç., 153"
+            val savedPickup = pickupAddresses[orderIndex]
+            if (savedPickup != null) {
+                b.tvPickupAddress.text = savedPickup
+                b.tvPickupAddress.visibility = View.VISIBLE
+            } else {
+                b.tvPickupAddress.visibility = View.GONE
+            }
         }
         b.optionPickup.setOnClickListener(pickupClick)
         b.radioPickup.setOnClickListener(pickupClick)

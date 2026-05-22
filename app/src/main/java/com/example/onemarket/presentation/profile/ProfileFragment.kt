@@ -80,7 +80,6 @@ class ProfileFragment : Fragment() {
             binding.menuSpecial to "Special abunəlik",
             binding.menuCards to "Mənim Kartlarım",
             binding.menuPromo to "Promokodlar",
-            binding.menuCredit to "Kredit müraciətləri",
             binding.menuReviews to "Rəylərim",
             binding.menuAddresses to "Sifarişlərin çatdırılması üçün ünvanlarım",
             binding.menuReturns to "Geri qaytarma müraciətləri",
@@ -88,6 +87,12 @@ class ProfileFragment : Fragment() {
         )
         menus.forEach { (v, title) ->
             v.setOnClickListener { Toast.makeText(requireContext(), title, Toast.LENGTH_SHORT).show() }
+        }
+
+        binding.menuCredit.setOnClickListener {
+            findNavController().navigate(
+                ProfileFragmentDirections.actionProfileFragmentToCreditApplicationsFragment()
+            )
         }
 
         // Çıxış — ekran qaralsın, home-a keçsin

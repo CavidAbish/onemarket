@@ -25,7 +25,9 @@ class PaymentFragment : Fragment() {
     private var isFormatting = false
 
     private val cardPrefs: SharedPreferences by lazy {
-        requireContext().getSharedPreferences("saved_card", Context.MODE_PRIVATE)
+        // Birbank taksit üçün ayrı saxlama — online kartla qarışmasın
+        val prefsKey = if (args.installmentMonths > 0) "saved_card_birbank" else "saved_card"
+        requireContext().getSharedPreferences(prefsKey, Context.MODE_PRIVATE)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -37,7 +39,21 @@ class PaymentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val amount = args.amount
+        val installmentMonths = args.installmentMonths
         binding.tvPaymentAmount.text = String.format("%.2f AZN", amount)
+
+        // Birbank taksit - əlavə detallar
+        if (installmentMonths > 0) {
+            val monthly = amount / installmentMonths
+            val orderId = (System.currentTimeMillis() % 100000000L).toString()
+            binding.tvInstallmentSubtitle.text =
+                "Ödənilcək sifariş № $orderId, hissə-hissə ödəniş: $installmentMonths ay"
+            binding.tvInstallmentSubtitle.visibility = View.VISIBLE
+            binding.installmentDetailRow.visibility = View.VISIBLE
+            binding.tvInstallmentDetail.text =
+                "${String.format("%.2f", monthly)} AZN × $installmentMonths ay"
+            binding.tvPaymentIdValue.text = orderId
+        }
 
         setupCardNumberFormat()
         setupExpiryFormat()
