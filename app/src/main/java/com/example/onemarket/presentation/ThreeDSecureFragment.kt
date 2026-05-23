@@ -148,9 +148,13 @@ class ThreeDSecureFragment : Fragment() {
         if (entered == otpCode) {
             timer?.cancel()
 
-            // Sifarişi saxla — seçilmiş məhsullar
+            // Sifarişi saxla — ödəniş üsulunu installmentMonths-a görə müəyyən et
             val selectedItems = cartManager.getSelectedItems().ifEmpty { cartManager.getCartItems() }
-            orderManager.addOrdersFromCart(selectedItems)
+            val paymentLabel = if (args.installmentMonths > 0)
+                "Birbank taksit kartı ilə"
+            else
+                "Bank kartı vasitəsi ilə onlayn"
+            orderManager.addOrdersFromCart(selectedItems, paymentMethod = paymentLabel)
 
             // Yalnız seçilmiş məhsulları sil, qalanlar qalsın
             cartManager.removeSelectedItems()

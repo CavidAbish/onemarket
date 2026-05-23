@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+
+    <!-- Tag body -->
+    <path
+        android:fillColor="#FFB3CE"
+        android:pathData="M22,6 L96,6 Q114,6 114,24 L114,98 Q114,114 98,114 L22,114 Q6,114 6,98 L6,24 Q6,6 22,6 Z"/>
+
+    <!-- Thread hole circle -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M84,26 A10,10 0 0,1 104,26 A10,10 0 0,1 84,26 Z"/>
+
+    <!-- Thread (arc above hole) -->
+    <path
+        android:strokeColor="#333366"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M84,26 A18,18 0 0,1 112,20"/>
+
+    <!-- % diagonal stroke -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="8"
+        android:strokeLineCap="round"
+        android:pathData="M40,88 L80,44"/>
+
+    <!-- % top-left circle -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M30,44 A12,12 0 0,1 54,44 A12,12 0 0,1 30,44 Z"/>
+
+    <!-- % bottom-right circle -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M66,88 A12,12 0 0,1 90,88 A12,12 0 0,1 66,88 Z"/>
+
+    <!-- Sparkle 1 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M36,36 L38,30 L40,36 L46,38 L40,40 L38,46 L36,40 L30,38 Z"/>
+
+    <!-- Sparkle 2 (small) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M55,28 L56,25 L57,28 L60,29 L57,30 L56,33 L55,30 L52,29 Z"/>
+
+</vector>

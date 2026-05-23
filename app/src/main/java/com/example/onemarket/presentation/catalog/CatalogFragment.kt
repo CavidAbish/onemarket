@@ -9,9 +9,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.onemarket.R
+import com.example.onemarket.data.local.CartManager
+import com.example.onemarket.data.local.FavoritesManager
 import com.example.onemarket.databinding.FragmentCatalogBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CatalogFragment : Fragment() {
@@ -21,6 +26,9 @@ class CatalogFragment : Fragment() {
 
     private val viewModel: CatalogViewModel by viewModels()
     private lateinit var catalogAdapter: CatalogAdapter
+
+    @Inject lateinit var favoritesManager: FavoritesManager
+    @Inject lateinit var cartManager: CartManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentCatalogBinding.inflate(inflater, container, false)
@@ -32,12 +40,37 @@ class CatalogFragment : Fragment() {
         setupRecyclerView()
         observeCategories()
 
-        // Axtarışa keç
         binding.searchBarCard.setOnClickListener {
             findNavController().navigate(
                 CatalogFragmentDirections.actionCatalogFragmentToSearchFragment()
             )
         }
+
+        binding.btnFavorites.setOnClickListener {
+            requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav)
+                .selectedItemId = R.id.favoritesFragment
+        }
+
+        binding.btnCart.setOnClickListener {
+            requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav)
+                .selectedItemId = R.id.cartFragment
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateBadges()
+    }
+
+    private fun updateBadges() {
+        val favCount = favoritesManager.getFavorites().size
+        val cartCount = cartManager.getCartItems().sumOf { it.quantity }
+
+        binding.tvFavoritesCount.text = favCount.toString()
+        binding.tvFavoritesCount.visibility = if (favCount > 0) View.VISIBLE else View.GONE
+
+        binding.tvCartCount.text = cartCount.toString()
+        binding.tvCartCount.visibility = if (cartCount > 0) View.VISIBLE else View.GONE
     }
 
     private fun setupRecyclerView() {

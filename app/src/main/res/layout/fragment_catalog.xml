@@ -6,20 +6,84 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
+    <!-- Seçilmişlər badge -->
+    <FrameLayout
+        android:id="@+id/btnFavorites"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnCart">
+
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_outline_heart"
+            android:contentDescription="Seçilmişlər" />
+
+        <TextView
+            android:id="@+id/tvFavoritesCount"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/bg_badge"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+    <!-- Səbət badge -->
+    <FrameLayout
+        android:id="@+id/btnCart"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_outline_cart"
+            android:contentDescription="Səbət" />
+
+        <TextView
+            android:id="@+id/tvCartCount"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/bg_badge"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
     <!-- Axtarış topbar -->
     <androidx.cardview.widget.CardView
         android:id="@+id/searchBarCard"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         app:cardCornerRadius="24dp"
         app:cardElevation="0dp"
         app:cardBackgroundColor="#F2F2F2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toStartOf="@id/btnFavorites">
 
         <LinearLayout
             android:layout_width="match_parent"

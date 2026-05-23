@@ -2,27 +2,27 @@
 
     <item
         android:id="@+id/homeFragment"
-        android:icon="@drawable/ic_home"
-        android:title="Home" />
+        android:icon="@drawable/ic_nav_home"
+        android:title="Əsas" />
 
     <item
         android:id="@+id/catalogFragment"
-        android:icon="@drawable/ic_catalog"
-        android:title="Catalog" />
+        android:icon="@drawable/ic_nav_catalog"
+        android:title="Kataloq" />
 
     <item
         android:id="@+id/favoritesFragment"
-        android:icon="@drawable/ic_favorites"
-        android:title="Favorites" />
+        android:icon="@drawable/ic_nav_favorites"
+        android:title="Seçilmişlər" />
 
     <item
         android:id="@+id/cartFragment"
-        android:icon="@drawable/ic_shopping_cart"
-        android:title="Cart" />
+        android:icon="@drawable/ic_nav_cart"
+        android:title="Səbət" />
 
     <item
         android:id="@+id/profileFragment"
-        android:icon="@drawable/ic_profile"
-        android:title="Profile" />
+        android:icon="@drawable/ic_nav_profile"
+        android:title="Kabinet" />
 
 </menu>

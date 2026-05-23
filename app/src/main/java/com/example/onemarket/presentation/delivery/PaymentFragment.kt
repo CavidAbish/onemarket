@@ -90,9 +90,13 @@ class PaymentFragment : Fragment() {
                 )
             }
 
-            // 3D Secure ekranına keç
+            // 3D Secure ekranına keç — installmentMonths ötürülür ki,
+            // ThreeDSecureFragment doğru paymentMethod ilə sifarişi saxlasın
             findNavController().navigate(
-                PaymentFragmentDirections.actionPaymentFragmentToThreeDSecureFragment(amount)
+                PaymentFragmentDirections.actionPaymentFragmentToThreeDSecureFragment(
+                    amount = amount,
+                    installmentMonths = installmentMonths
+                )
             )
         }
 

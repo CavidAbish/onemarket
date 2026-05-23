@@ -33,6 +33,7 @@ class OrderSummaryFragment : Fragment() {
     @Inject lateinit var userManager: UserManager
     @Inject lateinit var orderManager: com.example.onemarket.data.local.OrderManager
     @Inject lateinit var creditManager: CreditManager
+    @Inject lateinit var notificationManager: com.example.onemarket.data.local.AppNotificationManager
 
     private var selectedPaymentMethod = "ONLINE"
     private var totalAmount = 0.0
@@ -295,6 +296,21 @@ class OrderSummaryFragment : Fragment() {
             creditManager.addApplication(application)
             cartManager.removeSelectedItems()
 
+            // Kredit bildirişi
+            val now = java.util.Date()
+            val timeFmt = java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault())
+            val dateFmt = java.text.SimpleDateFormat("dd.MM.yyyy", java.util.Locale.getDefault())
+            notificationManager.addNotification(
+                com.example.onemarket.data.local.AppNotification(
+                    id = (System.currentTimeMillis() % 1_000_000_000L).toInt(),
+                    orderId = 0,
+                    title = "Kredit müraciəti göndərildi",
+                    body = "Kredit müraciətiniz qəbul edildi. Yaxında sizinlə əlaqə saxlanılacaq",
+                    type = "credit",
+                    dateTime = "${timeFmt.format(now)} ${dateFmt.format(now)}"
+                )
+            )
+
             AlertDialog.Builder(requireContext())
                 .setTitle("Uğurlu")
                 .setMessage("Kredit müraciətiniz uğurla göndərilmişdir")
@@ -314,7 +330,7 @@ class OrderSummaryFragment : Fragment() {
                 else       -> "Bank kartı vasitəsi ilə onlayn"
             }
             if (selectedPaymentMethod == "DELIVERY") {
-                orderManager.addOrdersFromCart(selectedItems, paymentLabel)
+                orderManager.addOrdersFromCart(selectedItems, paymentLabel, deliveryAddress = "Kuryerlə çatdırılma")
                 cartManager.removeSelectedItems()
                 requireActivity().findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
                     com.example.onemarket.R.id.bottom_nav

@@ -14,6 +14,7 @@
         <action android:id="@+id/action_homeFragment_to_productDetailFragment" app:destination="@id/productDetailFragment" />
         <action android:id="@+id/action_homeFragment_to_searchFragment" app:destination="@id/searchFragment" />
         <action android:id="@+id/action_homeFragment_to_cityFragment" app:destination="@id/cityFragment" />
+        <action android:id="@+id/action_homeFragment_to_notificationsFragment" app:destination="@id/notificationsFragment" />
     </fragment>
 
     <fragment
@@ -52,6 +53,10 @@
         <action android:id="@+id/action_profileFragment_to_myOrdersFragment" app:destination="@id/myOrdersFragment" />
         <action android:id="@+id/action_profileFragment_to_pickupListFragment" app:destination="@id/pickupListFragment" />
         <action android:id="@+id/action_profileFragment_to_creditApplicationsFragment" app:destination="@id/creditApplicationsFragment" />
+        <action android:id="@+id/action_profileFragment_to_notificationsFragment" app:destination="@id/notificationsFragment" />
+        <action android:id="@+id/action_profileFragment_to_promoCodesFragment" app:destination="@id/promoCodesFragment" />
+        <action android:id="@+id/action_profileFragment_to_reviewsFragment" app:destination="@id/reviewsFragment" />
+        <action android:id="@+id/action_profileFragment_to_extraServicesFragment" app:destination="@id/extraServicesFragment" />
     </fragment>
 
     <fragment
@@ -156,6 +161,7 @@
         android:label="fragment_3d_secure"
         tools:layout="@layout/fragment_3d_secure">
         <argument android:name="amount" app:argType="float" />
+        <argument android:name="installmentMonths" app:argType="integer" android:defaultValue="0" />
     </fragment>
 
     <fragment
@@ -206,5 +212,32 @@
         tools:layout="@layout/fragment_order_detail">
         <argument android:name="orderId" app:argType="integer" />
     </fragment>
+
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.example.onemarket.presentation.notifications.NotificationsFragment"
+        android:label="fragment_notifications"
+        tools:layout="@layout/fragment_notifications">
+        <action android:id="@+id/action_notificationsFragment_to_orderDetailFragment"
+            app:destination="@id/orderDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/promoCodesFragment"
+        android:name="com.example.onemarket.presentation.profile.PromoCodesFragment"
+        android:label="fragment_promo_codes"
+        tools:layout="@layout/fragment_promo_codes" />
+
+    <fragment
+        android:id="@+id/reviewsFragment"
+        android:name="com.example.onemarket.presentation.profile.ReviewsFragment"
+        android:label="fragment_reviews"
+        tools:layout="@layout/fragment_reviews" />
+
+    <fragment
+        android:id="@+id/extraServicesFragment"
+        android:name="com.example.onemarket.presentation.profile.ExtraServicesFragment"
+        android:label="fragment_extra_services"
+        tools:layout="@layout/fragment_extra_services" />
 
 </navigation>

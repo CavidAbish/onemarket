@@ -15,18 +15,46 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- № N -->
+        <!-- Header row: № N  [copy]    Status -->
         <TextView
             android:id="@+id/tvOrderNumber"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="№ 1"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="#1A237E"
-            android:padding="16dp"
+            android:paddingStart="16dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnCopyOrder" />
+
+        <!-- Kopyalama düyməsi -->
+        <ImageView
+            android:id="@+id/btnCopyOrder"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_copy"
+            android:layout_marginStart="4dp"
+            app:layout_constraintTop_toTopOf="@id/tvOrderNumber"
+            app:layout_constraintBottom_toBottomOf="@id/tvOrderNumber"
+            app:layout_constraintStart_toEndOf="@id/tvOrderNumber"
+            app:layout_constraintEnd_toStartOf="@id/tvOrderStatus" />
+
+        <!-- Status yazısı -->
+        <TextView
+            android:id="@+id/tvOrderStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="#4CAF50"
+            android:paddingEnd="16dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <View
@@ -88,7 +116,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 
-        <!-- Tarix (gizli, lazım olsa) -->
+        <!-- Tarix (gizli) -->
         <TextView
             android:id="@+id/tvOrderDate"
             android:layout_width="wrap_content"

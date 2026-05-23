@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="40dp"
+    android:height="40dp"
+    android:viewportWidth="40"
+    android:viewportHeight="40">
+    <!-- Top blue diamond -->
+    <path android:fillColor="#2196F3"
+        android:pathData="M20,4 L28,16 L20,20 L12,16 Z"/>
+    <!-- Left red diamond -->
+    <path android:fillColor="#F44336"
+        android:pathData="M12,16 L20,20 L16,30 L6,24 Z"/>
+    <!-- Right green diamond -->
+    <path android:fillColor="#4CAF50"
+        android:pathData="M28,16 L34,24 L24,30 L20,20 Z"/>
+    <!-- Center dark -->
+    <path android:fillColor="#1565C0"
+        android:pathData="M20,20 L24,30 L20,32 L16,30 Z"/>
+</vector>

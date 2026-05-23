@@ -13,7 +13,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.onemarket.MainActivity
 import com.example.onemarket.R
+import com.example.onemarket.data.local.AppNotificationManager
 import com.example.onemarket.data.local.CartManager
 import com.example.onemarket.data.local.FavoritesManager
 import com.example.onemarket.databinding.FragmentHomeBinding
@@ -35,6 +37,7 @@ class HomeFragment : Fragment() {
 
     @Inject lateinit var favoritesManager: FavoritesManager
     @Inject lateinit var cartManager: CartManager
+    @Inject lateinit var notificationManager: AppNotificationManager
 
     private val bannerHandler = Handler(Looper.getMainLooper())
     private var bannerRunnable: Runnable? = null
@@ -74,6 +77,18 @@ class HomeFragment : Fragment() {
         productAdapter.notifyDataSetChanged()
         recentlyViewedAdapter.notifyDataSetChanged()
         startBannerAutoScroll()
+        updateNotifBadge()
+        (activity as? MainActivity)?.updateNavBadges()
+    }
+
+    private fun updateNotifBadge() {
+        val count = notificationManager.getUnreadCount()
+        if (count > 0) {
+            binding.tvNotifBadgeHome.visibility = View.VISIBLE
+            binding.tvNotifBadgeHome.text = if (count > 99) "99+" else count.toString()
+        } else {
+            binding.tvNotifBadgeHome.visibility = View.GONE
+        }
     }
 
     override fun onPause() {
@@ -211,6 +226,11 @@ class HomeFragment : Fragment() {
         binding.inputSearch.setOnClickListener {
             findNavController().navigate(
                 HomeFragmentDirections.actionHomeFragmentToSearchFragment()
+            )
+        }
+        binding.icNotifications.setOnClickListener {
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToNotificationsFragment()
             )
         }
     }

@@ -39,6 +39,15 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/btnBack"
+            app:layout_constraintEnd_toStartOf="@id/btnCopyHeader" />
+
+        <ImageView
+            android:id="@+id/btnCopyHeader"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/ic_copy"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -51,23 +60,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:paddingBottom="24dp">
 
-            <!-- Çatdırılma bloku -->
+            <!-- Sifariş statusu kartı -->
             <androidx.cardview.widget.CardView
-                android:id="@+id/deliveryCard"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 app:cardCornerRadius="0dp"
                 app:cardElevation="0dp"
-                app:cardBackgroundColor="#FFFFFF"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:cardBackgroundColor="#FFFFFF">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -75,55 +81,144 @@
                     android:padding="16dp">
 
                     <TextView
-                        android:id="@+id/tvDeliveryTitle"
+                        android:id="@+id/tvOrderStatusTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Təhvil məntəqəsindən təslim alma"
-                        android:textSize="15sp"
+                        android:text="Sifariş"
+                        android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="#1A237E"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/ivStatusIcon" />
+
+                    <!-- Success icon (ödənilib) -->
+                    <ImageView
+                        android:id="@+id/ivStatusIcon"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_order_success"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/ivLocation"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_notifications"
-                        android:layout_marginTop="12dp"
-                        app:layout_constraintTop_toBottomOf="@id/tvDeliveryTitle"
-                        app:layout_constraintStart_toStartOf="parent" />
+                    <!-- Cancelled icon (ləğv edildi) — dairəvi çərçivə + X -->
+                    <FrameLayout
+                        android:id="@+id/ivStatusCancelled"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_circle_red_light"
+                        android:visibility="gone"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_close"
+                            android:tint="#F44336" />
+
+                    </FrameLayout>
 
                     <TextView
-                        android:id="@+id/tvDeliveryAddress"
+                        android:id="@+id/tvOrderDateTime"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Bakı şəh.Nərimanov.Möhsün Sənani küç., 153"
-                        android:textSize="14sp"
-                        android:textColor="#1A1A1A"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="12dp"
-                        app:layout_constraintTop_toBottomOf="@id/tvDeliveryTitle"
-                        app:layout_constraintStart_toEndOf="@id/ivLocation"
+                        android:textSize="13sp"
+                        android:textColor="#888888"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintTop_toBottomOf="@id/tvOrderStatusTitle"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
 
-            <!-- Sifarişin tərkibi -->
+            <!-- Çatdırılma bloku -->
             <androidx.cardview.widget.CardView
-                android:id="@+id/compositionCard"
-                android:layout_width="0dp"
+                android:id="@+id/deliveryCard"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 app:cardCornerRadius="0dp"
                 app:cardElevation="0dp"
-                app:cardBackgroundColor="#FFFFFF"
-                app:layout_constraintTop_toBottomOf="@id/deliveryCard"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tvDeliveryTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Çatdırılma"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="#1A237E"
+                        android:paddingBottom="10dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_location"
+                            android:layout_marginEnd="8dp" />
+
+                        <TextView
+                            android:id="@+id/tvDeliveryAddress"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="14sp"
+                            android:textColor="#1A1A1A"
+                            android:text="Çatdırılma ünvanı" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Sifarişi ləğv et -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <Button
+                    android:id="@+id/btnCancelOrder"
+                    style="?attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:text="Sifarişi ləğv et"
+                    android:textColor="#F44336"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Sifarişin tərkibi -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/compositionCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#FFFFFF">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -250,15 +345,12 @@
             <!-- Ödəniş məlumatları -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/paymentCard"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 app:cardCornerRadius="0dp"
                 app:cardElevation="0dp"
-                app:cardBackgroundColor="#FFFFFF"
-                app:layout_constraintTop_toBottomOf="@id/compositionCard"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:cardBackgroundColor="#FFFFFF">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -423,7 +515,75 @@
 
             </androidx.cardview.widget.CardView>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- Ödənişin detallarını göstər -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/rowPaymentDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:background="?attr/selectableItemBackground">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Ödənişin detallarını göstər"
+                        android:textSize="14sp"
+                        android:textColor="#E91E8C"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/ivArrowDetails" />
+
+                    <ImageView
+                        android:id="@+id/ivArrowDetails"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_back"
+                        android:rotation="180"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Dəstək xidməti -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <Button
+                    android:id="@+id/btnSupport"
+                    style="?attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:text="Dəstək xidməti"
+                    android:textColor="@color/pink_main"
+                    android:textSize="14sp"
+                    android:drawableStart="@drawable/ic_support"
+                    android:drawablePadding="8dp"
+                    android:gravity="center"
+                    android:background="@drawable/bg_outline_pink" />
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 

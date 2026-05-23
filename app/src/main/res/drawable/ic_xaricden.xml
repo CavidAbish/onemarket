@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="40dp"
+    android:height="40dp"
+    android:viewportWidth="40"
+    android:viewportHeight="40">
+    <!-- Circle background -->
+    <path android:fillColor="#FCE4EC"
+        android:pathData="M20,4 A16,16 0 0,1 36,20 A16,16 0 0,1 20,36 A16,16 0 0,1 4,20 A16,16 0 0,1 20,4 Z"/>
+    <!-- Circular arrow arc -->
+    <path android:fillColor="#00000000"
+        android:strokeColor="#E91E63"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M12,20 A10,10 0 1,1 26,30"/>
+    <!-- Arrow head -->
+    <path android:fillColor="#E91E63"
+        android:pathData="M22,34 L30,28 L24,26 Z"/>
+</vector>

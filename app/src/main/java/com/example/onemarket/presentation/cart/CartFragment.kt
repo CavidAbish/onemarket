@@ -195,7 +195,7 @@ class CartFragment : Fragment() {
     }
 
     private fun setupCartRecyclerView() {
-        cartAdapter = CartAdapter(cartManager = cartManager, onCartChanged = {
+        cartAdapter = CartAdapter(cartManager = cartManager, favoritesManager = favoritesManager, onCartChanged = {
             updateTotal()
             val cartItems = cartManager.getCartItems()
             if (cartItems.isEmpty()) refreshCart()

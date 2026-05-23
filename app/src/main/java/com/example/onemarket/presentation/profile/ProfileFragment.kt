@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.onemarket.MainActivity
 import com.example.onemarket.R
+import com.example.onemarket.data.local.AppNotificationManager
 import com.example.onemarket.data.local.CityManager
 import com.example.onemarket.data.local.UserManager
 import com.example.onemarket.databinding.FragmentProfileBinding
@@ -25,6 +27,7 @@ class ProfileFragment : Fragment() {
 
     @Inject lateinit var userManager: UserManager
     @Inject lateinit var cityManager: CityManager
+    @Inject lateinit var appNotificationManager: AppNotificationManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,11 +46,30 @@ class ProfileFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         updateUI()
+        (activity as? MainActivity)?.updateNavBadges()
     }
 
     private fun updateUI() {
         if (userManager.isLoggedIn()) showLoggedIn()
         else showLoggedOut()
+
+        updateNotifBadge()
+
+        binding.ivNotification.setOnClickListener {
+            findNavController().navigate(
+                ProfileFragmentDirections.actionProfileFragmentToNotificationsFragment()
+            )
+        }
+    }
+
+    private fun updateNotifBadge() {
+        val count = appNotificationManager.getUnreadCount()
+        if (count > 0) {
+            binding.tvNotifBadgeProfile.visibility = View.VISIBLE
+            binding.tvNotifBadgeProfile.text = if (count > 99) "99+" else count.toString()
+        } else {
+            binding.tvNotifBadgeProfile.visibility = View.GONE
+        }
     }
 
     private fun showLoggedOut() {
@@ -79,14 +101,29 @@ class ProfileFragment : Fragment() {
         val menus = listOf(
             binding.menuSpecial to "Special abunəlik",
             binding.menuCards to "Mənim Kartlarım",
-            binding.menuPromo to "Promokodlar",
-            binding.menuReviews to "Rəylərim",
             binding.menuAddresses to "Sifarişlərin çatdırılması üçün ünvanlarım",
-            binding.menuReturns to "Geri qaytarma müraciətləri",
-            binding.menuExtra to "Əlavə xidmətlər"
+            binding.menuReturns to "Geri qaytarma müraciətləri"
         )
         menus.forEach { (v, title) ->
             v.setOnClickListener { Toast.makeText(requireContext(), title, Toast.LENGTH_SHORT).show() }
+        }
+
+        binding.menuPromo.setOnClickListener {
+            findNavController().navigate(
+                ProfileFragmentDirections.actionProfileFragmentToPromoCodesFragment()
+            )
+        }
+
+        binding.menuReviews.setOnClickListener {
+            findNavController().navigate(
+                ProfileFragmentDirections.actionProfileFragmentToReviewsFragment()
+            )
+        }
+
+        binding.menuExtra.setOnClickListener {
+            findNavController().navigate(
+                ProfileFragmentDirections.actionProfileFragmentToExtraServicesFragment()
+            )
         }
 
         binding.menuCredit.setOnClickListener {
@@ -148,7 +185,9 @@ class ProfileFragment : Fragment() {
             Toast.makeText(requireContext(), "Dil", Toast.LENGTH_SHORT).show()
         }
         binding.menuNotifications.setOnClickListener {
-            Toast.makeText(requireContext(), "Bildirişlər", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(
+                ProfileFragmentDirections.actionProfileFragmentToNotificationsFragment()
+            )
         }
         binding.menuSupport.setOnClickListener {
             Toast.makeText(requireContext(), "Dəstək xidməti", Toast.LENGTH_SHORT).show()

@@ -1,18 +1,25 @@
 package com.example.onemarket.presentation.cart
 
+import android.app.Dialog
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
+import android.widget.ImageButton
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.onemarket.R
 import com.example.onemarket.data.local.CartManager
+import com.example.onemarket.data.local.FavoritesManager
 import com.example.onemarket.databinding.ItemCartProductBinding
 import java.util.Calendar
 
 class CartAdapter(
     private val cartManager: CartManager,
+    private val favoritesManager: FavoritesManager,
     private val onCartChanged: () -> Unit
 ) : ListAdapter<CartManager.CartItem, CartAdapter.ViewHolder>(DiffCallback()) {
 
@@ -106,11 +113,48 @@ class CartAdapter(
             }
 
             binding.btnRemove.setOnClickListener {
-                selectedIds.remove(product.id)
-                cartManager.removeFromCart(product.id)
+                showRemoveConfirmDialog(item)
+            }
+        }
+
+        private fun showRemoveConfirmDialog(item: CartManager.CartItem) {
+            val context = binding.root.context
+            val dialog = Dialog(context)
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setContentView(R.layout.dialog_confirm_remove_cart)
+            dialog.window?.setBackgroundDrawableResource(R.drawable.bg_dialog_rounded)
+            dialog.window?.setLayout(
+                (context.resources.displayMetrics.widthPixels * 0.88).toInt(),
+                android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            dialog.setCancelable(true)
+
+            dialog.findViewById<ImageButton>(R.id.btnDialogClose).setOnClickListener {
+                dialog.dismiss()
+            }
+
+            // "Seçilmişlər" — sevimliləre əlavə et + səbətdən sil
+            dialog.findViewById<Button>(R.id.btnAddToFavorites).setOnClickListener {
+                if (!favoritesManager.isFavorite(item.product.id)) {
+                    favoritesManager.toggleFavorite(item.product)
+                }
+                selectedIds.remove(item.product.id)
+                cartManager.removeFromCart(item.product.id)
                 submitList(cartManager.getCartItems())
                 onCartChanged()
+                dialog.dismiss()
             }
+
+            // "Sil" — birbaşa sil
+            dialog.findViewById<Button>(R.id.btnDeleteConfirm).setOnClickListener {
+                selectedIds.remove(item.product.id)
+                cartManager.removeFromCart(item.product.id)
+                submitList(cartManager.getCartItems())
+                onCartChanged()
+                dialog.dismiss()
+            }
+
+            dialog.show()
         }
     }
 

@@ -27,9 +27,16 @@ class MyOrdersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
+        binding.recyclerViewOrders.layoutManager = LinearLayoutManager(requireContext())
+    }
 
+    override fun onResume() {
+        super.onResume()
+        loadOrders()
+    }
+
+    private fun loadOrders() {
         val orders = orderManager.getOrders()
 
         if (orders.isEmpty()) {
@@ -39,13 +46,11 @@ class MyOrdersFragment : Fragment() {
             binding.emptyLayout.visibility = View.GONE
             binding.recyclerViewOrders.visibility = View.VISIBLE
 
-            val adapter = MyOrdersAdapter(orders) { order ->
+            binding.recyclerViewOrders.adapter = MyOrdersAdapter(orders) { order ->
                 findNavController().navigate(
                     MyOrdersFragmentDirections.actionMyOrdersFragmentToOrderDetailFragment(order.id)
                 )
             }
-            binding.recyclerViewOrders.layoutManager = LinearLayoutManager(requireContext())
-            binding.recyclerViewOrders.adapter = adapter
         }
     }
 
