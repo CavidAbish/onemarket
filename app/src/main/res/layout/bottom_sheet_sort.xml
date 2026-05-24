@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:paddingBottom="24dp">
+
+    <!-- Handle -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        android:background="#CCCCCC" />
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Öncə göstər"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#1A1A1A" />
+
+        <ImageView
+            android:id="@+id/btnClose"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_close"
+            android:padding="4dp"
+            android:contentDescription="Bağla" />
+
+    </LinearLayout>
+
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" />
+
+    <LinearLayout
+        android:id="@+id/optionPopular"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="?attr/selectableItemBackground">
+        <RadioButton android:id="@+id/rbPopular" android:layout_width="wrap_content" android:layout_height="wrap_content" android:buttonTint="#E91E8C" android:clickable="false" android:focusable="false" />
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp" android:text="Populyar" android:textSize="15sp" android:textColor="#1A1A1A" />
+    </LinearLayout>
+
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginStart="16dp" />
+
+    <LinearLayout
+        android:id="@+id/optionCheapest"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="?attr/selectableItemBackground">
+        <RadioButton android:id="@+id/rbCheapest" android:layout_width="wrap_content" android:layout_height="wrap_content" android:buttonTint="#E91E8C" android:clickable="false" android:focusable="false" />
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp" android:text="Ucuz" android:textSize="15sp" android:textColor="#1A1A1A" />
+    </LinearLayout>
+
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginStart="16dp" />
+
+    <LinearLayout
+        android:id="@+id/optionExpensive"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="?attr/selectableItemBackground">
+        <RadioButton android:id="@+id/rbExpensive" android:layout_width="wrap_content" android:layout_height="wrap_content" android:buttonTint="#E91E8C" android:clickable="false" android:focusable="false" />
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp" android:text="Baha" android:textSize="15sp" android:textColor="#1A1A1A" />
+    </LinearLayout>
+
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginStart="16dp" />
+
+    <LinearLayout
+        android:id="@+id/optionBiggestDiscount"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="?attr/selectableItemBackground">
+        <RadioButton android:id="@+id/rbBiggestDiscount" android:layout_width="wrap_content" android:layout_height="wrap_content" android:buttonTint="#E91E8C" android:clickable="false" android:focusable="false" />
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp" android:text="Ən böyük endirimli" android:textSize="15sp" android:textColor="#1A1A1A" />
+    </LinearLayout>
+
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginStart="16dp" />
+
+    <LinearLayout
+        android:id="@+id/optionNewest"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="?attr/selectableItemBackground">
+        <RadioButton android:id="@+id/rbNewest" android:layout_width="wrap_content" android:layout_height="wrap_content" android:buttonTint="#E91E8C" android:clickable="false" android:focusable="false" />
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp" android:text="Yeniliklər" android:textSize="15sp" android:textColor="#1A1A1A" />
+    </LinearLayout>
+
+</LinearLayout>

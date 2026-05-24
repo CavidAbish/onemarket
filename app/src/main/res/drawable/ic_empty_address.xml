@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="130dp"
+    android:height="130dp"
+    android:viewportWidth="130"
+    android:viewportHeight="130">
+
+    <!-- Roof (triangle outline) -->
+    <path
+        android:pathData="M8,58 L65,10 L122,58"
+        android:strokeColor="#C8C8D8"
+        android:strokeWidth="6"
+        android:fillColor="#00000000"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"/>
+
+    <!-- Left wall + floor (L-shape, open at right) -->
+    <path
+        android:pathData="M20,53 L20,96 L58,96"
+        android:strokeColor="#C8C8D8"
+        android:strokeWidth="6"
+        android:fillColor="#00000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"/>
+
+    <!-- Location pin body -->
+    <path
+        android:pathData="M86,48 C72,48 61,59 61,73 C61,90 86,115 86,115 C86,115 111,90 111,73 C111,59 100,48 86,48 Z"
+        android:fillColor="#C8C8D8"/>
+
+    <!-- Pin inner circle (white hole) -->
+    <path
+        android:pathData="M86,64 m-9,0 a9,9 0 1,1 18,0 a9,9 0 1,1 -18,0"
+        android:fillColor="#FFFFFF"/>
+
+</vector>

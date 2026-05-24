@@ -8,15 +8,16 @@ import javax.inject.Singleton
 
 @Singleton
 class CityManager @Inject constructor(
-    @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context,
+    private val userManager: UserManager
 ) {
-    private val prefs: SharedPreferences =
-        context.getSharedPreferences("city_prefs", Context.MODE_PRIVATE)
+    private fun prefs(): SharedPreferences =
+        context.getSharedPreferences("${userManager.getUserKey()}_city", Context.MODE_PRIVATE)
 
-    fun getCity(): String = prefs.getString("selected_city", "Bakı") ?: "Bakı"
+    fun getCity(): String = prefs().getString("selected_city", "Bakı") ?: "Bakı"
 
     fun saveCity(city: String) {
-        prefs.edit().putString("selected_city", city).apply()
+        prefs().edit().putString("selected_city", city).apply()
     }
 
     /** Seçilmiş şəhərin mərkəz koordinatları */

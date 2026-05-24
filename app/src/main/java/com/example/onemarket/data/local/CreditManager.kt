@@ -20,14 +20,16 @@ data class CreditApplication(
 
 @Singleton
 class CreditManager @Inject constructor(
-    @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context,
+    private val userManager: UserManager
 ) {
-    private val prefs: SharedPreferences =
-        context.getSharedPreferences("credit_applications", Context.MODE_PRIVATE)
     private val gson = Gson()
 
+    private fun prefs(): SharedPreferences =
+        context.getSharedPreferences("${userManager.getUserKey()}_credit", Context.MODE_PRIVATE)
+
     fun getApplications(): List<CreditApplication> {
-        val json = prefs.getString("applications", null) ?: return emptyList()
+        val json = prefs().getString("applications", null) ?: return emptyList()
         val type = object : TypeToken<List<CreditApplication>>() {}.type
         return gson.fromJson(json, type)
     }
@@ -35,10 +37,10 @@ class CreditManager @Inject constructor(
     fun addApplication(app: CreditApplication) {
         val list = getApplications().toMutableList()
         list.add(0, app)
-        prefs.edit().putString("applications", gson.toJson(list)).apply()
+        prefs().edit().putString("applications", gson.toJson(list)).apply()
     }
 
     fun clearAll() {
-        prefs.edit().remove("applications").apply()
+        prefs().edit().remove("applications").apply()
     }
 }

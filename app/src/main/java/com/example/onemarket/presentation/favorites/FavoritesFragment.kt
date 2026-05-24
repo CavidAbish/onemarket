@@ -90,6 +90,10 @@ class FavoritesFragment : Fragment() {
                 cartManager.addToCart(product)
                 productAdapter.notifyDataSetChanged()
                 Toast.makeText(requireContext(), "${product.title} səbətə əlavə edildi", Toast.LENGTH_SHORT).show()
+            },
+            onGoToCart = {
+                requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav)
+                    .selectedItemId = R.id.cartFragment
             }
         )
         binding.recyclerViewFavorites.layoutManager = GridLayoutManager(requireContext(), 2)

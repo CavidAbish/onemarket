@@ -3,7 +3,8 @@
     "allow": [
       "Bash(ic_location)",
       "Bash(ic_close)",
-      "Bash(ic_back\")"
+      "Bash(ic_back\")",
+      "Bash(del \"C:\\\\Users\\\\CavidAbish\\\\Desktop\\\\oneMarket\\\\app\\\\src\\\\main\\\\res\\\\drawable\\\\banner_category.xml\")"
     ]
   }
 }

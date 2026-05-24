@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="20dp"
+    android:height="20dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Outer diamond outline -->
+    <path
+        android:strokeColor="#FF1A1A1A"
+        android:strokeWidth="1.6"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M12,2.5 L21.5,12 L12,21.5 L2.5,12 Z"/>
+    <!-- Inner diamond filled -->
+    <path
+        android:fillColor="#FF1A1A1A"
+        android:pathData="M12,8.5 L15.5,12 L12,15.5 L8.5,12 Z"/>
+</vector>

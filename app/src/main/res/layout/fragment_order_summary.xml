@@ -1044,6 +1044,98 @@
 
             </androidx.cardview.widget.CardView>
 
+            <!-- PROMOKOD -->
+            <TextView
+                android:id="@+id/tvPromoHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PROMOKOD"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#888888"
+                android:letterSpacing="0.08"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="8dp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardPromoCheck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Promokoddan istifadə etmək istəyirəm"
+                        android:textSize="14sp"
+                        android:textColor="#1A1A1A" />
+
+                    <CheckBox
+                        android:id="@+id/cbPromoCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:buttonTint="#E91E8C" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardPromoInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <EditText
+                        android:id="@+id/etPromoCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Promokodu daxil edin"
+                        android:textSize="14sp"
+                        android:textColor="#1A1A1A"
+                        android:inputType="textCapCharacters"
+                        android:maxLines="1"
+                        android:imeOptions="actionDone" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Promokod tətbiq olunmadan ödəniş mümkündür"
+                        android:textSize="11sp"
+                        android:textColor="#888888"
+                        android:layout_marginTop="8dp" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
             <!-- SİFARİŞLƏR XÜLASƏSİ (normal mode) -->
             <LinearLayout
                 android:id="@+id/ordersContainer"

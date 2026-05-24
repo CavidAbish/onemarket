@@ -20,7 +20,8 @@ class ProductAdapter(
     private val cartManager: CartManager? = null,
     private val onFavoriteChanged: (() -> Unit)? = null,
     private val onProductClick: ((ProductModel) -> Unit)? = null,
-    private val onAddToCart: ((ProductModel) -> Unit)? = null
+    private val onAddToCart: ((ProductModel) -> Unit)? = null,
+    private val onGoToCart: (() -> Unit)? = null
 ) : ListAdapter<ProductModel, ProductAdapter.ViewHolder>(DiffCallback()) {
 
     inner class ViewHolder(private val binding: ItemProductBinding) :
@@ -56,8 +57,13 @@ class ProductAdapter(
             }
 
             (binding.btnAddToCart as? MaterialButton)?.setOnClickListener {
-                onAddToCart?.invoke(product)
-                updateCartButton(product.id)
+                val inCart = cartManager?.isInCart(product.id) ?: false
+                if (inCart) {
+                    onGoToCart?.invoke()
+                } else {
+                    onAddToCart?.invoke(product)
+                    updateCartButton(product.id)
+                }
             }
         }
 

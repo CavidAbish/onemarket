@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.HorizontalScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -13,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.onemarket.R
+import com.example.onemarket.data.local.AddressManager
 import com.example.onemarket.data.local.CartManager
 import com.example.onemarket.data.local.CityManager
 import com.example.onemarket.data.local.PickupHistoryManager
@@ -34,6 +34,7 @@ class DeliveryFragment : Fragment() {
     @Inject lateinit var cartManager: CartManager
     @Inject lateinit var cityManager: CityManager
     @Inject lateinit var historyManager: PickupHistoryManager
+    @Inject lateinit var addressManager: AddressManager
 
     private val selectedAddresses = mutableMapOf<Int, String>()
     private val orderBindings = mutableListOf<ItemOrderDeliveryBinding>()
@@ -180,7 +181,9 @@ class DeliveryFragment : Fragment() {
             itemBinding.radioPickup.isChecked = true
             itemBinding.pickupAddressLayout.visibility = View.VISIBLE
             itemBinding.tvPickupAddress.visibility = View.GONE  // ünvan seçilənə qədər gizlə
-            itemBinding.tvPickupDate.text = getDateLabel(1)
+            itemBinding.tvPickupDate.text = "${getDateLabel(1)} "
+            // Courier date initialized to "Sabah" so it never shows "--"
+            itemBinding.tvCourierDate.text = "${getDateLabel(1)}, "
 
             setupDeliveryOptions(itemBinding, index)
             binding.ordersContainer.addView(itemBinding.root)
@@ -225,8 +228,18 @@ class DeliveryFragment : Fragment() {
                 b.btnAddAddress.text = "Çatdırılma ünvanını dəyiş"
                 b.btnAddAddress.visibility = View.VISIBLE
             } else {
-                b.btnAddAddress.text = "Çatdırılma ünvanını əlavə et"
-                b.btnAddAddress.visibility = View.VISIBLE
+                // Auto-select the default saved address if available
+                val defaultAddr = addressManager.getAddresses().find { it.isDefault }
+                if (defaultAddr != null) {
+                    selectedAddresses[orderIndex] = defaultAddr.fullAddress
+                    b.tvCourierAddress.text = defaultAddr.fullAddress
+                    b.tvCourierAddress.visibility = View.VISIBLE
+                    b.btnAddAddress.text = "Çatdırılma ünvanını dəyiş"
+                    b.btnAddAddress.visibility = View.VISIBLE
+                } else {
+                    b.btnAddAddress.text = "Çatdırılma ünvanını əlavə et"
+                    b.btnAddAddress.visibility = View.VISIBLE
+                }
             }
             showTimeSlots(b, orderIndex)
         }
@@ -265,29 +278,13 @@ class DeliveryFragment : Fragment() {
     }
 
     private fun hideTimeSlots(b: ItemOrderDeliveryBinding) {
-        b.root.findViewWithTag<View>("timeSlotsContainer")?.visibility = View.GONE
+        b.timeSlotsScrollView.visibility = View.GONE
     }
 
     private fun showTimeSlots(b: ItemOrderDeliveryBinding, orderIndex: Int) {
-        val existing = b.root.findViewWithTag<View>("timeSlotsContainer")
-        if (existing != null) {
-            existing.visibility = View.VISIBLE
-            return
-        }
-
-        val scrollView = HorizontalScrollView(requireContext()).apply {
-            tag = "timeSlotsContainer"
-            layoutParams = android.widget.LinearLayout.LayoutParams(
-                android.widget.LinearLayout.LayoutParams.MATCH_PARENT,
-                android.widget.LinearLayout.LayoutParams.WRAP_CONTENT
-            ).also { it.topMargin = 8.dpToPx() }
-            isHorizontalScrollBarEnabled = false
-        }
-
-        val container = android.widget.LinearLayout(requireContext()).apply {
-            orientation = android.widget.LinearLayout.HORIZONTAL
-            setPadding(12.dpToPx(), 0, 12.dpToPx(), 0)
-        }
+        b.timeSlotsScrollView.visibility = View.VISIBLE
+        // Already populated — just show it
+        if (b.timeSlotsContainer.childCount > 0) return
 
         val slots = generateTimeSlots()
         var selectedSlot: MaterialCardView? = null
@@ -349,17 +346,7 @@ class DeliveryFragment : Fragment() {
                 b.tvCourierDate.text = "${slot.second}, "
             }
 
-            container.addView(card)
-        }
-
-        scrollView.addView(container)
-
-        try {
-            val parent = b.optionCourier.parent as? android.widget.LinearLayout
-            val idx = parent?.indexOfChild(b.optionCourier) ?: -1
-            if (idx >= 0) parent?.addView(scrollView, idx + 1)
-        } catch (e: Exception) {
-            (b.root as? android.widget.LinearLayout)?.addView(scrollView)
+            b.timeSlotsContainer.addView(card)
         }
     }
 

@@ -10,15 +10,17 @@ import javax.inject.Singleton
 
 @Singleton
 class PickupHistoryManager @Inject constructor(
-    @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context,
+    private val userManager: UserManager
 ) {
-    private val prefs: SharedPreferences =
-        context.getSharedPreferences("pickup_history", Context.MODE_PRIVATE)
     private val gson = Gson()
+
+    private fun prefs(): SharedPreferences =
+        context.getSharedPreferences("${userManager.getUserKey()}_pickup", Context.MODE_PRIVATE)
 
     // ---- Pickup məntəqə tarixçəsi ----
     fun getPickupHistory(): List<PickupPoint> {
-        val json = prefs.getString("pickup_history", null) ?: return emptyList()
+        val json = prefs().getString("pickup_history", null) ?: return emptyList()
         val type = object : TypeToken<List<PickupPoint>>() {}.type
         return gson.fromJson(json, type)
     }
@@ -28,14 +30,14 @@ class PickupHistoryManager @Inject constructor(
         history.removeAll { it.id == point.id }   // duplikat olmasın
         history.add(0, point)
         val limited = history.take(5)             // son 5 məntəqə
-        prefs.edit().putString("pickup_history", gson.toJson(limited)).apply()
+        prefs().edit().putString("pickup_history", gson.toJson(limited)).apply()
     }
 
     fun getLastPickup(): PickupPoint? = getPickupHistory().firstOrNull()
 
     // ---- Çatdırılma ünvan tarixçəsi ----
     fun getAddressHistory(): List<String> {
-        val json = prefs.getString("address_history", null) ?: return emptyList()
+        val json = prefs().getString("address_history", null) ?: return emptyList()
         val type = object : TypeToken<List<String>>() {}.type
         return gson.fromJson(json, type)
     }
@@ -46,6 +48,6 @@ class PickupHistoryManager @Inject constructor(
         history.removeAll { it == address }
         history.add(0, address)
         val limited = history.take(5)
-        prefs.edit().putString("address_history", gson.toJson(limited)).apply()
+        prefs().edit().putString("address_history", gson.toJson(limited)).apply()
     }
 }

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <!-- Top bar -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="12dp"
+        android:background="#FFFFFF"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_back"
+            android:padding="6dp"
+            android:contentDescription="Geri" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Sifarişlərin çatdırılması üçün ünvan"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="#1A237E" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#F0F0F0"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Scroll content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        app:layout_constraintBottom_toTopOf="@id/bottomLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- "Ünvanın adı" field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilAddressName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ünvanın adı"
+                app:boxStrokeColor="#CCCCCC"
+                app:hintTextColor="#888888">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etAddressName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
+                    android:textSize="14sp"
+                    android:textColor="#1A1A1A" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Helper text -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="4dp"
+                android:text="Misal üçün, &quot;Ev&quot; və ya &quot;İş&quot;"
+                android:textSize="12sp"
+                android:textColor="#888888" />
+
+            <!-- Notice box -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                android:background="#FFF0EE"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Diqqət!"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#E64A19" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Çatdırılma ərazisi: Bakı, Sumqayıt, Abşeron"
+                    android:textSize="13sp"
+                    android:textColor="#1A1A1A" />
+
+            </LinearLayout>
+
+            <!-- "Ünvan və ev nömrəsi" search field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilAddressSearch"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Ünvan və ev nömrəsi"
+                app:startIconDrawable="@drawable/ic_search"
+                app:startIconTint="#888888"
+                app:boxStrokeColor="#CCCCCC"
+                app:hintTextColor="#888888">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etAddressSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
+                    android:textSize="14sp"
+                    android:textColor="#1A1A1A" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- "Xəritədə ünvanı seçmək" link row -->
+            <LinearLayout
+                android:id="@+id/btnPickFromMap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="4dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_location"
+                    app:tint="#E91E8C"
+                    android:contentDescription="Xəritə" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Xəritədə ünvanı seçmək"
+                    android:textSize="14sp"
+                    android:textColor="#E91E8C"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <!-- "Blok / mənzil / digər" field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilApartment"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="Blok / mənzil / digər"
+                app:boxStrokeColor="#CCCCCC"
+                app:hintTextColor="#888888">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etApartment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:imeOptions="actionDone"
+                    android:textSize="14sp"
+                    android:textColor="#1A1A1A" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- "Əsas kimi istifadə etmək" row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="20dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Əsas kimi istifadə etmək"
+                        android:textSize="14sp"
+                        android:textColor="#1A1A1A" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Susmaya görə sifarişlər bu ünvana çatdırılacaq"
+                        android:textSize="12sp"
+                        android:textColor="#888888" />
+
+                </LinearLayout>
+
+                <CheckBox
+                    android:id="@+id/cbDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:buttonTint="#E91E8C" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Bottom buttons -->
+    <LinearLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="#FFFFFF"
+        android:elevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Yadda saxlamaq"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#E91E8C"
+            android:stateListAnimator="@null" />
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:text="Silmək"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="#E91E8C"
+            android:background="@drawable/bg_outline_pink"
+            android:stateListAnimator="@null"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,15 +10,17 @@ import javax.inject.Singleton
 
 @Singleton
 class SearchManager @Inject constructor(
-    @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context,
+    private val userManager: UserManager
 ) {
-    private val prefs: SharedPreferences =
-        context.getSharedPreferences("search_prefs", Context.MODE_PRIVATE)
     private val gson = Gson()
     private val maxHistory = 10
 
+    private fun prefs(): SharedPreferences =
+        context.getSharedPreferences("${userManager.getUserKey()}_search", Context.MODE_PRIVATE)
+
     fun getHistory(): List<String> {
-        val json = prefs.getString("search_history", null) ?: return emptyList()
+        val json = prefs().getString("search_history", null) ?: return emptyList()
         val type = object : TypeToken<List<String>>() {}.type
         return gson.fromJson(json, type)
     }
@@ -29,10 +31,10 @@ class SearchManager @Inject constructor(
         history.removeAll { it.equals(query, ignoreCase = true) }
         history.add(0, query)
         val trimmed = if (history.size > maxHistory) history.take(maxHistory) else history
-        prefs.edit().putString("search_history", gson.toJson(trimmed)).apply()
+        prefs().edit().putString("search_history", gson.toJson(trimmed)).apply()
     }
 
     fun clearHistory() {
-        prefs.edit().remove("search_history").apply()
+        prefs().edit().remove("search_history").apply()
     }
 }

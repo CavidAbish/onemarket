@@ -7,12 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.onemarket.MainActivity
 import com.example.onemarket.R
 import com.example.onemarket.data.local.AppNotificationManager
 import com.example.onemarket.data.local.CityManager
+import com.example.onemarket.data.local.LanguageManager
+import com.example.onemarket.data.local.PersonalInfoManager
 import com.example.onemarket.data.local.UserManager
 import com.example.onemarket.databinding.FragmentProfileBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -28,6 +31,8 @@ class ProfileFragment : Fragment() {
     @Inject lateinit var userManager: UserManager
     @Inject lateinit var cityManager: CityManager
     @Inject lateinit var appNotificationManager: AppNotificationManager
+    @Inject lateinit var personalInfoManager: PersonalInfoManager
+    @Inject lateinit var languageManager: LanguageManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -76,6 +81,13 @@ class ProfileFragment : Fragment() {
         binding.loggedOutLayout.visibility = View.VISIBLE
         binding.loggedInLayout.visibility = View.GONE
 
+        // Yalnız daxil olmuş halda görünən elementlər
+        binding.dividerAfterLanguage.visibility = View.GONE
+        binding.menuNotifications.visibility = View.GONE
+        binding.dividerLogout.visibility = View.GONE
+        binding.menuLogout.visibility = View.GONE
+        binding.tvDeleteAccount.visibility = View.GONE
+
         binding.btnLogin.setOnClickListener {
             findNavController().navigate(
                 ProfileFragmentDirections.actionProfileFragmentToLoginFragment()
@@ -88,8 +100,17 @@ class ProfileFragment : Fragment() {
         binding.loggedOutLayout.visibility = View.GONE
         binding.loggedInLayout.visibility = View.VISIBLE
 
-        binding.tvUserName.text = userManager.getUserName()
+        // Display full name from personalInfoManager if available, else fallback to userManager
+        val fullName = personalInfoManager.getFullName()
+        binding.tvUserName.text = if (fullName.isNotEmpty()) fullName else userManager.getUserName().ifEmpty { "İstifadəçi" }
         binding.tvUserPhone.text = userManager.getUserPhone()
+
+        // Tap profile card → open Bir ID screen
+        binding.cardBirId.setOnClickListener {
+            findNavController().navigate(
+                ProfileFragmentDirections.actionProfileFragmentToBirIdProfileFragment()
+            )
+        }
 
         // Mənim sifarişlərim — naviqasiya
         binding.menuOrders.setOnClickListener {
@@ -99,13 +120,17 @@ class ProfileFragment : Fragment() {
         }
 
         val menus = listOf(
-            binding.menuSpecial to "Special abunəlik",
             binding.menuCards to "Mənim Kartlarım",
-            binding.menuAddresses to "Sifarişlərin çatdırılması üçün ünvanlarım",
             binding.menuReturns to "Geri qaytarma müraciətləri"
         )
         menus.forEach { (v, title) ->
             v.setOnClickListener { Toast.makeText(requireContext(), title, Toast.LENGTH_SHORT).show() }
+        }
+
+        binding.menuAddresses.setOnClickListener {
+            findNavController().navigate(
+                ProfileFragmentDirections.actionProfileFragmentToSavedAddressesFragment()
+            )
         }
 
         binding.menuPromo.setOnClickListener {
@@ -131,6 +156,13 @@ class ProfileFragment : Fragment() {
                 ProfileFragmentDirections.actionProfileFragmentToCreditApplicationsFragment()
             )
         }
+
+        // Daxil olmuş vəziyyətdə görünən elementlər
+        binding.dividerAfterLanguage.visibility = View.VISIBLE
+        binding.menuNotifications.visibility = View.VISIBLE
+        binding.dividerLogout.visibility = View.VISIBLE
+        binding.menuLogout.visibility = View.VISIBLE
+        binding.tvDeleteAccount.visibility = View.VISIBLE
 
         // Çıxış — ekran qaralsın, home-a keçsin
         binding.menuLogout.setOnClickListener {
@@ -174,6 +206,7 @@ class ProfileFragment : Fragment() {
 
     private fun setupCommonMenus() {
         binding.titleCity.text = cityManager.getCity()
+        binding.titleLanguage.text = languageManager.getLanguageLabel()
 
         binding.menuCity.setOnClickListener {
             findNavController().navigate(
@@ -182,8 +215,9 @@ class ProfileFragment : Fragment() {
         }
 
         binding.menuLanguage.setOnClickListener {
-            Toast.makeText(requireContext(), "Dil", Toast.LENGTH_SHORT).show()
+            showLanguagePicker()
         }
+
         binding.menuNotifications.setOnClickListener {
             findNavController().navigate(
                 ProfileFragmentDirections.actionProfileFragmentToNotificationsFragment()
@@ -192,8 +226,13 @@ class ProfileFragment : Fragment() {
         binding.menuSupport.setOnClickListener {
             Toast.makeText(requireContext(), "Dəstək xidməti", Toast.LENGTH_SHORT).show()
         }
+        binding.menuServiceCenters.setOnClickListener {
+            Toast.makeText(requireContext(), "Servis mərkəzləri", Toast.LENGTH_SHORT).show()
+        }
         binding.menuDelivery.setOnClickListener {
-            Toast.makeText(requireContext(), "Çatdırılma və ödəmə", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(
+                ProfileFragmentDirections.actionProfileFragmentToDeliveryPaymentFragment()
+            )
         }
         binding.menuPickup.setOnClickListener {
             findNavController().navigate(
@@ -201,8 +240,33 @@ class ProfileFragment : Fragment() {
             )
         }
         binding.menuFaq.setOnClickListener {
-            Toast.makeText(requireContext(), "Ən çox verilən suallar", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(
+                ProfileFragmentDirections.actionProfileFragmentToFaqFragment()
+            )
         }
+    }
+
+    private fun showLanguagePicker() {
+        val languages = arrayOf(
+            "🇦🇿  Azərbaycan",
+            "🇷🇺  Русский",
+            "🇬🇧  English",
+            "🇹🇷  Türkçe"
+        )
+        val codes = arrayOf("az", "ru", "en", "tr")
+        val currentLang = languageManager.getLanguage()
+        val checkedItem = codes.indexOf(currentLang).takeIf { it >= 0 } ?: 0
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Dil seçin")
+            .setSingleChoiceItems(languages, checkedItem) { dialog, which ->
+                val selected = codes[which]
+                languageManager.saveLanguage(selected)
+                binding.titleLanguage.text = languageManager.getLanguageLabel()
+                dialog.dismiss()
+            }
+            .setNegativeButton("Ləğv et", null)
+            .show()
     }
 
     override fun onDestroyView() {

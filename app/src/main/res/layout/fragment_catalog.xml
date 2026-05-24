@@ -112,23 +112,6 @@
 
     </androidx.cardview.widget.CardView>
 
-    <!-- Başlıq -->
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Kataloq"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="#1A1A1A"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="4dp"
-        app:layout_constraintTop_toBottomOf="@id/searchBarCard"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <!-- Kateqoriyalar Grid -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCatalog"
@@ -136,7 +119,7 @@
         android:layout_height="0dp"
         android:padding="6dp"
         android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintTop_toBottomOf="@id/searchBarCard"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

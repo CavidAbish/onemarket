@@ -24,7 +24,7 @@ class CartManager @Inject constructor(
     }
 
     private fun selectedPrefs(): SharedPreferences =
-        context.getSharedPreferences("selected_items_temp", Context.MODE_PRIVATE)
+        context.getSharedPreferences("${userManager.getUserKey()}_selected_temp", Context.MODE_PRIVATE)
 
     fun getCartItems(): List<CartItem> {
         val json = prefs().getString("cart_items", null) ?: return emptyList()

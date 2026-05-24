@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.onemarket.data.local.CartManager
 import com.example.onemarket.data.local.CreditApplication
 import com.example.onemarket.data.local.CreditManager
+import com.example.onemarket.data.local.PersonalInfoManager
 import com.example.onemarket.data.local.UserManager
 import com.example.onemarket.databinding.FragmentOrderSummaryBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,6 +35,7 @@ class OrderSummaryFragment : Fragment() {
     @Inject lateinit var orderManager: com.example.onemarket.data.local.OrderManager
     @Inject lateinit var creditManager: CreditManager
     @Inject lateinit var notificationManager: com.example.onemarket.data.local.AppNotificationManager
+    @Inject lateinit var personalInfoManager: PersonalInfoManager
 
     private var selectedPaymentMethod = "ONLINE"
     private var totalAmount = 0.0
@@ -75,7 +77,8 @@ class OrderSummaryFragment : Fragment() {
         }
 
         // İstifadəçi məlumatları
-        binding.tvContactName.text = userManager.getUserName().uppercase()
+        val contactName = personalInfoManager.getFullName().ifEmpty { userManager.getUserName() }
+        binding.tvContactName.text = contactName.uppercase()
         binding.tvContactPhone.text = userManager.getUserPhone()
 
         // Cart items
@@ -128,7 +131,8 @@ class OrderSummaryFragment : Fragment() {
         binding.tvCreditDelivery.text = String.format("%.2f ₼", deliveryCostTotal)
 
         // Birbank kontakt məlumatları
-        binding.tvBirbankContactName.text = userManager.getUserName().uppercase()
+        val birbankContactName = personalInfoManager.getFullName().ifEmpty { userManager.getUserName() }
+        binding.tvBirbankContactName.text = birbankContactName.uppercase()
         binding.tvBirbankContactPhone.text = userManager.getUserPhone()
 
         // Birbank xülasəsi doldur
@@ -143,16 +147,34 @@ class OrderSummaryFragment : Fragment() {
         binding.tvBirbankTotal.text = String.format("%.2f ₼", totalAmount)
         binding.tvBirbankDelivery.text = String.format("%.2f ₼", deliveryCostTotal)
 
-        // Kredit formu ön doldurmaq
-        val fullName = userManager.getUserName().trim()
-        val nameParts = fullName.split(" ")
-        if (nameParts.size >= 2) {
-            binding.etCreditFirstName.setText(nameParts[0])
-            binding.etCreditLastName.setText(nameParts.drop(1).joinToString(" "))
+        // Kredit formu ön doldurmaq — PersonalInfoManager üstünlüklüdür
+        val piFirst = personalInfoManager.getFirstName()
+        val piLast  = personalInfoManager.getLastName()
+        if (piFirst.isNotEmpty() || piLast.isNotEmpty()) {
+            binding.etCreditFirstName.setText(piFirst)
+            binding.etCreditLastName.setText(piLast)
         } else {
-            binding.etCreditFirstName.setText(fullName)
+            val fullName = userManager.getUserName().trim()
+            val nameParts = fullName.split(" ")
+            if (nameParts.size >= 2) {
+                binding.etCreditFirstName.setText(nameParts[0])
+                binding.etCreditLastName.setText(nameParts.drop(1).joinToString(" "))
+            } else {
+                binding.etCreditFirstName.setText(fullName)
+            }
         }
         binding.etCreditPhone.setText(userManager.getUserPhone())
+
+        // FİN — avtomatik doldurulsun (şəxsi məlumatlardan)
+        val savedFin = personalInfoManager.getFin()
+        if (savedFin.isNotEmpty()) {
+            binding.etCreditFin.setText(savedFin)
+        }
+
+        // Promokod checkbox
+        binding.cbPromoCode.setOnCheckedChangeListener { _, isChecked ->
+            binding.cardPromoInput.visibility = if (isChecked) View.VISIBLE else View.GONE
+        }
 
         // Ay seçim düymələri
         setupMonthButtons()
@@ -232,6 +254,8 @@ class OrderSummaryFragment : Fragment() {
         binding.birbankSummaryContainer.visibility = View.GONE
         binding.tvContactHeader.visibility = View.VISIBLE
         binding.cardContact.visibility = View.VISIBLE
+        binding.tvPromoHeader.visibility = View.VISIBLE
+        binding.cardPromoCheck.visibility = View.VISIBLE
         binding.ordersContainer.visibility = View.VISIBLE
         binding.totalRow.visibility = View.VISIBLE
         binding.tvLegal.visibility = View.VISIBLE
@@ -245,6 +269,9 @@ class OrderSummaryFragment : Fragment() {
             binding.birbankSummaryContainer.visibility = View.GONE
             binding.tvContactHeader.visibility = View.GONE
             binding.cardContact.visibility = View.GONE
+            binding.tvPromoHeader.visibility = View.GONE
+            binding.cardPromoCheck.visibility = View.GONE
+            binding.cardPromoInput.visibility = View.GONE
             binding.ordersContainer.visibility = View.GONE
             binding.totalRow.visibility = View.GONE
             binding.tvLegal.visibility = View.GONE
@@ -263,6 +290,9 @@ class OrderSummaryFragment : Fragment() {
             binding.creditContainer.visibility = View.GONE
             binding.tvContactHeader.visibility = View.GONE
             binding.cardContact.visibility = View.GONE
+            binding.tvPromoHeader.visibility = View.GONE
+            binding.cardPromoCheck.visibility = View.GONE
+            binding.cardPromoInput.visibility = View.GONE
             binding.ordersContainer.visibility = View.GONE
             binding.totalRow.visibility = View.GONE
             binding.tvLegal.visibility = View.GONE

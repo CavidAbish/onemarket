@@ -2,11 +2,13 @@ package com.example.onemarket.presentation.login
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -61,14 +63,34 @@ class LoginFragment : Fragment() {
 
         // İrəli — OTP ekranına keç
         binding.btnNext.setOnClickListener {
-            val phone = "${selectedCountry.code} ${binding.etPhone.text}"
-            navigateToOtp(phone)
+            if (validatePhone()) {
+                val phone = "${selectedCountry.code} ${binding.etPhone.text}"
+                navigateToOtp(phone)
+            }
         }
 
         // Daxil ol — OTP ekranına keç
         binding.btnLogin.setOnClickListener {
-            val phone = "${selectedCountry.code} ${binding.etPhone.text}"
-            navigateToOtp(phone)
+            if (validatePhone()) {
+                val phone = "${selectedCountry.code} ${binding.etPhone.text}"
+                navigateToOtp(phone)
+            }
+        }
+    }
+
+    /** Returns true if the phone number has exactly the required digit count. */
+    private fun validatePhone(): Boolean {
+        val digits = binding.etPhone.text?.toString()?.filter { it.isDigit() }?.length ?: 0
+        return if (digits == selectedCountry.phoneLength) {
+            true
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "${selectedCountry.name} üçün ${selectedCountry.phoneLength} rəqəm daxil edin",
+                Toast.LENGTH_SHORT
+            ).show()
+            binding.etPhone.requestFocus()
+            false
         }
     }
 
@@ -108,12 +130,9 @@ class LoginFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
-                val isValid = (s?.length ?: 0) >= 7
-                binding.btnNext.isEnabled = isValid
-                binding.btnNext.backgroundTintList = ContextCompat.getColorStateList(
-                    requireContext(),
-                    if (isValid) R.color.pink_main else android.R.color.darker_gray
-                )
+                val digits = s?.filter { it.isDigit() }?.length ?: 0
+                val isValid = digits == selectedCountry.phoneLength
+                updateNextButtonState(isValid)
             }
         })
     }
@@ -121,6 +140,24 @@ class LoginFragment : Fragment() {
     private fun updateSelectedCountry(country: Country) {
         binding.tvCountryFlag.text = country.flag
         binding.tvCountryCode.text = country.code
+
+        // Update hint to show the expected format for this country
+        binding.etPhone.hint = country.phoneHint
+
+        // Enforce the maximum digit count (allow spaces/dashes the user might type)
+        binding.etPhone.filters = arrayOf(InputFilter.LengthFilter(country.phoneLength + 4))
+
+        // Clear the phone field and reset button state when country changes
+        binding.etPhone.text?.clear()
+        updateNextButtonState(false)
+    }
+
+    private fun updateNextButtonState(isValid: Boolean) {
+        binding.btnNext.isEnabled = isValid
+        binding.btnNext.backgroundTintList = ContextCompat.getColorStateList(
+            requireContext(),
+            if (isValid) R.color.pink_main else android.R.color.darker_gray
+        )
     }
 
     private fun showKeyboard(view: View) {

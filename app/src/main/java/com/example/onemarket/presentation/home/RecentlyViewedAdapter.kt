@@ -20,7 +20,8 @@ class RecentlyViewedAdapter(
     private val cartManager: CartManager? = null,
     private val onProductClick: (ProductModel) -> Unit,
     private val onAddToCart: (ProductModel) -> Unit,
-    private val onFavoriteChanged: (() -> Unit)? = null
+    private val onFavoriteChanged: (() -> Unit)? = null,
+    private val onGoToCart: (() -> Unit)? = null
 ) : ListAdapter<ProductModel, RecentlyViewedAdapter.ViewHolder>(DiffCallback()) {
 
     inner class ViewHolder(private val binding: ItemRecentlyViewedBinding) :
@@ -50,8 +51,13 @@ class RecentlyViewedAdapter(
             }
 
             binding.btnAddToCart.setOnClickListener {
-                onAddToCart(product)
-                updateCartButton(product.id)
+                val inCart = cartManager?.isInCart(product.id) ?: false
+                if (inCart) {
+                    onGoToCart?.invoke()
+                } else {
+                    onAddToCart(product)
+                    updateCartButton(product.id)
+                }
             }
 
             binding.root.setOnClickListener {

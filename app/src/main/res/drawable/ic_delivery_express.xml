@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="56dp"
+    android:height="56dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Speed lines -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#7B2FF7"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:pathData="M1,8 L6,8" />
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#7B2FF7"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:pathData="M1,11 L4,11" />
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#7B2FF7"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:pathData="M1,14 L6,14" />
+    <!-- Truck body -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#7B2FF7"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M5,4 L17,4 L17,16 L5,16 Z" />
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#7B2FF7"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M17,7 L20,7 L23,11 L23,16 L17,16 Z" />
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#7B2FF7"
+        android:strokeWidth="1.5"
+        android:pathData="M9,16 m-2,0 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0" />
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#7B2FF7"
+        android:strokeWidth="1.5"
+        android:pathData="M20,16 m-2,0 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0" />
+</vector>

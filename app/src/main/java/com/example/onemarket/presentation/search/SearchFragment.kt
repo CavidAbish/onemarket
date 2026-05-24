@@ -96,6 +96,11 @@ class SearchFragment : Fragment() {
                 cartManager.addToCart(product)
                 resultsAdapter.notifyDataSetChanged()
                 Toast.makeText(requireContext(), "${product.title} səbətə əlavə edildi", Toast.LENGTH_SHORT).show()
+            },
+            onGoToCart = {
+                requireActivity().findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
+                    com.example.onemarket.R.id.bottom_nav
+                ).selectedItemId = com.example.onemarket.R.id.cartFragment
             }
         )
         binding.recyclerViewResults.layoutManager = GridLayoutManager(requireContext(), 2)

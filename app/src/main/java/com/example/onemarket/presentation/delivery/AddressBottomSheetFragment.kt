@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.onemarket.R
+import com.example.onemarket.data.local.AddressManager
 import com.example.onemarket.data.local.PickupHistoryManager
 import com.example.onemarket.databinding.BottomSheetAddressBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -22,6 +23,7 @@ class AddressBottomSheetFragment : BottomSheetDialogFragment() {
     private val binding get() = _binding!!
 
     @Inject lateinit var historyManager: PickupHistoryManager
+    @Inject lateinit var addressManager: AddressManager
 
     companion object {
         const val TAG = "AddressBottomSheet"
@@ -53,13 +55,25 @@ class AddressBottomSheetFragment : BottomSheetDialogFragment() {
         val orderIndex = arguments?.getInt(ARG_ORDER_INDEX, 0) ?: 0
         val currentAddress = arguments?.getString(ARG_CURRENT_ADDRESS, "") ?: ""
 
+        val savedAddresses = addressManager.getAddresses()
         val history = historyManager.getAddressHistory()
-        if (history.isNotEmpty()) {
+
+        // Saved addresses (full address string) come first,
+        // then any map-picked history entries not already in the saved list
+        val savedFull = savedAddresses.map { it.fullAddress }
+        val historyExtra = history.filter { it !in savedFull }
+        val allAddresses = savedFull + historyExtra
+
+        // Pre-select: current address if set, otherwise the default saved address
+        val preSelected = if (currentAddress.isNotEmpty()) currentAddress
+                          else savedAddresses.find { it.isDefault }?.fullAddress ?: ""
+
+        if (allAddresses.isNotEmpty()) {
             binding.tvAddressHistoryLabel.visibility = View.VISIBLE
             binding.rvAddressHistory.visibility = View.VISIBLE
+            binding.tvAddressHistoryLabel.text = "Çatdırılma ünvanları"
 
-            val adapter = AddressHistoryAdapter(history, currentAddress) { address ->
-                // User selected an existing address from history
+            val adapter = AddressHistoryAdapter(allAddresses, preSelected) { address ->
                 val bundle = Bundle().apply {
                     putString("selected_address", address)
                     putInt("order_index", orderIndex)
@@ -74,7 +88,6 @@ class AddressBottomSheetFragment : BottomSheetDialogFragment() {
         binding.btnClose.setOnClickListener { dismiss() }
 
         binding.btnAddNewAddress.setOnClickListener {
-            // Signal DeliveryFragment to open map picker
             val bundle = Bundle().apply { putInt("order_index", orderIndex) }
             parentFragmentManager.setFragmentResult("open_address_map", bundle)
             dismiss()

@@ -200,6 +200,25 @@
                     android:visibility="gone"
                     app:cornerRadius="8dp" />
 
+                <!-- Zaman aralıqları -->
+                <HorizontalScrollView
+                    android:id="@+id/timeSlotsScrollView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:scrollbars="none"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:id="@+id/timeSlotsContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp" />
+
+                </HorizontalScrollView>
+
             </LinearLayout>
 
             <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" />

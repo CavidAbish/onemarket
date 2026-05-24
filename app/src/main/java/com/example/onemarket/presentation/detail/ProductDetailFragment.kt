@@ -83,10 +83,17 @@ class ProductDetailFragment : Fragment() {
         // Səbətə əlavə et
         updateCartButton()
         binding.btnAddToCart.setOnClickListener {
-            cartManager.addToCart(product)
-            updateCartButton()
-            relatedAdapter.notifyDataSetChanged()
-            Toast.makeText(requireContext(), "${product.title} səbətə əlavə edildi", Toast.LENGTH_SHORT).show()
+            if (cartManager.isInCart(product.id)) {
+                // Artıq səbətdədir — cart-a keç
+                requireActivity().findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
+                    R.id.bottom_nav
+                ).selectedItemId = R.id.cartFragment
+            } else {
+                cartManager.addToCart(product)
+                updateCartButton()
+                relatedAdapter.notifyDataSetChanged()
+                Toast.makeText(requireContext(), "${product.title} səbətə əlavə edildi", Toast.LENGTH_SHORT).show()
+            }
         }
 
         // Oxşar məhsullar
@@ -130,6 +137,11 @@ class ProductDetailFragment : Fragment() {
                 cartManager.addToCart(product)
                 relatedAdapter.notifyDataSetChanged()
                 Toast.makeText(requireContext(), "${product.title} səbətə əlavə edildi", Toast.LENGTH_SHORT).show()
+            },
+            onGoToCart = {
+                requireActivity().findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
+                    R.id.bottom_nav
+                ).selectedItemId = R.id.cartFragment
             }
         )
         binding.recyclerViewRelated.layoutManager = GridLayoutManager(requireContext(), 2)

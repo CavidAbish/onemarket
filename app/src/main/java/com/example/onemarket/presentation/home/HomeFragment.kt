@@ -133,6 +133,11 @@ class HomeFragment : Fragment() {
                 productAdapter.notifyDataSetChanged()
                 recentlyViewedAdapter.notifyDataSetChanged()
                 Toast.makeText(requireContext(), "${product.title} səbətə əlavə edildi", Toast.LENGTH_SHORT).show()
+            },
+            onGoToCart = {
+                requireActivity().findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
+                    R.id.bottom_nav
+                ).selectedItemId = R.id.cartFragment
             }
         )
         binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
@@ -167,7 +172,12 @@ class HomeFragment : Fragment() {
                 recentlyViewedAdapter.notifyDataSetChanged()
                 Toast.makeText(requireContext(), "${product.title} səbətə əlavə edildi", Toast.LENGTH_SHORT).show()
             },
-            onFavoriteChanged = { productAdapter.notifyDataSetChanged() }
+            onFavoriteChanged = { productAdapter.notifyDataSetChanged() },
+            onGoToCart = {
+                requireActivity().findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
+                    R.id.bottom_nav
+                ).selectedItemId = R.id.cartFragment
+            }
         )
         binding.recyclerViewRecentlyViewed.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
