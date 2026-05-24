@@ -69,7 +69,6 @@ class BrandFilterBottomSheet : BottomSheetDialogFragment() {
         brandValues.clear()
         binding.llBrandsContainer.removeAllViews()
 
-        // "Hamısı" = empty string, then each brand
         val entries = listOf("") + brands
         val labels = listOf("Hamısı") + brands
 
@@ -88,7 +87,7 @@ class BrandFilterBottomSheet : BottomSheetDialogFragment() {
 
             binding.llBrandsContainer.addView(row)
 
-            // Divider
+
             val divider = View(requireContext()).apply {
                 layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT, 1

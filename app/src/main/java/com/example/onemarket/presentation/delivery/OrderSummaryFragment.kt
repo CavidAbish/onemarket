@@ -59,7 +59,7 @@ class OrderSummaryFragment : Fragment() {
 
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
 
-        // Payment method card clicks
+
         binding.cardPayOnline.setOnClickListener { switchToOnline() }
         binding.cardPayCredit.setOnClickListener { switchToCredit() }
 
@@ -76,12 +76,12 @@ class OrderSummaryFragment : Fragment() {
             applySelectedPaymentMethod(method)
         }
 
-        // İstifadəçi məlumatları
+
         val contactName = personalInfoManager.getFullName().ifEmpty { userManager.getUserName() }
         binding.tvContactName.text = contactName.uppercase()
         binding.tvContactPhone.text = userManager.getUserPhone()
 
-        // Cart items
+
         val cartItems = cartManager.getSelectedItems().ifEmpty { cartManager.getCartItems() }
         val deliveryCost = 3.0
         productCount = cartItems.sumOf { it.quantity }
@@ -121,7 +121,7 @@ class OrderSummaryFragment : Fragment() {
         binding.tvTotalPayment.text = String.format("%.2f ₼", totalAmount)
         binding.btnPay.text = String.format("%.2f ₼ ödə", totalAmount)
 
-        // Kredit xülasəsi doldur
+
         binding.tvCreditOrderLabel.text = "Sifarişin məbləği ($productCount məhsul):"
         binding.tvCreditOrderAmount.text = String.format("%.2f ₼", originalAmountSum)
         if (discountSum > 0) {
@@ -130,7 +130,7 @@ class OrderSummaryFragment : Fragment() {
         }
         binding.tvCreditDelivery.text = String.format("%.2f ₼", deliveryCostTotal)
 
-        // Birbank kontakt məlumatları
+
         val birbankContactName = personalInfoManager.getFullName().ifEmpty { userManager.getUserName() }
         binding.tvBirbankContactName.text = birbankContactName.uppercase()
         binding.tvBirbankContactPhone.text = userManager.getUserPhone()
@@ -147,7 +147,7 @@ class OrderSummaryFragment : Fragment() {
         binding.tvBirbankTotal.text = String.format("%.2f ₼", totalAmount)
         binding.tvBirbankDelivery.text = String.format("%.2f ₼", deliveryCostTotal)
 
-        // Kredit formu ön doldurmaq — PersonalInfoManager üstünlüklüdür
+
         val piFirst = personalInfoManager.getFirstName()
         val piLast  = personalInfoManager.getLastName()
         if (piFirst.isNotEmpty() || piLast.isNotEmpty()) {
@@ -165,7 +165,7 @@ class OrderSummaryFragment : Fragment() {
         }
         binding.etCreditPhone.setText(userManager.getUserPhone())
 
-        // FİN — avtomatik doldurulsun (şəxsi məlumatlardan)
+
         val savedFin = personalInfoManager.getFin()
         if (savedFin.isNotEmpty()) {
             binding.etCreditFin.setText(savedFin)

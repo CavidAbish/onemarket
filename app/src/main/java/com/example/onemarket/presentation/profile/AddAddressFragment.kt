@@ -55,14 +55,14 @@ class AddAddressFragment : Fragment() {
             }
         }
 
-        // "Xəritədə ünvanı seçmək" → navigate to map picker
+
         binding.btnPickFromMap.setOnClickListener {
             findNavController().navigate(
                 AddAddressFragmentDirections.actionAddAddressFragmentToMapPickerFragment()
             )
         }
 
-        // Receive map result (address selected from map)
+
         parentFragmentManager.setFragmentResultListener(
             "map_result", viewLifecycleOwner
         ) { _, bundle ->

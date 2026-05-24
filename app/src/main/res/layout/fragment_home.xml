@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.onemarket.presentation.home.HomeFragment">
 
-    <!-- TOP BAR — sabit qalır -->
+
     <androidx.cardview.widget.CardView
         android:id="@+id/topBarCard"
         android:layout_width="0dp"
@@ -80,7 +80,7 @@
 
     </androidx.cardview.widget.CardView>
 
-    <!-- KİÇİK SABİT BANNER -->
+
     <androidx.cardview.widget.CardView
         android:id="@+id/stickyBanner"
         android:layout_width="0dp"
@@ -147,7 +147,7 @@
 
     </androidx.cardview.widget.CardView>
 
-    <!-- SCROLL OLAN HİSSƏ -->
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="0dp"
@@ -281,7 +281,7 @@
                 android:paddingStart="4dp"
                 android:paddingEnd="4dp" />
 
-            <!-- KATEQORİYALAR -->
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/categoryRecyclerView"
                 android:layout_width="match_parent"
@@ -290,7 +290,7 @@
                 android:layout_marginBottom="4dp"
                 android:nestedScrollingEnabled="false" />
 
-            <!-- ƏVVƏL BAXDIQLARIN BAŞLIĞI -->
+
             <TextView
                 android:id="@+id/tvRecentlyViewed"
                 android:layout_width="match_parent"
@@ -305,7 +305,7 @@
                 android:paddingBottom="4dp"
                 android:visibility="gone" />
 
-            <!-- ƏVVƏL BAXDIQLARIN HORIZONTAL RECYCLER -->
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewRecentlyViewed"
                 android:layout_width="match_parent"
@@ -314,7 +314,7 @@
                 android:nestedScrollingEnabled="false"
                 android:visibility="gone" />
 
-            <!-- MƏHSULLAR BAŞLIĞI -->
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

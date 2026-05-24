@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#E91E8C">
 
-    <!-- Loqo -->
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Şəkil loqo — əgər varsa -->
+
         <ImageView
             android:id="@+id/ivLogo"
             android:layout_width="120dp"
@@ -36,7 +36,7 @@
             android:letterSpacing="0.05" />
     </LinearLayout>
 
-    <!-- Aşağıda loading -->
+
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

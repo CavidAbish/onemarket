@@ -6,28 +6,24 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * Hər istifadəçi üçün ayrıca dil seçimini saxlayır.
- * Dəstəklənən dillər: "az" (Azərbaycan), "ru" (Русский), "en" (English), "tr" (Türkçe)
- */
 @Singleton
 class LanguageManager @Inject constructor(
-    @ApplicationContext private val context: Context,
-    private val userManager: UserManager
+    @ApplicationContext private val context: Context
 ) {
-    private fun prefs(): SharedPreferences =
-        context.getSharedPreferences("${userManager.getUserKey()}_language", Context.MODE_PRIVATE)
+    private val prefs: SharedPreferences =
+        context.getSharedPreferences("app_settings", Context.MODE_PRIVATE)
 
-    fun getLanguage(): String = prefs().getString("language", "az") ?: "az"
+    fun getLanguage(): String = prefs.getString("language", "az") ?: "az"
 
     fun saveLanguage(lang: String) {
-        prefs().edit().putString("language", lang).apply()
+        prefs.edit().putString("language", lang).apply()
     }
 
-    fun getLanguageLabel(): String = when (getLanguage()) {
-        "ru" -> "Русский"
-        "en" -> "English"
-        "tr" -> "Türkçe"
-        else -> "Azərbaycan"
+    fun getLanguageLabel(): String = if (getLanguage() == "en") "English" else "Azərbaycan"
+
+    companion object {
+        fun readLanguage(context: Context): String =
+            context.getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+                .getString("language", "az") ?: "az"
     }
 }

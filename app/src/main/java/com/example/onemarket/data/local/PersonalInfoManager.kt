@@ -11,7 +11,6 @@ class PersonalInfoManager @Inject constructor(
     @ApplicationContext private val context: Context,
     private val userManager: UserManager
 ) {
-    /** Her istifadəçinin öz SharedPreferences faylı — nömrəyə görə ayrılır */
     private fun prefs(): SharedPreferences =
         context.getSharedPreferences("${userManager.getUserKey()}_personal_info", Context.MODE_PRIVATE)
 
@@ -60,7 +59,6 @@ class PersonalInfoManager @Inject constructor(
         }
     }
 
-    /** Returns existing CIF or generates a deterministic 7-digit one from the phone number seed. */
     fun getOrGenerateCif(phone: String): String {
         val existing = getCif()
         if (existing.isNotEmpty()) return existing

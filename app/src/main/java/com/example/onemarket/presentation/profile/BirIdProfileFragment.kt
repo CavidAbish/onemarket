@@ -33,27 +33,27 @@ class BirIdProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // × button goes back
+
         binding.btnClose.setOnClickListener {
             findNavController().popBackStack()
         }
 
         updateUserInfo()
 
-        // Şəxsi məlumatlar saxlanıldıqda dərhal yenilə
+
         parentFragmentManager.setFragmentResultListener(
             "personal_info_saved", viewLifecycleOwner
         ) { _, _ ->
             updateUserInfo()
         }
 
-        // "Şəxsi məlumatlar" → bottom sheet slides up
+
         binding.menuPersonalInfo.setOnClickListener {
             val sheet = PersonalInfoBottomSheet()
             sheet.show(parentFragmentManager, "PersonalInfo")
         }
 
-        // "Məxflilik siyasəti" → bottom sheet slides up
+
         binding.menuPrivacyPolicy.setOnClickListener {
             val sheet = PrivacyPolicyBottomSheet()
             sheet.show(parentFragmentManager, "PrivacyPolicy")

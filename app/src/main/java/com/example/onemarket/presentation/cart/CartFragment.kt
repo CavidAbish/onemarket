@@ -72,7 +72,7 @@ class CartFragment : Fragment() {
                 Toast.makeText(requireContext(), "Ödəniş üçün məhsul seçin", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            // Seçilmiş məhsulları müvəqqəti saxla
+
             cartManager.saveSelectedItems(selected)
             findNavController().navigate(
                 CartFragmentDirections.actionCartFragmentToDeliveryFragment()

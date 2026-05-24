@@ -39,7 +39,6 @@ data class FilterState(
             return count
         }
 
-    /** Returns list of (key, displayLabel) pairs for active filter chips */
     fun activeChips(): List<Pair<String, String>> {
         val chips = mutableListOf<Pair<String, String>>()
         if (hasBrandFilter) chips.add("brand" to brand)

@@ -39,25 +39,25 @@ class ReviewsFragment : Fragment() {
             selectTab(writeReview = false)
         }
 
-        // "Alış-verişə başla" — switch bottom nav to Catalog
+
         binding.btnStartShopping.setOnClickListener {
             requireActivity()
                 .findViewById<BottomNavigationView>(R.id.bottom_nav)
                 ?.selectedItemId = R.id.catalogFragment
         }
 
-        // "Rəy yazmaq" from 'Mənim rəylərim' tab — switch to first tab
+
         binding.btnWriteReview.setOnClickListener {
             selectTab(writeReview = true)
         }
 
-        // Default: show first tab
+
         selectTab(writeReview = true)
     }
 
     private fun selectTab(writeReview: Boolean) {
         if (writeReview) {
-            // Activate "Rəy yazmaq" tab
+
             binding.tabWriteReview.setBackgroundResource(R.drawable.bg_chip_selected)
             binding.tabWriteReview.setTextColor(android.graphics.Color.parseColor("#1A237E"))
             binding.tabMyReviews.setBackgroundColor(android.graphics.Color.TRANSPARENT)
@@ -65,7 +65,7 @@ class ReviewsFragment : Fragment() {
             binding.contentWriteReview.visibility = View.VISIBLE
             binding.contentMyReviews.visibility = View.GONE
         } else {
-            // Activate "Mənim rəylərim" tab
+
             binding.tabMyReviews.setBackgroundResource(R.drawable.bg_chip_selected)
             binding.tabMyReviews.setTextColor(android.graphics.Color.parseColor("#1A237E"))
             binding.tabWriteReview.setBackgroundColor(android.graphics.Color.TRANSPARENT)

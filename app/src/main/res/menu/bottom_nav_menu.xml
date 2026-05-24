@@ -3,26 +3,26 @@
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/ic_nav_home"
-        android:title="Əsas" />
+        android:title="@string/nav_home" />
 
     <item
         android:id="@+id/catalogFragment"
         android:icon="@drawable/ic_nav_catalog"
-        android:title="Kataloq" />
+        android:title="@string/nav_catalog" />
 
     <item
         android:id="@+id/favoritesFragment"
         android:icon="@drawable/ic_nav_favorites"
-        android:title="Seçilmişlər" />
+        android:title="@string/nav_favorites" />
 
     <item
         android:id="@+id/cartFragment"
         android:icon="@drawable/ic_nav_cart"
-        android:title="Səbət" />
+        android:title="@string/nav_cart" />
 
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/ic_nav_profile"
-        android:title="Kabinet" />
+        android:title="@string/nav_profile" />
 
 </menu>

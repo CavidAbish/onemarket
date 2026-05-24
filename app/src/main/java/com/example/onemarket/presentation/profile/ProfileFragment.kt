@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.onemarket.MainActivity
@@ -55,11 +54,8 @@ class ProfileFragment : Fragment() {
     }
 
     private fun updateUI() {
-        if (userManager.isLoggedIn()) showLoggedIn()
-        else showLoggedOut()
-
+        if (userManager.isLoggedIn()) showLoggedIn() else showLoggedOut()
         updateNotifBadge()
-
         binding.ivNotification.setOnClickListener {
             findNavController().navigate(
                 ProfileFragmentDirections.actionProfileFragmentToNotificationsFragment()
@@ -69,29 +65,20 @@ class ProfileFragment : Fragment() {
 
     private fun updateNotifBadge() {
         val count = appNotificationManager.getUnreadCount()
-        if (count > 0) {
-            binding.tvNotifBadgeProfile.visibility = View.VISIBLE
-            binding.tvNotifBadgeProfile.text = if (count > 99) "99+" else count.toString()
-        } else {
-            binding.tvNotifBadgeProfile.visibility = View.GONE
-        }
+        binding.tvNotifBadgeProfile.visibility = if (count > 0) View.VISIBLE else View.GONE
+        if (count > 0) binding.tvNotifBadgeProfile.text = if (count > 99) "99+" else count.toString()
     }
 
     private fun showLoggedOut() {
         binding.loggedOutLayout.visibility = View.VISIBLE
         binding.loggedInLayout.visibility = View.GONE
-
-        // Yalnız daxil olmuş halda görünən elementlər
         binding.dividerAfterLanguage.visibility = View.GONE
         binding.menuNotifications.visibility = View.GONE
         binding.dividerLogout.visibility = View.GONE
         binding.menuLogout.visibility = View.GONE
         binding.tvDeleteAccount.visibility = View.GONE
-
         binding.btnLogin.setOnClickListener {
-            findNavController().navigate(
-                ProfileFragmentDirections.actionProfileFragmentToLoginFragment()
-            )
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLoginFragment())
         }
         setupCommonMenus()
     }
@@ -100,112 +87,68 @@ class ProfileFragment : Fragment() {
         binding.loggedOutLayout.visibility = View.GONE
         binding.loggedInLayout.visibility = View.VISIBLE
 
-        // Display full name from personalInfoManager if available, else fallback to userManager
         val fullName = personalInfoManager.getFullName()
-        binding.tvUserName.text = if (fullName.isNotEmpty()) fullName else userManager.getUserName().ifEmpty { "İstifadəçi" }
+        binding.tvUserName.text = fullName.ifEmpty { userManager.getUserName().ifEmpty { "İstifadəçi" } }
         binding.tvUserPhone.text = userManager.getUserPhone()
 
-        // Tap profile card → open Bir ID screen
         binding.cardBirId.setOnClickListener {
-            findNavController().navigate(
-                ProfileFragmentDirections.actionProfileFragmentToBirIdProfileFragment()
-            )
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToBirIdProfileFragment())
         }
-
-        // Mənim sifarişlərim — naviqasiya
         binding.menuOrders.setOnClickListener {
-            findNavController().navigate(
-                ProfileFragmentDirections.actionProfileFragmentToMyOrdersFragment()
-            )
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToMyOrdersFragment())
         }
-
         binding.menuCards.setOnClickListener {
-            findNavController().navigate(
-                ProfileFragmentDirections.actionProfileFragmentToMyCardsFragment()
-            )
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToMyCardsFragment())
         }
-
         binding.menuReturns.setOnClickListener {
-            Toast.makeText(requireContext(), "Geri qaytarma müraciətləri", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.profile_returns), Toast.LENGTH_SHORT).show()
         }
-
         binding.menuAddresses.setOnClickListener {
-            findNavController().navigate(
-                ProfileFragmentDirections.actionProfileFragmentToSavedAddressesFragment()
-            )
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToSavedAddressesFragment())
         }
-
         binding.menuPromo.setOnClickListener {
-            findNavController().navigate(
-                ProfileFragmentDirections.actionProfileFragmentToPromoCodesFragment()
-            )
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToPromoCodesFragment())
         }
-
         binding.menuReviews.setOnClickListener {
-            findNavController().navigate(
-                ProfileFragmentDirections.actionProfileFragmentToReviewsFragment()
-            )
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToReviewsFragment())
         }
-
         binding.menuExtra.setOnClickListener {
-            findNavController().navigate(
-                ProfileFragmentDirections.actionProfileFragmentToExtraServicesFragment()
-            )
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToExtraServicesFragment())
         }
-
         binding.menuCredit.setOnClickListener {
-            findNavController().navigate(
-                ProfileFragmentDirections.actionProfileFragmentToCreditApplicationsFragment()
-            )
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToCreditApplicationsFragment())
         }
 
-        // Daxil olmuş vəziyyətdə görünən elementlər
         binding.dividerAfterLanguage.visibility = View.VISIBLE
         binding.menuNotifications.visibility = View.VISIBLE
         binding.dividerLogout.visibility = View.VISIBLE
         binding.menuLogout.visibility = View.VISIBLE
         binding.tvDeleteAccount.visibility = View.VISIBLE
 
-        // Çıxış — ekran qaralsın, home-a keçsin
-        binding.menuLogout.setOnClickListener {
-            logout()
-        }
-
+        binding.menuLogout.setOnClickListener { logout() }
         binding.tvDeleteAccount.setOnClickListener {
-            findNavController().navigate(
-                ProfileFragmentDirections.actionProfileFragmentToDeleteAccountFragment()
-            )
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToDeleteAccountFragment())
         }
 
         setupCommonMenus()
     }
 
     private fun logout() {
-        // Ekran qararma animasiyası
         val rootView = requireActivity().window.decorView
-        val fadeOut = ObjectAnimator.ofFloat(rootView, "alpha", 1f, 0f)
-        fadeOut.duration = 400
-
-        val animSet = AnimatorSet()
-        animSet.play(fadeOut)
-        animSet.start()
-
-        animSet.addListener(object : android.animation.AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: android.animation.Animator) {
-                userManager.logout()
-
-                // Home-a keç
-                requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav)
-                    .selectedItemId = R.id.homeFragment
-
-                // Ekranı geri gətir
-                val fadeIn = ObjectAnimator.ofFloat(rootView, "alpha", 0f, 1f)
-                fadeIn.duration = 400
-                fadeIn.start()
-
-                updateUI()
-            }
-        })
+        val fadeOut = ObjectAnimator.ofFloat(rootView, "alpha", 1f, 0f).apply { duration = 400 }
+        AnimatorSet().apply {
+            play(fadeOut)
+            start()
+            addListener(object : android.animation.AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: android.animation.Animator) {
+                    userManager.logout()
+                    requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav)
+                        .selectedItemId = R.id.homeFragment
+                    ObjectAnimator.ofFloat(rootView, "alpha", 0f, 1f).apply { duration = 400 }.start()
+                    updateUI()
+                }
+            })
+        }
     }
 
     private fun setupCommonMenus() {
@@ -213,64 +156,30 @@ class ProfileFragment : Fragment() {
         binding.titleLanguage.text = languageManager.getLanguageLabel()
 
         binding.menuCity.setOnClickListener {
-            findNavController().navigate(
-                ProfileFragmentDirections.actionProfileFragmentToCityFragment()
-            )
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToCityFragment())
         }
-
         binding.menuLanguage.setOnClickListener {
-            showLanguagePicker()
+            LanguageBottomSheetFragment()
+                .show(parentFragmentManager, LanguageBottomSheetFragment::class.java.simpleName)
         }
-
         binding.menuNotifications.setOnClickListener {
-            findNavController().navigate(
-                ProfileFragmentDirections.actionProfileFragmentToNotificationsFragment()
-            )
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToNotificationsFragment())
         }
         binding.menuSupport.setOnClickListener {
-            Toast.makeText(requireContext(), "Dəstək xidməti", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.profile_support), Toast.LENGTH_SHORT).show()
         }
         binding.menuServiceCenters.setOnClickListener {
-            Toast.makeText(requireContext(), "Servis mərkəzləri", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.profile_service_centers), Toast.LENGTH_SHORT).show()
         }
         binding.menuDelivery.setOnClickListener {
-            findNavController().navigate(
-                ProfileFragmentDirections.actionProfileFragmentToDeliveryPaymentFragment()
-            )
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToDeliveryPaymentFragment())
         }
         binding.menuPickup.setOnClickListener {
-            findNavController().navigate(
-                ProfileFragmentDirections.actionProfileFragmentToPickupListFragment()
-            )
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToPickupListFragment())
         }
         binding.menuFaq.setOnClickListener {
-            findNavController().navigate(
-                ProfileFragmentDirections.actionProfileFragmentToFaqFragment()
-            )
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToFaqFragment())
         }
-    }
-
-    private fun showLanguagePicker() {
-        val languages = arrayOf(
-            "🇦🇿  Azərbaycan",
-            "🇷🇺  Русский",
-            "🇬🇧  English",
-            "🇹🇷  Türkçe"
-        )
-        val codes = arrayOf("az", "ru", "en", "tr")
-        val currentLang = languageManager.getLanguage()
-        val checkedItem = codes.indexOf(currentLang).takeIf { it >= 0 } ?: 0
-
-        AlertDialog.Builder(requireContext())
-            .setTitle("Dil seçin")
-            .setSingleChoiceItems(languages, checkedItem) { dialog, which ->
-                val selected = codes[which]
-                languageManager.saveLanguage(selected)
-                binding.titleLanguage.text = languageManager.getLanguageLabel()
-                dialog.dismiss()
-            }
-            .setNegativeButton("Ləğv et", null)
-            .show()
     }
 
     override fun onDestroyView() {

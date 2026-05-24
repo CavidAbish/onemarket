@@ -25,7 +25,7 @@ class NotificationsFragment : Fragment() {
 
     @Inject lateinit var notificationManager: AppNotificationManager
 
-    /** 0 = Hamısı, 1 = Sifarişlər */
+
     private var selectedTab = 0
 
     override fun onCreateView(
@@ -38,7 +38,7 @@ class NotificationsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Bildirişlər açıldıqda hamısı oxunmuş sayılır — badge silinir
+
         notificationManager.markAllRead()
 
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
@@ -74,7 +74,7 @@ class NotificationsFragment : Fragment() {
     private fun loadNotifications() {
         val all = notificationManager.getNotifications()
 
-        // "Sifarişlər" tabında kredit bildirişləri göstərilmir
+
         val filtered = if (selectedTab == 1)
             all.filter { it.type != "credit" }
         else

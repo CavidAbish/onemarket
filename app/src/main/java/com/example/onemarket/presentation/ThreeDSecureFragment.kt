@@ -156,13 +156,12 @@ class ThreeDSecureFragment : Fragment() {
                 "Bank kartı vasitəsi ilə onlayn"
             orderManager.addOrdersFromCart(selectedItems, paymentMethod = paymentLabel)
 
-            // Yalnız seçilmiş məhsulları sil, qalanlar qalsın
+
             cartManager.removeSelectedItems()
 
             Toast.makeText(requireContext(), "Ödəniş uğurlu oldu! 🎉", Toast.LENGTH_LONG).show()
 
-            // Home-a keç — bottom nav vasitəsilə
-            // Bu delivery→orderSummary→payment→3dSecure stack-ini avtomatik bağlayır
+
             requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav)
                 .selectedItemId = R.id.homeFragment
 

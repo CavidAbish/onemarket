@@ -47,17 +47,17 @@ class OrderDetailFragment : Fragment() {
 
         val order = orderManager.getOrders().find { it.id == args.orderId } ?: return
 
-        // Header — sifariş nömrəsi
+
         binding.tvOrderNumber.text = "Sifariş №${order.id}"
 
-        // Header — kopyalama
+
         binding.btnCopyHeader.setOnClickListener {
             val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             clipboard.setPrimaryClip(ClipData.newPlainText("order_id", order.id.toString()))
             Toast.makeText(requireContext(), "Sifariş nömrəsi kopyalandı", Toast.LENGTH_SHORT).show()
         }
 
-        // Sifariş statusu kartı
+
         if (order.status == "cancelled") {
             binding.tvOrderStatusTitle.text = "Sifariş ləğv edildi"
             binding.tvOrderStatusTitle.setTextColor(android.graphics.Color.parseColor("#F44336"))
@@ -72,11 +72,11 @@ class OrderDetailFragment : Fragment() {
             binding.btnCancelOrder.visibility = View.VISIBLE
         }
 
-        // Tarix
+
         binding.tvOrderDateTime.text =
             order.orderDateTime?.takeIf { it.isNotEmpty() } ?: order.date
 
-        // Çatdırılma ünvanı
+
         val savedAddress = order.deliveryAddress?.takeIf { it.isNotEmpty() }
         binding.tvDeliveryAddress.text = savedAddress ?: when {
             order.paymentMethod.contains("məntəqə", ignoreCase = true) ||
@@ -124,14 +124,12 @@ class OrderDetailFragment : Fragment() {
             }
         }
 
-        // Cəmi
+
         binding.tvTotalAmount.text = String.format("%.2f ₼", order.totalAmount)
 
-        // Sifarişi ləğv et
+
         binding.btnCancelOrder.setOnClickListener {
-            // Capture context and NavController before entering the dialog callback.
-            // Calling requireContext()/findNavController() inside an async lambda
-            // can throw IllegalStateException if the fragment is no longer attached.
+
             val ctx = requireContext()
             val nav = findNavController()
             androidx.appcompat.app.AlertDialog.Builder(ctx)

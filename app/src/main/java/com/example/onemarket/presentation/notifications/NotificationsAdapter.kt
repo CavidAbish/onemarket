@@ -15,13 +15,13 @@ sealed class NotifListItem {
     data class Item(val notification: AppNotification) : NotifListItem()
 }
 
-/** Hər bildiriş tipi üçün vizual stil */
+
 private data class NotifStyle(
-    val stripColor: Int,     // Sol şaquli çubuğun rəngi
-    val badgeText: String,   // Tip badge mətni
-    val badgeBg: Int,        // Badge arxa plan rəngi (açıq ton)
-    val badgeText2: Int,     // Badge mətn rəngi (tünd ton)
-    val titleColor: Int      // Başlıq rəngi
+    val stripColor: Int,
+    val badgeText: String,
+    val badgeBg: Int,
+    val badgeText2: Int,
+    val titleColor: Int
 )
 
 private fun styleFor(type: String): NotifStyle = when (type) {
@@ -94,7 +94,7 @@ class NotificationsAdapter(
 
     override fun getItemCount() = items.size
 
-    // ── ViewHolders ─────────────────────────────────────────────────────────
+
 
     class HeaderViewHolder(private val tv: TextView) : RecyclerView.ViewHolder(tv) {
         fun bind(label: String) { tv.text = label }
@@ -106,14 +106,14 @@ class NotificationsAdapter(
         fun bind(notif: AppNotification) {
             val style = styleFor(notif.type)
 
-            // Sol şaquli strip rəngi
+
             b.vTypeStrip.setBackgroundColor(style.stripColor)
 
-            // Başlıq
+
             b.tvNotifTitle.text = notif.title
             b.tvNotifTitle.setTextColor(style.titleColor)
 
-            // Tip badge — yuvarlaq GradientDrawable arxa plan
+
             b.tvNotifBadge.text = style.badgeText
             b.tvNotifBadge.setTextColor(style.badgeText2)
             val density = b.root.context.resources.displayMetrics.density
@@ -124,10 +124,10 @@ class NotificationsAdapter(
             }
             b.tvNotifBadge.background = bg
 
-            // Bildiriş mətni
+
             b.tvNotifBody.text = notif.body
 
-            // Klik → tip əsasında yönləndir
+
             b.root.setOnClickListener { onNotifClick(notif) }
         }
     }

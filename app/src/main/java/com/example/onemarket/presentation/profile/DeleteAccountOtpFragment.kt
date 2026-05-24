@@ -71,7 +71,7 @@ class DeleteAccountOtpFragment : Fragment() {
         val phone = args.phone
         binding.tvPhone.text = phone
 
-        // OTP = son 4 rəqəm
+
         val digits = phone.filter { it.isDigit() }
         val correctOtp = digits.takeLast(4)
 
@@ -86,7 +86,7 @@ class DeleteAccountOtpFragment : Fragment() {
             Toast.makeText(requireContext(), "Kod yenidən göndərildi", Toast.LENGTH_SHORT).show()
         }
 
-        // Klaviaturanı aç
+
         binding.otp1.requestFocus()
         val imm = requireContext().getSystemService(android.content.Context.INPUT_METHOD_SERVICE)
                 as InputMethodManager
@@ -164,12 +164,12 @@ class DeleteAccountOtpFragment : Fragment() {
             addressManager.clearAll()
             pickupHistoryManager.clearAll()
 
-            // Hesabdan çıx
+
             userManager.logout()
 
             Toast.makeText(requireContext(), "Hesabınız silindi", Toast.LENGTH_SHORT).show()
 
-            // Ana səhifəyə qayıt
+
             requireActivity()
                 .findViewById<BottomNavigationView>(R.id.bottom_nav)
                 .selectedItemId = R.id.homeFragment

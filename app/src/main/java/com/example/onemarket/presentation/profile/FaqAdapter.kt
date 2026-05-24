@@ -44,7 +44,7 @@ class FaqAdapter(
 
     override fun getItemCount(): Int = items.size
 
-    // ── ViewHolders ──────────────────────────────────────────────────────────
+
 
     class SectionVH(view: View) : RecyclerView.ViewHolder(view) {
         private val tv: TextView = view.findViewById(R.id.tvSectionTitle)

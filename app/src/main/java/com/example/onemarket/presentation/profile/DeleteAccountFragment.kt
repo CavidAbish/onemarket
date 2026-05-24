@@ -17,7 +17,7 @@ class DeleteAccountFragment : Fragment() {
     private var _binding: FragmentDeleteAccountBinding? = null
     private val binding get() = _binding!!
 
-    // Country: Triple(flag emoji, display code, dial code digits only)
+
     private data class Country(val flag: String, val label: String, val code: String)
 
     private val countries = listOf(
@@ -51,7 +51,7 @@ class DeleteAccountFragment : Fragment() {
 
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
 
-        // Country selector click → show list dialog
+
         binding.btnCountry.setOnClickListener { showCountryPicker() }
 
         binding.btnIreli.setOnClickListener {

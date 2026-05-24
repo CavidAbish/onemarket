@@ -25,7 +25,7 @@ class UserManager @Inject constructor(
     fun getUserPhone(): String = prefs.getString("user_phone", "") ?: ""
     fun isLoggedIn(): Boolean = prefs.getBoolean("is_logged_in", false)
 
-    // Hər istifadəçi üçün unikal key — telefon nömrəsinə əsasən
+
     fun getUserKey(): String {
         val phone = getUserPhone().replace("+", "").replace(" ", "")
         return if (phone.isNotEmpty()) "user_$phone" else "user_guest"

@@ -1,5 +1,96 @@
 <resources>
     <string name="app_name">oneMarket</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="nav_home">Əsas</string>
+    <string name="nav_catalog">Kataloq</string>
+    <string name="nav_favorites">Seçilmişlər</string>
+    <string name="nav_cart">Səbət</string>
+    <string name="nav_profile">Kabinet</string>
+
+    <string name="lang_select_title">Dili seçin</string>
+    <string name="lang_azerbaijani">Azərbaycan</string>
+    <string name="lang_english">English</string>
+
+    <string name="profile_title">Kabinet</string>
+    <string name="profile_orders">Sifarişlərim</string>
+    <string name="profile_cards">Mənim kartlarım</string>
+    <string name="profile_returns">Geri qaytarma müraciətləri</string>
+    <string name="profile_addresses">Sifarişlərin çatdırılması üçün ünvanlarım</string>
+    <string name="profile_promo">Promokodlar</string>
+    <string name="profile_reviews">Rəylərim</string>
+    <string name="profile_extra">Əlavə xidmətlər</string>
+    <string name="profile_credit">Kredit müraciətləri</string>
+    <string name="profile_settings">Parametrlər</string>
+    <string name="profile_city">Şəhər</string>
+    <string name="profile_language">Dil</string>
+    <string name="profile_notifications">Bildirişlər</string>
+    <string name="profile_support">Müştəri dəstəyi</string>
+    <string name="profile_service_centers">Servis mərkəzləri</string>
+    <string name="profile_delivery_payment">Çatdırılma və ödəmə</string>
+    <string name="profile_pickup">Məhsul götürmə məntəqələri</string>
+    <string name="profile_faq">Tez-tez verilən suallar</string>
+    <string name="profile_logout">Çıxış</string>
+    <string name="profile_delete_account">Hesabı sil</string>
+    <string name="profile_help">Kömək</string>
+
+    <string name="login_title">Daxil olun</string>
+    <string name="login_subtitle">Alış-verişdən maksimum yararlanmaq üçün hesabınıza daxil olun</string>
+    <string name="btn_login">Daxil ol</string>
+
+    <string name="home_title">Əsas</string>
+    <string name="catalog_title">Kataloq</string>
+    <string name="favorites_title">Seçilmişlər</string>
+    <string name="cart_title">Səbət</string>
+
+    <string name="btn_add_to_cart">Səbətə əlavə et</string>
+    <string name="btn_buy_now">İndi al</string>
+    <string name="btn_cancel">Ləğv et</string>
+    <string name="btn_confirm">Təsdiq et</string>
+    <string name="btn_save">Yadda saxla</string>
+    <string name="btn_delete">Sil</string>
+    <string name="btn_back">Geri</string>
+    <string name="btn_next">İrəli</string>
+    <string name="btn_close">Bağla</string>
+
+    <string name="cart_empty">Səbətiniz boşdur</string>
+    <string name="favorites_empty">Seçilmişlər boşdur</string>
+
+    <string name="order_my_orders">Sifarişlərim</string>
+    <string name="order_detail">Sifariş detalları</string>
+    <string name="order_status_paid">Ödənilib</string>
+    <string name="order_status_pending">Gözlənilir</string>
+    <string name="order_status_cancelled">Ləğv edilib</string>
+    <string name="order_cancel">Sifarişi ləğv et</string>
+    <string name="order_total">Cəmi</string>
+    <string name="order_delivery">Çatdırılma</string>
+
+    <string name="payment_title">Ödəniş</string>
+    <string name="payment_card_number">Kart nömrəsi</string>
+    <string name="payment_expiry">Son istifadə tarixi</string>
+    <string name="payment_cvv">CVV2</string>
+    <string name="payment_holder">Kart sahibinin adı</string>
+    <string name="payment_pay">Ödə</string>
+
+    <string name="search_hint">Məhsul axtar…</string>
+
+    <string name="notification_title">Bildirişlər</string>
+    <string name="notification_empty">Bildiriş yoxdur</string>
+    <string name="notification_tab_all">Hamısı</string>
+    <string name="notification_tab_orders">Sifarişlər</string>
+
+    <string name="delete_account_title">Hesabın silinməsi</string>
+    <string name="delete_account_warning_title">Diqqət!</string>
+    <string name="delete_account_warning_body">Hesabın silinməsindən sonra onu bərpa etmək mümkün olmayacaq. Hesabın silinməsindən sonra siz artıq Birmarket Premium abunəliyinin yığılmış bonuslarından və üstünlüklərindən istifadə edə bilməyəcəksiniz.</string>
+    <string name="delete_account_confirm_heading">Hesabın silinməsi məcburi təsdiq tələb edir.</string>
+    <string name="delete_account_instruction">SMS kodunu almaq üçün Birmarket-də qeydiyyatdan keçmiş telefon nömrəsini daxil edin.</string>
+    <string name="delete_account_btn_proceed">İrəli</string>
+    <string name="delete_account_btn_cancel">İmtina</string>
+    <string name="delete_account_success">Hesabınız silindi</string>
+
+    <string name="credit_applications_title">Kredit müraciətlərim</string>
+    <string name="credit_empty">Kredit müraciətləri yoxdur</string>
+
+    <string name="address_saved">Ünvanlarım</string>
+    <string name="phone_label">Telefon nömrəsi</string>
+    <string name="country_code_select">Ölkə kodu seçin</string>
 </resources>

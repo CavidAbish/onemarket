@@ -18,7 +18,6 @@ class PickupHistoryManager @Inject constructor(
     private fun prefs(): SharedPreferences =
         context.getSharedPreferences("${userManager.getUserKey()}_pickup", Context.MODE_PRIVATE)
 
-    // ---- Pickup məntəqə tarixçəsi ----
     fun getPickupHistory(): List<PickupPoint> {
         val json = prefs().getString("pickup_history", null) ?: return emptyList()
         val type = object : TypeToken<List<PickupPoint>>() {}.type
@@ -35,7 +34,6 @@ class PickupHistoryManager @Inject constructor(
 
     fun getLastPickup(): PickupPoint? = getPickupHistory().firstOrNull()
 
-    // ---- Çatdırılma ünvan tarixçəsi ----
     fun getAddressHistory(): List<String> {
         val json = prefs().getString("address_history", null) ?: return emptyList()
         val type = object : TypeToken<List<String>>() {}.type

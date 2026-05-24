@@ -16,8 +16,8 @@ data class Order(
     val totalAmount: Double,
     val date: String,
     val paymentMethod: String = "Bank kartı vasitəsi ilə onlayn",
-    val status: String = "paid",          // "paid" | "credit_pending"
-    val orderDateTime: String = "",       // "HH:mm dd.MM.yyyy"
+    val status: String = "paid",
+    val orderDateTime: String = "",
     val deliveryAddress: String = "",
     val originalAmountSum: Double = 0.0,
     val discountSum: Double = 0.0,
@@ -41,18 +41,11 @@ class OrderManager @Inject constructor(
         val json = prefs().getString("orders", null) ?: return emptyList()
         val type = object : TypeToken<List<Order>>() {}.type
         val raw: List<Order> = gson.fromJson(json, type)
-        // Gson uses Unsafe.allocateInstance when deserializing, bypassing the Kotlin
-        // constructor — so fields added after older orders were saved may be null at
-        // runtime even though Kotlin declares them non-nullable.
-        // Applying safe defaults here prevents NPE in copy() and downstream code.
+
         return raw.map { normalizeOrder(it) }
     }
 
-    /**
-     * Reads each Order field via a nullable local variable so a runtime-null value
-     * (injected by Gson through Unsafe) can be detected and replaced with a safe default,
-     * even though the Kotlin type system considers those fields non-nullable.
-     */
+
     private fun normalizeOrder(o: Order): Order {
         val product: ProductModel? = o.product
         val date: String?           = o.date
@@ -61,7 +54,7 @@ class OrderManager @Inject constructor(
         val orderDateTime: String?  = o.orderDateTime
         val deliveryAddress: String? = o.deliveryAddress
 
-        // Fast path: all fields are already non-null
+
         if (product != null && date != null && paymentMethod != null &&
             status != null && orderDateTime != null && deliveryAddress != null) {
             return o
@@ -84,9 +77,7 @@ class OrderManager @Inject constructor(
         )
     }
 
-    /**
-     * Same Gson/Unsafe issue can affect ProductModel String fields — normalize them too.
-     */
+
     private fun normalizeProduct(p: ProductModel): ProductModel {
         val title: String?       = p.title
         val description: String? = p.description
@@ -133,7 +124,7 @@ class OrderManager @Inject constructor(
         val date = dateFmt.format(now)
         val orderDateTime = "${timeFmt.format(now)} $date"
 
-        // Sifariş nömrəsi üçün unikal id — Int aralığında timestamp əsaslı
+
         val baseId = (System.currentTimeMillis() % 1_000_000_000L).toInt()
 
         cartItems.forEachIndexed { index, item ->
@@ -157,7 +148,6 @@ class OrderManager @Inject constructor(
                 )
             )
 
-            // Bildiriş əlavə et
             val (notifTitle, notifBody, notifType) = when {
                 paymentMethod == "Təhvil alarkən bank kartı vasitəsi ilə" ->
                     Triple(
@@ -202,14 +192,13 @@ class OrderManager @Inject constructor(
         }
         prefs().edit().putString("orders", gson.toJson(updated)).apply()
 
-        // Ləğvetmə bildirişi
+
         val now = java.util.Date()
         val timeFmt = java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault())
         val dateFmt = java.text.SimpleDateFormat("dd.MM.yyyy", java.util.Locale.getDefault())
         val dt = "${timeFmt.format(now)} ${dateFmt.format(now)}"
 
-        // Ödəniş üsuluna görə bildiriş mətni müəyyən et:
-        // "Təhvil alarkən" seçilmişdisə ödəniş edilməyib — pul qaytarılması yoxdur
+
         val cancelledOrder = updated.find { it.id == orderId }
         val notifBody = if (cancelledOrder?.paymentMethod == "Təhvil alarkən bank kartı vasitəsi ilə") {
             "$orderId nömrəli sifariş ləğv edildi"

@@ -6,7 +6,7 @@
     android:background="#FFFFFF"
     android:paddingBottom="32dp">
 
-    <!-- Handle -->
+
     <View
         android:layout_width="40dp"
         android:layout_height="4dp"
@@ -15,7 +15,7 @@
         android:layout_marginBottom="8dp"
         android:background="#CCCCCC" />
 
-    <!-- Header -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
 
     <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" />
 
-    <!-- Brand list (built programmatically) -->
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
 
     </ScrollView>
 
-    <!-- Apply button -->
+
     <Button
         android:id="@+id/btnApply"
         android:layout_width="match_parent"

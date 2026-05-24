@@ -43,7 +43,7 @@ class MyOrdersAdapter(
                 }
             }
 
-            // Kopyalama
+
             binding.btnCopyOrder.setOnClickListener {
                 val ctx = binding.root.context
                 val clipboard = ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

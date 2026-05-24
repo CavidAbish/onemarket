@@ -14,7 +14,7 @@ object FaqData {
 
     fun buildList(): List<FaqListItem> = buildList {
 
-        // ── Sifarişin yerləşdirilməsi ──────────────────────────────────────────
+
         add(FaqListItem.SectionHeader("Sifarişin yerləşdirilməsi"))
         add(FaqListItem.Question(
             "1. OneMarket nədir?",

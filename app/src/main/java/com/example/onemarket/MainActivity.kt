@@ -1,5 +1,7 @@
 package com.example.onemarket
 
+import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -7,8 +9,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.onemarket.data.local.CartManager
 import com.example.onemarket.data.local.FavoritesManager
+import com.example.onemarket.data.local.LanguageManager
 import com.example.onemarket.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -18,6 +22,15 @@ class MainActivity : AppCompatActivity() {
 
     @Inject lateinit var favoritesManager: FavoritesManager
     @Inject lateinit var cartManager: CartManager
+
+    override fun attachBaseContext(newBase: Context) {
+        val lang = LanguageManager.readLanguage(newBase)
+        val locale = Locale(lang)
+        Locale.setDefault(locale)
+        val config = Configuration(newBase.resources.configuration)
+        config.setLocale(locale)
+        super.attachBaseContext(newBase.createConfigurationContext(config))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,18 +43,14 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNav.setupWithNavController(navController)
 
-        // Tab dəyişdikdə delivery/payment stack-ini təmizlə
         binding.bottomNav.setOnItemSelectedListener { item ->
             if (item.itemId == R.id.cartFragment) {
-                try {
-                    navController.popBackStack(R.id.deliveryFragment, true)
-                } catch (_: Exception) {}
+                try { navController.popBackStack(R.id.deliveryFragment, true) } catch (_: Exception) {}
             }
             navController.navigate(item.itemId)
             true
         }
 
-        // Bottom nav-ı gizlət/göstər + badge yenilə
         val hideBottomNavFragments = setOf(
             R.id.deliveryFragment,
             R.id.mapPickerFragment,
@@ -75,13 +84,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun updateNavBadges() {
-        // Seçilmişlər (Favorites) badge
         val favCount = favoritesManager.getFavorites().size
         val favBadge = binding.bottomNav.getOrCreateBadge(R.id.favoritesFragment)
         favBadge.isVisible = favCount > 0
         if (favCount > 0) favBadge.number = favCount
 
-        // Səbət (Cart) badge — ümumi məhsul sayı
         val cartCount = cartManager.getCartItems().sumOf { it.quantity }
         val cartBadge = binding.bottomNav.getOrCreateBadge(R.id.cartFragment)
         cartBadge.isVisible = cartCount > 0

@@ -23,7 +23,7 @@ class PaymentFailedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Yenidən cəhd et — payment ekranına qayıt
+
         binding.btnRetry.setOnClickListener {
             findNavController().popBackStack()
         }

@@ -29,7 +29,7 @@ class PersonalInfoBottomSheet : BottomSheetDialogFragment() {
     @Inject lateinit var personalInfoManager: PersonalInfoManager
     @Inject lateinit var userManager: UserManager
 
-    // Passport prefix state: "AA" or "AZ"
+
     private var passportPrefix = "AA"
 
     override fun onCreateView(
@@ -44,7 +44,7 @@ class PersonalInfoBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Expand bottom sheet so the BirId gray header is visible above
+
         (dialog as? BottomSheetDialog)?.behavior?.apply {
             state = BottomSheetBehavior.STATE_EXPANDED
             isDraggable = true
@@ -58,16 +58,16 @@ class PersonalInfoBottomSheet : BottomSheetDialogFragment() {
     private fun loadData() {
         val phone = userManager.getUserPhone()
 
-        // Phone (read-only)
+
         binding.tvPhone.text = phone.ifEmpty { "" }
 
-        // Personal info fields
+
         binding.etFirstName.setText(personalInfoManager.getFirstName())
         binding.etLastName.setText(personalInfoManager.getLastName())
         binding.etFatherName.setText(personalInfoManager.getFatherName())
         binding.etFin.setText(personalInfoManager.getFin())
 
-        // Passport: separate prefix and number
+
         val fullPassport = personalInfoManager.getPassport()
         if (fullPassport.length >= 2) {
             val savedPrefix = fullPassport.take(2)
@@ -91,7 +91,7 @@ class PersonalInfoBottomSheet : BottomSheetDialogFragment() {
         // Email
         binding.etEmail.setText(personalInfoManager.getEmail())
 
-        // CIF: generate deterministically from phone if not set
+
         val cif = personalInfoManager.getOrGenerateCif(phone)
         binding.tvCif.text = cif
     }
@@ -114,7 +114,7 @@ class PersonalInfoBottomSheet : BottomSheetDialogFragment() {
                 .show()
         }
 
-        // ── Copy buttons ──
+
         binding.btnCopyFin.setOnClickListener {
             val fin = binding.etFin.text?.toString()?.trim() ?: ""
             if (fin.isNotEmpty()) copyToClipboard("FİN", fin)
@@ -125,11 +125,11 @@ class PersonalInfoBottomSheet : BottomSheetDialogFragment() {
             if (num.isNotEmpty()) copyToClipboard("Seriya nömrəsi", passportPrefix + num)
         }
 
-        // ── Save ──
+
         binding.btnSave.setOnClickListener { validateAndSave() }
     }
 
-    // ── Date picker ──────────────────────────────────────────────────────────
+
     private fun showDatePicker() {
         val cal = Calendar.getInstance()
         // Default start: 18 years ago
@@ -154,7 +154,7 @@ class PersonalInfoBottomSheet : BottomSheetDialogFragment() {
         }, year, month, day).show()
     }
 
-    // ── Gender picker ─────────────────────────────────────────────────────────
+
     private fun showGenderPicker() {
         val options = arrayOf("Kişi", "Qadın")
         AlertDialog.Builder(requireContext())
@@ -165,14 +165,14 @@ class PersonalInfoBottomSheet : BottomSheetDialogFragment() {
             .show()
     }
 
-    // ── Clipboard ─────────────────────────────────────────────────────────────
+
     private fun copyToClipboard(label: String, text: String) {
         val cb = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         cb.setPrimaryClip(ClipData.newPlainText(label, text))
         Toast.makeText(requireContext(), "Kopyalandı", Toast.LENGTH_SHORT).show()
     }
 
-    // ── Validation & save ─────────────────────────────────────────────────────
+
     private fun validateAndSave() {
         val firstName = binding.etFirstName.text?.toString()?.trim() ?: ""
         val lastName  = binding.etLastName.text?.toString()?.trim() ?: ""
@@ -185,33 +185,33 @@ class PersonalInfoBottomSheet : BottomSheetDialogFragment() {
         val email = binding.etEmail.text?.toString()?.trim() ?: ""
         val cif = binding.tvCif.text?.toString()?.let { if (it == "—") "" else it } ?: ""
 
-        // ── Validate FİN ──
+
         if (fin.isNotEmpty() && fin.length != 7) {
             Toast.makeText(requireContext(), "FİN kodu mütləq 7 simvol olmalıdır", Toast.LENGTH_SHORT).show()
             binding.etFin.requestFocus()
             return
         }
 
-        // ── Validate email ──
+
         if (email.isNotEmpty() && !isValidEmail(email)) {
             Toast.makeText(requireContext(), "E-poçt düzgün deyil (@ işarəsi tələb olunur)", Toast.LENGTH_SHORT).show()
             binding.etEmail.requestFocus()
             return
         }
 
-        // ── Save ──
+
         personalInfoManager.saveAll(
             firstName, lastName, fatherName, fin, passport, birthDate, gender, email, cif
         )
 
-        // Propagate name to UserManager for profile display
+
         if (firstName.isNotEmpty() || lastName.isNotEmpty()) {
             val fullName = if (lastName.isNotEmpty()) "$firstName $lastName" else firstName
             userManager.saveUser(fullName, userManager.getUserPhone())
         }
 
         Toast.makeText(requireContext(), "Məlumatlar yadda saxlanıldı", Toast.LENGTH_SHORT).show()
-        // BirIdProfileFragment-i ani yenilə
+
         parentFragmentManager.setFragmentResult("personal_info_saved", android.os.Bundle())
         dismiss()
     }

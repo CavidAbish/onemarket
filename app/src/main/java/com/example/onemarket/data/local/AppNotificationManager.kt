@@ -10,13 +10,13 @@ import javax.inject.Singleton
 
 data class AppNotification(
     val id: Int,
-    val orderId: Int,                   // 0 for non-order notifications
+    val orderId: Int,
     val title: String,
     val body: String,
-    val type: String,                   // "paid" | "delivery_pending" | "cancelled" | "credit"
-    val dateTime: String,               // "HH:mm dd.MM.yyyy"
+    val type: String,
+    val dateTime: String,
     val isRead: Boolean = false,
-    val creditApplicationId: Int = 0   // credit type notifications only
+    val creditApplicationId: Int = 0
 )
 
 @Singleton

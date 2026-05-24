@@ -47,7 +47,7 @@ class PickupMapFragment : Fragment() {
     private var filteredPoints = allPoints.toMutableList()
     private lateinit var adapter: PickupPointsAdapter
 
-    // Currently highlighted point from info card
+
     private var infoCardPoint: PickupPoint? = null
 
     override fun onCreateView(
@@ -81,7 +81,7 @@ class PickupMapFragment : Fragment() {
 
         val singlePointId = args.pointId
         if (singlePointId >= 0) {
-            // Single-point view (from profile list)
+
             val point = allPoints.find { it.id == singlePointId }
             if (point != null) {
                 mapView.controller.setZoom(16.0)
@@ -89,7 +89,7 @@ class PickupMapFragment : Fragment() {
                 addMarker(point)
             }
         } else {
-            // All-points view (from delivery)
+
             val (lat, lng) = cityManager.getCoordinates()
             mapView.controller.setZoom(12.0)
             mapView.controller.setCenter(GeoPoint(lat, lng))
@@ -157,7 +157,7 @@ class PickupMapFragment : Fragment() {
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
 
-        // Pink diamond shape
+
         paint.color = Color.parseColor("#E91E8C")
         val path = Path()
         path.moveTo(size / 2f, 4f)
@@ -167,7 +167,7 @@ class PickupMapFragment : Fragment() {
         path.close()
         canvas.drawPath(path, paint)
 
-        // White inner diamond
+
         paint.color = Color.WHITE
         val inner = Path()
         val offset = 14f

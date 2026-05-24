@@ -2,11 +2,11 @@ package com.example.onemarket.data.local
 
 data class CardModel(
     val id: Long = System.currentTimeMillis(),
-    val cardNumber: String,       // "4111 1111 1111 8139" formatted
-    val expiry: String,           // "12/25"
-    val cvv: String = "",         // "123"
+    val cardNumber: String,
+    val expiry: String,
+    val cvv: String = "",
     val holderName: String = "",
-    val cardType: String,         // "ONLINE" or "BIRBANK"
+    val cardType: String,
     val addedAt: Long = System.currentTimeMillis()
 ) {
     val maskedNumber: String

@@ -48,7 +48,7 @@ class MapPickerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Centre on the currently selected city
+
         val (lat, lng) = cityManager.getCoordinates()
         currentGeoPoint = GeoPoint(lat, lng)
 

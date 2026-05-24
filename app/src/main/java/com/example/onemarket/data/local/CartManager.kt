@@ -54,7 +54,6 @@ class CartManager @Inject constructor(
         save(items)
     }
 
-    // Seçilmiş itemləri müvəqqəti saxla — Delivery/OrderSummary üçün
     fun saveSelectedItems(items: List<CartItem>) {
         selectedPrefs().edit()
             .putString("selected", gson.toJson(items))
@@ -67,7 +66,7 @@ class CartManager @Inject constructor(
         return gson.fromJson(json, type)
     }
 
-    // Yalnız seçilmiş məhsulları sil
+
     fun removeSelectedItems() {
         val selected = getSelectedItems().map { it.product.id }.toSet()
         val remaining = getCartItems().filter { it.product.id !in selected }

@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.onemarket.databinding.ItemBannerBinding
 
 class BannerAdapter(
-    private val banners: List<Int> // drawable resource id-ləri
+    private val banners: List<Int>
 ) : RecyclerView.Adapter<BannerAdapter.ViewHolder>() {
 
-    // Sonsuz loop üçün çox böyük say
+
     private val INFINITE_COUNT = Int.MAX_VALUE
 
     inner class ViewHolder(private val binding: ItemBannerBinding) :
@@ -28,12 +28,12 @@ class BannerAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // position % banners.size ilə sonsuz loop
+
         holder.bind(banners[position % banners.size])
     }
 
     override fun getItemCount(): Int = if (banners.isEmpty()) 0 else INFINITE_COUNT
 
-    // Başlanğıc pozisiyası — ortadan başla ki hər iki tərəfə scroll olsun
+
     fun getStartPosition(): Int = (INFINITE_COUNT / 2) - ((INFINITE_COUNT / 2) % banners.size)
 }

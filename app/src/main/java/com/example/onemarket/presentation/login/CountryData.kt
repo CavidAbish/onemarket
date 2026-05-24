@@ -4,9 +4,9 @@ data class Country(
     val name: String,
     val code: String,
     val flag: String,
-    /** Number of local digits (excluding the country code) */
+
     val phoneLength: Int,
-    /** Hint shown inside the phone EditText */
+
     val phoneHint: String
 )
 

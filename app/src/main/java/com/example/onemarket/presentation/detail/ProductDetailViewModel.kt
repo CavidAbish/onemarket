@@ -21,7 +21,7 @@ class ProductDetailViewModel @Inject constructor(
     fun loadRelatedProducts(category: String, currentProductId: Int) {
         viewModelScope.launch {
             val products = getProductsByCategoryUseCase(category)
-            // Özünü siyahıdan çıxart
+
             _relatedProducts.value = products.filter { it.id != currentProductId }
         }
     }

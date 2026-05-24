@@ -58,13 +58,12 @@ class AddressBottomSheetFragment : BottomSheetDialogFragment() {
         val savedAddresses = addressManager.getAddresses()
         val history = historyManager.getAddressHistory()
 
-        // Saved addresses (full address string) come first,
-        // then any map-picked history entries not already in the saved list
+
         val savedFull = savedAddresses.map { it.fullAddress }
         val historyExtra = history.filter { it !in savedFull }
         val allAddresses = savedFull + historyExtra
 
-        // Pre-select: current address if set, otherwise the default saved address
+
         val preSelected = if (currentAddress.isNotEmpty()) currentAddress
                           else savedAddresses.find { it.isDefault }?.fullAddress ?: ""
 

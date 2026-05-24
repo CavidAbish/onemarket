@@ -30,7 +30,7 @@ class PaymentFragment : Fragment() {
     @Inject lateinit var cardManager: CardManager
 
     private val cardPrefs: SharedPreferences by lazy {
-        // Birbank taksit üçün ayrı saxlama — online kartla qarışmasın
+
         val prefsKey = if (args.installmentMonths > 0) "saved_card_birbank" else "saved_card"
         requireContext().getSharedPreferences(prefsKey, Context.MODE_PRIVATE)
     }
@@ -60,7 +60,7 @@ class PaymentFragment : Fragment() {
             binding.tvPaymentIdValue.text = orderId
         }
 
-        // Logo: BirBank taksit üçün onemarket loqosunu gizlət, birbank loqosunu göstər
+
         if (installmentMonths > 0) {
             binding.llOneMarketLogo.visibility = View.GONE
             binding.llBirbankLogo.visibility = View.VISIBLE
@@ -153,7 +153,7 @@ class PaymentFragment : Fragment() {
             return
         }
 
-        // SharedPrefs boşdursa, CardManager-dən uyğun kartı tap (əl ilə əlavə edilmiş)
+
         val cardType = if (args.installmentMonths > 0) "BIRBANK" else "ONLINE"
         val manualCard = cardManager.getCardByType(cardType)
         if (manualCard != null) {

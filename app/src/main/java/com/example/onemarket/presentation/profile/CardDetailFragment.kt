@@ -49,20 +49,20 @@ class CardDetailFragment : Fragment() {
             return
         }
 
-        // Visual card
+
         binding.tvDetailTypeLabel.text = card.typeLabel
         binding.tvDetailCardNumber.text = card.maskedNumber
         binding.tvDetailHolder.text = card.holderName.ifEmpty { "—" }
         binding.tvDetailExpiry.text = card.expiry
 
-        // Info rows
+
         binding.tvDetailType.text = card.typeLabel
         binding.tvDetailMasked.text = card.maskedNumber
         binding.tvDetailExpiryInfo.text = card.expiry
         val dateStr = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(Date(card.addedAt))
         binding.tvDetailAddedAt.text = dateStr
 
-        // Kart nömrəsinə clicklədikdə tam nömrəni göstər / gizlət
+
         var fullNumberVisible = false
         val maskToggle = {
             fullNumberVisible = !fullNumberVisible

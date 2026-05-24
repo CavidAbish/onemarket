@@ -54,28 +54,28 @@ class FilterFragment : Fragment() {
         selectedBrand = currentFilter.brand
         selectedSeller = currentFilter.seller
 
-        // Category label
+
         binding.tvCategoryValue.text = args.categoryName.ifEmpty { "Hamısı" }
 
-        // Product count
+
         binding.tvProductCount.text = "Məhsulların tapılması: ${args.productCount}"
 
-        // Price inputs
+
         if (currentFilter.minPrice > 0)
             binding.etMinPrice.setText(currentFilter.minPrice.toInt().toString())
         if (currentFilter.maxPrice > 0)
             binding.etMaxPrice.setText(currentFilter.maxPrice.toInt().toString())
 
-        // Discount switch
+
         binding.switchDiscount.isChecked = currentFilter.discountOnly
 
-        // Brand label
+
         if (selectedBrand.isNotEmpty()) {
             binding.tvSelectedBrand.text = selectedBrand
             binding.tvSelectedBrand.visibility = View.VISIBLE
         }
 
-        // Brand row → AlertDialog picker
+
         binding.rowBrand.setOnClickListener {
             if (availableBrands.isEmpty()) return@setOnClickListener
             val entries = listOf("") + availableBrands
@@ -98,7 +98,7 @@ class FilterFragment : Fragment() {
                 .show()
         }
 
-        // Build seller radio list
+
         buildSellerList(availableBrands)
 
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
@@ -134,7 +134,7 @@ class FilterFragment : Fragment() {
         sellerValues.clear()
         binding.llSellersContainer.removeAllViews()
 
-        // "Bütün satıcılar" is the empty-string option
+
         val entries = listOf("") + brands
         val labels = listOf("Bütün satıcılar") + brands
 
@@ -152,7 +152,7 @@ class FilterFragment : Fragment() {
 
             binding.llSellersContainer.addView(layout)
 
-            // Divider
+
             val divider = View(requireContext()).apply {
                 layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT, 1
@@ -171,7 +171,7 @@ class FilterFragment : Fragment() {
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, dp(52)
             )
-            // Selectable ripple background
+
             val tv = TypedValue()
             requireContext().theme.resolveAttribute(android.R.attr.selectableItemBackground, tv, true)
             setBackgroundResource(tv.resourceId)

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
-    <!-- Top bar -->
+
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="0dp"
@@ -36,7 +36,7 @@
 
     </LinearLayout>
 
-    <!-- Məzmun -->
+
     <LinearLayout
         android:id="@+id/contentLayout"
         android:layout_width="0dp"

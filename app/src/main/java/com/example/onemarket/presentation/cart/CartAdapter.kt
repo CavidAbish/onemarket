@@ -133,7 +133,7 @@ class CartAdapter(
                 dialog.dismiss()
             }
 
-            // "Seçilmişlər" — sevimliləre əlavə et + səbətdən sil
+
             dialog.findViewById<Button>(R.id.btnAddToFavorites).setOnClickListener {
                 if (!favoritesManager.isFavorite(item.product.id)) {
                     favoritesManager.toggleFavorite(item.product)

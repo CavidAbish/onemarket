@@ -50,7 +50,6 @@ class CategoryProductsFragment : Fragment() {
         binding.tvCategoryTitle.text = args.categoryName
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
 
-        // Tapping search hint navigates to search
         binding.tvSearchHint.setOnClickListener {
             findNavController().navigate(
                 CategoryProductsFragmentDirections.actionCategoryProductsFragmentToSearchFragment()
@@ -120,19 +119,19 @@ class CategoryProductsFragment : Fragment() {
     }
 
     private fun setupFilterBar() {
-        // Sort button
+
         binding.btnSort.setOnClickListener {
             val current = viewModel.filterState.value.sortBy
             SortBottomSheetFragment.newInstance(current)
                 .show(parentFragmentManager, SortBottomSheetFragment.TAG)
         }
 
-        // Filter button → open FilterFragment
+
         binding.btnFilter.setOnClickListener {
             navigateToFilter()
         }
 
-        // Brend chip → inline brand picker bottom sheet
+
         binding.chipBrend.setOnClickListener {
             val filter = viewModel.filterState.value
             val brands = viewModel.getAvailableBrands()
@@ -140,14 +139,14 @@ class CategoryProductsFragment : Fragment() {
                 .show(parentFragmentManager, BrandFilterBottomSheet.TAG)
         }
 
-        // Qiymət chip → inline price range bottom sheet
+
         binding.chipQiymet.setOnClickListener {
             val filter = viewModel.filterState.value
             PriceFilterBottomSheet.newInstance(filter.minPrice, filter.maxPrice)
                 .show(parentFragmentManager, PriceFilterBottomSheet.TAG)
         }
 
-        // Endirimlə chip → toggle discount filter
+
         binding.chipEndiriml.setOnClickListener {
             val current = viewModel.filterState.value
             viewModel.updateFilter(current.copy(discountOnly = !current.discountOnly))
@@ -170,7 +169,7 @@ class CategoryProductsFragment : Fragment() {
     }
 
     private fun setupFragmentResults() {
-        // Sort result
+
         parentFragmentManager.setFragmentResultListener(
             SortBottomSheetFragment.RESULT_KEY, viewLifecycleOwner
         ) { _, bundle ->
@@ -180,7 +179,7 @@ class CategoryProductsFragment : Fragment() {
             } catch (_: Exception) {}
         }
 
-        // Filter applied
+
         parentFragmentManager.setFragmentResultListener(
             FilterFragment.RESULT_KEY, viewLifecycleOwner
         ) { _, bundle ->
@@ -188,14 +187,14 @@ class CategoryProductsFragment : Fragment() {
             viewModel.updateFilter(state)
         }
 
-        // Filter cleared
+
         parentFragmentManager.setFragmentResultListener(
             FilterFragment.CLEAR_KEY, viewLifecycleOwner
         ) { _, _ ->
             viewModel.clearFilters()
         }
 
-        // Price filter (inline bottom sheet)
+
         parentFragmentManager.setFragmentResultListener(
             PriceFilterBottomSheet.RESULT_KEY, viewLifecycleOwner
         ) { _, bundle ->
@@ -204,7 +203,7 @@ class CategoryProductsFragment : Fragment() {
             viewModel.updateFilter(viewModel.filterState.value.copy(minPrice = min, maxPrice = max))
         }
 
-        // Brand filter (inline bottom sheet)
+
         parentFragmentManager.setFragmentResultListener(
             BrandFilterBottomSheet.RESULT_KEY, viewLifecycleOwner
         ) { _, bundle ->
