@@ -119,12 +119,14 @@ class ProfileFragment : Fragment() {
             )
         }
 
-        val menus = listOf(
-            binding.menuCards to "Mənim Kartlarım",
-            binding.menuReturns to "Geri qaytarma müraciətləri"
-        )
-        menus.forEach { (v, title) ->
-            v.setOnClickListener { Toast.makeText(requireContext(), title, Toast.LENGTH_SHORT).show() }
+        binding.menuCards.setOnClickListener {
+            findNavController().navigate(
+                ProfileFragmentDirections.actionProfileFragmentToMyCardsFragment()
+            )
+        }
+
+        binding.menuReturns.setOnClickListener {
+            Toast.makeText(requireContext(), "Geri qaytarma müraciətləri", Toast.LENGTH_SHORT).show()
         }
 
         binding.menuAddresses.setOnClickListener {
@@ -170,7 +172,9 @@ class ProfileFragment : Fragment() {
         }
 
         binding.tvDeleteAccount.setOnClickListener {
-            Toast.makeText(requireContext(), "Hesabı silmək", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(
+                ProfileFragmentDirections.actionProfileFragmentToDeleteAccountFragment()
+            )
         }
 
         setupCommonMenus()

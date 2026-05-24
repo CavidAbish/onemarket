@@ -83,6 +83,11 @@ class CartManager @Inject constructor(
         prefs().edit().remove("cart_items").apply()
     }
 
+    fun clearAll() {
+        prefs().edit().clear().apply()
+        selectedPrefs().edit().clear().apply()
+    }
+
     private fun save(items: List<CartItem>) {
         prefs().edit().putString("cart_items", gson.toJson(items)).apply()
     }

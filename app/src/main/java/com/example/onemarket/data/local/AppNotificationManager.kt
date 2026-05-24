@@ -10,12 +10,13 @@ import javax.inject.Singleton
 
 data class AppNotification(
     val id: Int,
-    val orderId: Int,           // 0 for non-order notifications
+    val orderId: Int,                   // 0 for non-order notifications
     val title: String,
     val body: String,
-    val type: String,           // "paid" | "delivery_pending" | "cancelled" | "credit"
-    val dateTime: String,       // "HH:mm dd.MM.yyyy"
-    val isRead: Boolean = false
+    val type: String,                   // "paid" | "delivery_pending" | "cancelled" | "credit"
+    val dateTime: String,               // "HH:mm dd.MM.yyyy"
+    val isRead: Boolean = false,
+    val creditApplicationId: Int = 0   // credit type notifications only
 )
 
 @Singleton
@@ -51,5 +52,9 @@ class AppNotificationManager @Inject constructor(
     fun markAllRead() {
         val updated = getNotifications().map { it.copy(isRead = true) }
         prefs().edit().putString("notifications", gson.toJson(updated)).apply()
+    }
+
+    fun clearAllNotifications() {
+        prefs().edit().remove("notifications").apply()
     }
 }

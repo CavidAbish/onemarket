@@ -61,6 +61,8 @@
         <action android:id="@+id/action_profileFragment_to_faqFragment" app:destination="@id/faqFragment" />
         <action android:id="@+id/action_profileFragment_to_deliveryPaymentFragment" app:destination="@id/deliveryPaymentFragment" />
         <action android:id="@+id/action_profileFragment_to_savedAddressesFragment" app:destination="@id/savedAddressesFragment" />
+        <action android:id="@+id/action_profileFragment_to_myCardsFragment" app:destination="@id/myCardsFragment" />
+        <action android:id="@+id/action_profileFragment_to_deleteAccountFragment" app:destination="@id/deleteAccountFragment" />
     </fragment>
 
     <fragment
@@ -138,7 +140,17 @@
         android:id="@+id/creditApplicationsFragment"
         android:name="com.example.onemarket.presentation.profile.CreditApplicationsFragment"
         android:label="fragment_credit_applications"
-        tools:layout="@layout/fragment_credit_applications" />
+        tools:layout="@layout/fragment_credit_applications">
+        <action android:id="@+id/action_creditApplicationsFragment_to_creditDetailFragment" app:destination="@id/creditDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/creditDetailFragment"
+        android:name="com.example.onemarket.presentation.profile.CreditDetailFragment"
+        android:label="fragment_credit_detail"
+        tools:layout="@layout/fragment_credit_detail">
+        <argument android:name="applicationId" app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/paymentMethodFragment"
@@ -242,6 +254,8 @@
         tools:layout="@layout/fragment_notifications">
         <action android:id="@+id/action_notificationsFragment_to_orderDetailFragment"
             app:destination="@id/orderDetailFragment" />
+        <action android:id="@+id/action_notificationsFragment_to_creditDetailFragment"
+            app:destination="@id/creditDetailFragment" />
     </fragment>
 
     <fragment
@@ -302,6 +316,46 @@
         <action
             android:id="@+id/action_addAddressFragment_to_mapPickerFragment"
             app:destination="@id/mapPickerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myCardsFragment"
+        android:name="com.example.onemarket.presentation.profile.MyCardsFragment"
+        android:label="fragment_my_cards"
+        tools:layout="@layout/fragment_my_cards">
+        <action android:id="@+id/action_myCardsFragment_to_addCardFragment" app:destination="@id/addCardFragment" />
+        <action android:id="@+id/action_myCardsFragment_to_cardDetailFragment" app:destination="@id/cardDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addCardFragment"
+        android:name="com.example.onemarket.presentation.profile.AddCardFragment"
+        android:label="fragment_add_card"
+        tools:layout="@layout/fragment_add_card" />
+
+    <fragment
+        android:id="@+id/cardDetailFragment"
+        android:name="com.example.onemarket.presentation.profile.CardDetailFragment"
+        android:label="fragment_card_detail"
+        tools:layout="@layout/fragment_card_detail">
+        <argument android:name="cardId" app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/deleteAccountFragment"
+        android:name="com.example.onemarket.presentation.profile.DeleteAccountFragment"
+        android:label="fragment_delete_account"
+        tools:layout="@layout/fragment_delete_account">
+        <action android:id="@+id/action_deleteAccountFragment_to_deleteAccountOtpFragment"
+            app:destination="@id/deleteAccountOtpFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/deleteAccountOtpFragment"
+        android:name="com.example.onemarket.presentation.profile.DeleteAccountOtpFragment"
+        android:label="fragment_delete_account_otp"
+        tools:layout="@layout/fragment_delete_account_otp">
+        <argument android:name="phone" app:argType="string" />
     </fragment>
 
 </navigation>

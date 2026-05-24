@@ -52,7 +52,12 @@ class CreditApplicationsFragment : Fragment() {
         } else {
             binding.emptyState.visibility = View.GONE
             binding.rvCreditApplications.visibility = View.VISIBLE
-            val adapter = CreditApplicationAdapter(apps)
+            val adapter = CreditApplicationAdapter(apps) { app ->
+                findNavController().navigate(
+                    CreditApplicationsFragmentDirections
+                        .actionCreditApplicationsFragmentToCreditDetailFragment(app.id)
+                )
+            }
             binding.rvCreditApplications.layoutManager = LinearLayoutManager(requireContext())
             binding.rvCreditApplications.adapter = adapter
         }
@@ -65,7 +70,8 @@ class CreditApplicationsFragment : Fragment() {
 }
 
 class CreditApplicationAdapter(
-    private val items: List<CreditApplication>
+    private val items: List<CreditApplication>,
+    private val onItemClick: (CreditApplication) -> Unit
 ) : RecyclerView.Adapter<CreditApplicationAdapter.VH>() {
 
     inner class VH(view: View) : RecyclerView.ViewHolder(view) {
@@ -86,6 +92,7 @@ class CreditApplicationAdapter(
         holder.tvMonthly.text = String.format("Aylıq: %.2f ₼ × %d ay", item.monthlyPayment, item.months)
         holder.tvDate.text = item.date
         holder.tvStatus.text = item.status
+        holder.itemView.setOnClickListener { onItemClick(item) }
     }
 
     override fun getItemCount() = items.size

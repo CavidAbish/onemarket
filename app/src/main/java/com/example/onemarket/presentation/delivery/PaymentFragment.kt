@@ -12,8 +12,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.onemarket.data.local.CardManager
+import com.example.onemarket.data.local.CardModel
 import com.example.onemarket.databinding.FragmentPaymentBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class PaymentFragment : Fragment() {
@@ -23,6 +26,8 @@ class PaymentFragment : Fragment() {
 
     private val args: PaymentFragmentArgs by navArgs()
     private var isFormatting = false
+
+    @Inject lateinit var cardManager: CardManager
 
     private val cardPrefs: SharedPreferences by lazy {
         // Birbank taksit üçün ayrı saxlama — online kartla qarışmasın
@@ -53,6 +58,12 @@ class PaymentFragment : Fragment() {
             binding.tvInstallmentDetail.text =
                 "${String.format("%.2f", monthly)} AZN × $installmentMonths ay"
             binding.tvPaymentIdValue.text = orderId
+        }
+
+        // Logo: BirBank taksit üçün onemarket loqosunu gizlət, birbank loqosunu göstər
+        if (installmentMonths > 0) {
+            binding.llOneMarketLogo.visibility = View.GONE
+            binding.llBirbankLogo.visibility = View.VISIBLE
         }
 
         setupCardNumberFormat()
@@ -108,15 +119,28 @@ class PaymentFragment : Fragment() {
     }
 
     private fun saveCard(cardNumber: String, expiry: String, cvv: String) {
+        // SharedPreferences-ə saxla (PaymentFragment-in öz avtodoldurma üçün)
         cardPrefs.edit()
             .putString("card_number", cardNumber)
             .putString("expiry", expiry)
             .putString("cvv", cvv)
             .apply()
+
+        // CardManager-ə saxla (Mənim kartlarım siyahısı üçün)
+        val cardType = if (args.installmentMonths > 0) "BIRBANK" else "ONLINE"
+        val card = CardModel(
+            cardNumber = cardNumber,
+            expiry = expiry,
+            cvv = cvv,
+            cardType = cardType
+        )
+        cardManager.saveCard(card)
+
         Toast.makeText(requireContext(), "Kart məlumatları saxlanıldı", Toast.LENGTH_SHORT).show()
     }
 
     private fun loadSavedCard() {
+        // Əvvəlcə SharedPreferences-dəki məlumatı yoxla
         val savedNumber = cardPrefs.getString("card_number", null)
         val savedExpiry = cardPrefs.getString("expiry", null)
         val savedCvv = cardPrefs.getString("cvv", null)
@@ -125,6 +149,16 @@ class PaymentFragment : Fragment() {
             binding.etCardNumber.setText(savedNumber)
             binding.etExpiry.setText(savedExpiry)
             binding.etCvv.setText(savedCvv)
+            binding.cbSaveCard.isChecked = true
+            return
+        }
+
+        // SharedPrefs boşdursa, CardManager-dən uyğun kartı tap (əl ilə əlavə edilmiş)
+        val cardType = if (args.installmentMonths > 0) "BIRBANK" else "ONLINE"
+        val manualCard = cardManager.getCardByType(cardType)
+        if (manualCard != null) {
+            binding.etCardNumber.setText(manualCard.cardNumber)
+            binding.etExpiry.setText(manualCard.expiry)
             binding.cbSaveCard.isChecked = true
         }
     }

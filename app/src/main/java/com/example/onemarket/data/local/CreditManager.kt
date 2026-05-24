@@ -15,7 +15,8 @@ data class CreditApplication(
     val monthlyPayment: Double,
     val months: Int,
     val date: String,
-    val status: String = "Gözləmədədir"
+    val status: String = "Gözləmədədir",
+    val productImageUrl: String = ""
 )
 
 @Singleton
@@ -31,7 +32,22 @@ class CreditManager @Inject constructor(
     fun getApplications(): List<CreditApplication> {
         val json = prefs().getString("applications", null) ?: return emptyList()
         val type = object : TypeToken<List<CreditApplication>>() {}.type
-        return gson.fromJson(json, type)
+        val raw: List<CreditApplication> = gson.fromJson(json, type) ?: return emptyList()
+        // Gson uses Unsafe when deserializing — new fields added after older entries were saved
+        // come back as runtime-null even though Kotlin types are non-nullable.
+        return raw.map { app ->
+            val imageUrl: String? = app.productImageUrl
+            val names: String?    = app.productNames
+            val status: String?   = app.status
+            val date: String?     = app.date
+            if (imageUrl != null && names != null && status != null && date != null) app
+            else app.copy(
+                productNames   = names   ?: "",
+                date           = date    ?: "",
+                status         = status  ?: "Gözləmədədir",
+                productImageUrl = imageUrl ?: ""
+            )
+        }
     }
 
     fun addApplication(app: CreditApplication) {

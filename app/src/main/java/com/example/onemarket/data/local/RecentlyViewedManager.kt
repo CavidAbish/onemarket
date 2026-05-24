@@ -35,4 +35,8 @@ class RecentlyViewedManager @Inject constructor(
         val trimmed = if (list.size > maxItems) list.take(maxItems) else list
         prefs().edit().putString("recently_viewed", gson.toJson(trimmed)).apply()
     }
+
+    fun clearAll() {
+        prefs().edit().remove("recently_viewed").apply()
+    }
 }

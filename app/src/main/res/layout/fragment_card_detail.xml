@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+    <!-- Top bar -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="12dp"
+        android:background="#FFFFFF"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_back"
+            android:padding="6dp"
+            android:contentDescription="Geri" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="Kart məlumatları"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#1A237E" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/topDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#F0F0F0"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/topDivider"
+        app:layout_constraintBottom_toTopOf="@id/btnDeleteCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Visual card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:orientation="vertical"
+                android:gravity="top"
+                android:padding="20dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/bg_card_visual">
+
+                <!-- Top: type label -->
+                <TextView
+                    android:id="@+id/tvDetailTypeLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bank kartı"
+                    android:textSize="13sp"
+                    android:textColor="#FFFFFF"
+                    android:alpha="0.85" />
+
+                <!-- Middle: card number -->
+                <TextView
+                    android:id="@+id/tvDetailCardNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="24dp"
+                    android:text="**** **** **** 8139"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:letterSpacing="0.15"
+                    android:fontFamily="monospace" />
+
+                <!-- Bottom: holder + expiry -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="20dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Kart sahibi"
+                            android:textSize="10sp"
+                            android:textColor="#FFFFFF"
+                            android:alpha="0.7" />
+
+                        <TextView
+                            android:id="@+id/tvDetailHolder"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="—"
+                            android:textSize="13sp"
+                            android:textColor="#FFFFFF" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="end">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bitmə tarixi"
+                            android:textSize="10sp"
+                            android:textColor="#FFFFFF"
+                            android:alpha="0.7" />
+
+                        <TextView
+                            android:id="@+id/tvDetailExpiry"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="12/25"
+                            android:textSize="13sp"
+                            android:textColor="#FFFFFF" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Details card -->
+            <androidx.cardview.widget.CardView
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Type -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="56dp" android:orientation="horizontal" android:gravity="center_vertical">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Kart növü" android:textSize="14sp" android:textColor="#888888" />
+                        <TextView android:id="@+id/tvDetailType" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Bank kartı" android:textSize="14sp" android:textStyle="bold" android:textColor="#1A1A1A" />
+                    </LinearLayout>
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F5F5F5" />
+
+                    <!-- Masked number -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="56dp" android:orientation="horizontal" android:gravity="center_vertical">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Kart nömrəsi" android:textSize="14sp" android:textColor="#888888" />
+                        <TextView android:id="@+id/tvDetailMasked" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="**** **** **** 8139" android:textSize="14sp" android:textStyle="bold" android:textColor="#1A1A1A" />
+                    </LinearLayout>
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F5F5F5" />
+
+                    <!-- Expiry -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="56dp" android:orientation="horizontal" android:gravity="center_vertical">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Bitmə tarixi" android:textSize="14sp" android:textColor="#888888" />
+                        <TextView android:id="@+id/tvDetailExpiryInfo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="12/25" android:textSize="14sp" android:textStyle="bold" android:textColor="#1A1A1A" />
+                    </LinearLayout>
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F5F5F5" />
+
+                    <!-- CVV -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="56dp" android:orientation="horizontal" android:gravity="center_vertical" android:background="?attr/selectableItemBackground">
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CVV2" android:textSize="14sp" android:textColor="#888888" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Görmək üçün klikləyin" android:textSize="11sp" android:textColor="#BBBBBB" />
+                        </LinearLayout>
+                        <TextView android:id="@+id/tvDetailCvv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="•••" android:textSize="18sp" android:textStyle="bold" android:textColor="#1A1A1A" android:letterSpacing="0.1" />
+                    </LinearLayout>
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F5F5F5" />
+
+                    <!-- Added date -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="56dp" android:orientation="horizontal" android:gravity="center_vertical">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Əlavə edilib" android:textSize="14sp" android:textColor="#888888" />
+                        <TextView android:id="@+id/tvDetailAddedAt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textSize="14sp" android:textStyle="bold" android:textColor="#1A1A1A" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Delete button -->
+    <Button
+        android:id="@+id/btnDeleteCard"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_margin="16dp"
+        android:text="Kartı sil"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="#E91E8C"
+        android:background="@drawable/bg_outline_pink"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <!-- Top bar -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="12dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_back"
+            android:padding="6dp"
+            android:contentDescription="Geri" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Hesabın silinməsi"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="#1A237E" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/topDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#F0F0F0"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Scrollable content -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/topDivider"
+        app:layout_constraintBottom_toTopOf="@id/btnIreli"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Warning box -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_warning_pink"
+                android:padding="16dp"
+                android:layout_marginBottom="28dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Diqqət!"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#E91E8C"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hesabın silinməsindən sonra onu bərpa etmək mümkün olmayacaq. Hesabın silinməsindən sonra siz artıq Birmarket Premium abunəliyinin yığılmış bonuslarından və üstünlüklərindən istifadə edə bilməyəcəksiniz."
+                    android:textSize="13sp"
+                    android:textColor="#555555"
+                    android:lineSpacingMultiplier="1.4" />
+
+            </LinearLayout>
+
+            <!-- Confirmation heading -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hesabın silinməsi məcburi təsdiq tələb edir."
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#1A1A1A"
+                android:gravity="center"
+                android:layout_marginBottom="20dp" />
+
+            <!-- Instruction text -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SMS kodunu almaq üçün Birmarket-də qeydiyyatdan keçmiş telefon nömrəsini daxil edin."
+                android:textSize="13sp"
+                android:textColor="#888888"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.4"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Phone label -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Telefon nömrəsi"
+                android:textSize="12sp"
+                android:textColor="#888888"
+                android:layout_marginBottom="4dp" />
+
+            <!-- Phone input container (country + number + underline) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Horizontal row: country selector + number EditText -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <!-- Country selector button -->
+                    <LinearLayout
+                        android:id="@+id/btnCountry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingEnd="12dp"
+                        android:background="?attr/selectableItemBackground">
+
+                        <TextView
+                            android:id="@+id/tvCountryFlag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🇦🇿"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/tvCountryCode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" +994"
+                            android:textSize="15sp"
+                            android:textColor="#1A1A1A"
+                            android:textStyle="bold"
+                            android:layout_marginStart="2dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" ▾"
+                            android:textSize="11sp"
+                            android:textColor="#888888" />
+
+                    </LinearLayout>
+
+                    <!-- Vertical separator -->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="20dp"
+                        android:background="#DDDDDD"
+                        android:layout_marginEnd="12dp" />
+
+                    <!-- Phone number EditText — plain, no wrapping layout -->
+                    <EditText
+                        android:id="@+id/etPhone"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:inputType="phone"
+                        android:maxLength="12"
+                        android:hint="XX XXX XX XX"
+                        android:textSize="15sp"
+                        android:textColor="#1A1A1A"
+                        android:textColorHint="#CCCCCC"
+                        android:gravity="center_vertical"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp" />
+
+                </LinearLayout>
+
+                <!-- Full-width pink underline (spans flag + code + number) -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1.5dp"
+                    android:background="#E91E8C" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- İrəli button — MaterialButton outlined pink -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnIreli"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="8dp"
+        android:text="İrəli"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="#E91E8C"
+        android:stateListAnimator="@null"
+        app:strokeColor="#E91E8C"
+        app:strokeWidth="1.5dp"
+        app:cornerRadius="12dp"
+        app:backgroundTint="@android:color/transparent"
+        app:rippleColor="#33E91E8C"
+        app:layout_constraintBottom_toTopOf="@id/btnImtina"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- İmtina button — MaterialButton filled pink -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnImtina"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="İmtina"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:stateListAnimator="@null"
+        app:backgroundTint="#E91E8C"
+        app:cornerRadius="12dp"
+        app:rippleColor="#33FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

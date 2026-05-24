@@ -41,6 +41,10 @@ class AddressManager @Inject constructor(
         persist(list)
     }
 
+    fun clearAll() {
+        prefs().edit().remove("addresses").apply()
+    }
+
     private fun persist(list: List<Address>) {
         prefs().edit().putString("addresses", gson.toJson(list)).apply()
     }

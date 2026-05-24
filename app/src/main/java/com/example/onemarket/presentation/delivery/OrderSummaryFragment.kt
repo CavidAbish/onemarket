@@ -313,15 +313,18 @@ class OrderSummaryFragment : Fragment() {
             }
             val cartItems = cartManager.getSelectedItems().ifEmpty { cartManager.getCartItems() }
             val productNames = cartItems.joinToString(", ") { it.product.title }
+            val productImageUrl = cartItems.firstOrNull()?.product?.thumbnail ?: ""
             val monthly = if (selectedMonths > 0) totalAmount / selectedMonths else 0.0
             val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+            val appId = System.currentTimeMillis().toInt()
             val application = CreditApplication(
-                id = System.currentTimeMillis().toInt(),
+                id = appId,
                 productNames = productNames,
                 totalAmount = totalAmount,
                 monthlyPayment = monthly,
                 months = selectedMonths,
-                date = sdf.format(Date())
+                date = sdf.format(Date()),
+                productImageUrl = productImageUrl
             )
             creditManager.addApplication(application)
             cartManager.removeSelectedItems()
@@ -337,7 +340,8 @@ class OrderSummaryFragment : Fragment() {
                     title = "Kredit müraciəti göndərildi",
                     body = "Kredit müraciətiniz qəbul edildi. Yaxında sizinlə əlaqə saxlanılacaq",
                     type = "credit",
-                    dateTime = "${timeFmt.format(now)} ${dateFmt.format(now)}"
+                    dateTime = "${timeFmt.format(now)} ${dateFmt.format(now)}",
+                    creditApplicationId = appId
                 )
             )
 
@@ -346,9 +350,10 @@ class OrderSummaryFragment : Fragment() {
                 .setMessage("Kredit müraciətiniz uğurla göndərilmişdir")
                 .setPositiveButton("Tamam") { dialog, _ ->
                     dialog.dismiss()
-                    findNavController().navigate(
-                        OrderSummaryFragmentDirections.actionOrderSummaryFragmentToCreditApplicationsFragment()
-                    )
+                    requireActivity()
+                        .findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
+                            com.example.onemarket.R.id.bottom_nav
+                        ).selectedItemId = com.example.onemarket.R.id.homeFragment
                 }
                 .setCancelable(false)
                 .show()

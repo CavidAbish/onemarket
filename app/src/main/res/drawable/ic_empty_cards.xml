@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="180dp"
+    android:height="140dp"
+    android:viewportWidth="180"
+    android:viewportHeight="140">
+
+    <!-- Back card (lighter pink, rotated) -->
+    <group android:pivotX="90" android:pivotY="70">
+        <!-- Back card body -->
+        <path
+            android:fillColor="#F8BBD0"
+            android:pathData="M20,30 Q20,18 32,18 L148,18 Q160,18 160,30 L160,90 Q160,102 148,102 L32,102 Q20,102 20,90 Z" />
+        <!-- Back card stripe -->
+        <path
+            android:fillColor="#F48FB1"
+            android:pathData="M20,40 L160,40 L160,58 L20,58 Z" />
+    </group>
+
+    <!-- Front card (deeper pink, slightly offset) -->
+    <path
+        android:fillColor="#E91E8C"
+        android:pathData="M30,48 Q30,36 42,36 L158,36 Q170,36 170,48 L170,116 Q170,128 158,128 L42,128 Q30,128 30,116 Z" />
+
+    <!-- Front card stripe -->
+    <path
+        android:fillColor="#C2185B"
+        android:pathData="M30,58 L170,58 L170,76 L30,76 Z" />
+
+    <!-- Chip -->
+    <path
+        android:fillColor="#F48FB1"
+        android:pathData="M44,84 L64,84 L64,100 L44,100 Z" />
+
+    <!-- Card dots (numbers) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.7"
+        android:pathData="M78,106 L90,106 L90,110 L78,110 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.7"
+        android:pathData="M96,106 L118,106 L118,110 L96,110 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.7"
+        android:pathData="M124,106 L146,106 L146,110 L124,110 Z" />
+
+</vector>

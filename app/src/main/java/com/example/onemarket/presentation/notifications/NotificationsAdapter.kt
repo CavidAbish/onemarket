@@ -64,7 +64,7 @@ private fun styleFor(type: String): NotifStyle = when (type) {
 
 class NotificationsAdapter(
     private val items: List<NotifListItem>,
-    private val onNotifClick: (orderId: Int) -> Unit
+    private val onNotifClick: (AppNotification) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -127,10 +127,8 @@ class NotificationsAdapter(
             // Bildiriş mətni
             b.tvNotifBody.text = notif.body
 
-            // Sifariş bildirişinə klik → order detail
-            b.root.setOnClickListener {
-                if (notif.orderId > 0) onNotifClick(notif.orderId)
-            }
+            // Klik → tip əsasında yönləndir
+            b.root.setOnClickListener { onNotifClick(notif) }
         }
     }
 }

@@ -90,11 +90,18 @@ class NotificationsFragment : Fragment() {
         binding.recyclerViewNotifications.visibility = View.VISIBLE
 
         val listItems = buildListItems(filtered)
-        binding.recyclerViewNotifications.adapter = NotificationsAdapter(listItems) { orderId ->
-            findNavController().navigate(
-                NotificationsFragmentDirections
-                    .actionNotificationsFragmentToOrderDetailFragment(orderId)
-            )
+        binding.recyclerViewNotifications.adapter = NotificationsAdapter(listItems) { notif ->
+            if (notif.type == "credit" && notif.creditApplicationId > 0) {
+                findNavController().navigate(
+                    NotificationsFragmentDirections
+                        .actionNotificationsFragmentToCreditDetailFragment(notif.creditApplicationId)
+                )
+            } else if (notif.orderId > 0) {
+                findNavController().navigate(
+                    NotificationsFragmentDirections
+                        .actionNotificationsFragmentToOrderDetailFragment(notif.orderId)
+                )
+            }
         }
     }
 

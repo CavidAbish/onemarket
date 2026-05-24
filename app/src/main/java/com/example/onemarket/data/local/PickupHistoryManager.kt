@@ -50,4 +50,8 @@ class PickupHistoryManager @Inject constructor(
         val limited = history.take(5)
         prefs().edit().putString("address_history", gson.toJson(limited)).apply()
     }
+
+    fun clearAll() {
+        prefs().edit().clear().apply()
+    }
 }

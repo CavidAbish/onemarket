@@ -192,6 +192,10 @@ class OrderManager @Inject constructor(
         prefs().edit().putString("orders", gson.toJson(orders)).apply()
     }
 
+    fun clearAllOrders() {
+        prefs().edit().remove("orders").apply()
+    }
+
     fun cancelOrder(orderId: Int) {
         val updated = getOrders().map { order ->
             if (order.id == orderId) order.copy(status = "cancelled") else order
