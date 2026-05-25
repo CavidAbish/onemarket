@@ -31,8 +31,7 @@ class ProductAdapter(
             binding.tvProductName.text = product.title
             binding.tvPrice.text = "${product.price} ₼"
             binding.tvOldPrice.text = "${product.originalPrice} ₼"
-            binding.tvOldPrice.paintFlags =
-                binding.tvOldPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            binding.tvOldPrice.paintFlags = binding.tvOldPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             binding.tvDiscount.text = "-${product.discountPercentage.toInt()}%"
             binding.tvMonthlyPayment.text = "${product.monthlyPayment} ₼ x 12 ay"
             binding.ratingBar.rating = product.rating.toFloat()

@@ -217,6 +217,9 @@ class CategoryProductsFragment : Fragment() {
             viewModel.products.collect { products ->
                 productAdapter.submitList(products)
                 binding.tvProductCount.text = "${products.size} məhsul"
+                val isEmpty = products.isEmpty()
+                binding.recyclerViewCategoryProducts.visibility = if (isEmpty) View.GONE else View.VISIBLE
+                binding.emptyStateView.visibility = if (isEmpty) View.VISIBLE else View.GONE
             }
         }
         viewLifecycleOwner.lifecycleScope.launch {

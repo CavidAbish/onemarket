@@ -38,7 +38,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:hint="Məhsul axtar"
+                android:hint="@string/home_search_hint"
                 app:endIconMode="none">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="6dp"
-                android:text="Çatdırılma — 0 ₼"
+                android:text="@string/home_delivery_free"
                 android:textSize="12sp"
                 android:textColor="#2E7D32"
                 android:textStyle="bold"
@@ -137,7 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="6dp"
-                android:text="Kredit 0-0-12"
+                android:text="@string/home_credit_installment"
                 android:textSize="12sp"
                 android:textColor="#2E7D32"
                 android:textStyle="bold"
@@ -204,7 +204,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Çatdırılma — 0 ₼"
+                                android:text="@string/home_delivery_free"
                                 android:textSize="13sp"
                                 android:textColor="#1A1A1A"
                                 android:textStyle="bold" />
@@ -212,7 +212,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="toplama nöqtələrinə"
+                                android:text="@string/home_pickup_points"
                                 android:textSize="11sp"
                                 android:textColor="#666666" />
 
@@ -249,7 +249,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Kredit 0-0-12"
+                                android:text="@string/home_credit_installment"
                                 android:textSize="13sp"
                                 android:textColor="#1A1A1A"
                                 android:textStyle="bold" />
@@ -257,7 +257,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="bütün məhsullar üçün"
+                                android:text="@string/home_all_products"
                                 android:textSize="11sp"
                                 android:textColor="#666666" />
 
@@ -295,7 +295,7 @@
                 android:id="@+id/tvRecentlyViewed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Əvvəl baxdıqlarınız"
+                android:text="@string/home_recently_viewed"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="#1A1A1A"
@@ -318,7 +318,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sizin üçün seçdik"
+                android:text="@string/home_for_you"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="#1A1A1A"

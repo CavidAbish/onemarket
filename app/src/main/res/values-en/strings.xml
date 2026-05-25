@@ -93,4 +93,138 @@
     <string name="address_saved">My Addresses</string>
     <string name="phone_label">Phone number</string>
     <string name="country_code_select">Select country code</string>
+
+    <string name="profile_my_orders">My Orders</string>
+    <string name="profile_my_cards">My Cards</string>
+    <string name="profile_bir_id_desc">Manage your Bir ID profile, information, and settings within the Bir ecosystem</string>
+    <string name="profile_support_service">Support Service</string>
+    <string name="profile_pickup_list">Birmarket pickup points list</string>
+    <string name="profile_faq_label">Frequently asked questions</string>
+    <string name="profile_delete_account_btn">Delete account</string>
+    <string name="profile_version">Version 1.0.0</string>
+    <string name="profile_city_baku">Baku</string>
+    <string name="profile_lang_az">Azerbaijani</string>
+
+    <string name="login_desc">To shop, track orders and use personal discounts and bonuses.</string>
+    <string name="user_default_name">User</string>
+
+    <string name="home_search_hint">Search products</string>
+    <string name="home_delivery_free">Delivery — 0 ₼</string>
+    <string name="home_credit_installment">Credit 0-0-12</string>
+    <string name="home_pickup_points">to pickup points</string>
+    <string name="home_all_products">for all products</string>
+    <string name="home_recently_viewed">Recently Viewed</string>
+    <string name="home_for_you">Selected for You</string>
+
+    <string name="cart_select_all">Select all</string>
+    <string name="cart_delete_selected">Delete selected</string>
+    <string name="cart_empty_title">Cart is empty</string>
+    <string name="cart_empty_desc">Start shopping by browsing the product catalog to find what you need</string>
+    <string name="cart_catalog_btn">Product catalog</string>
+    <string name="cart_my_orders_btn">My orders</string>
+    <string name="cart_recently_viewed">Recently Viewed</string>
+    <string name="cart_for_you">Selected for You</string>
+    <string name="cart_may_interest">You may also like</string>
+    <string name="cart_order_amount">Order amount (0 items):</string>
+    <string name="cart_checkout">Place Order</string>
+    <string name="cart_checkout_credit">Place Order with Credit</string>
+
+    <string name="favorites_login_required">Login required</string>
+    <string name="favorites_login_desc">Sign in to your account to see your favorites.</string>
+    <string name="favorites_login_btn">Sign In</string>
+    <string name="favorites_empty_title">No products in FAVORITES</string>
+    <string name="favorites_empty_desc">Add products to FAVORITES for quick access.</string>
+    <string name="favorites_catalog_btn">Product catalog</string>
+
+    <string name="search_history_title">Search history</string>
+    <string name="search_clear_history">Clear</string>
+    <string name="search_no_results">No results found</string>
+
+    <string name="category_default_title">Category</string>
+    <string name="category_product_count">0 products</string>
+    <string name="category_filter_filters">Filters</string>
+    <string name="category_filter_brand">Brand</string>
+    <string name="category_filter_price">Price</string>
+    <string name="category_filter_discount">On sale</string>
+    <string name="category_no_results">No results found</string>
+    <string name="category_try_other_filters">Try other filter options</string>
+
+    <string name="order_summary_title">Place Order</string>
+    <string name="order_payment_method_header">PAYMENT METHOD</string>
+    <string name="order_pay_online_title">Online via bank card</string>
+    <string name="order_pay_online_subtitle">Pay online</string>
+    <string name="order_credit_label">Credit</string>
+    <string name="order_select_payment_btn">Select another payment method</string>
+    <string name="order_credit_terms_header">BIR CREDIT BOKT LLC CREDIT TERMS</string>
+    <string name="order_monthly_payment_label">Monthly payment from 01.06:</string>
+    <string name="order_credit_info_header">INFORMATION FOR CREDIT ISSUANCE</string>
+    <string name="order_credit_first_name_hint">First name</string>
+    <string name="order_credit_last_name_hint">Last name</string>
+    <string name="order_credit_phone_hint">Phone</string>
+    <string name="order_credit_fin_hint">FIN code</string>
+    <string name="order_credit_section_header">ORDER</string>
+    <string name="order_credit_order_label">Order amount (1 item):</string>
+    <string name="order_discount_label">Discount:</string>
+    <string name="order_delivery_label">Delivery:</string>
+    <string name="order_birbank_section_header">ORDER</string>
+    <string name="order_birbank_installment_label">Installment:</string>
+    <string name="order_total_payment_label">Total payment:</string>
+    <string name="order_buyer_contacts_header">BUYER CONTACTS</string>
+    <string name="order_promo_header">PROMO CODE</string>
+    <string name="order_use_promo">I want to use a promo code</string>
+    <string name="order_promo_hint">Enter promo code</string>
+    <string name="order_promo_note">Payment is possible without applying a promo code</string>
+    <string name="order_total_label">Total payment:</string>
+    <string name="order_legal_text">By continuing, you agree to the collection and processing of your personal data and agree to the terms of use and payment of OneMarket</string>
+    <string name="order_consent_text">I confirm the accuracy of the information and consent to receiving my data from ACB and other government agencies, and to the collection of information about me in accordance with OneMarket usage rules</string>
+
+    <string name="my_orders_title">My Orders</string>
+    <string name="my_orders_empty">No orders yet</string>
+
+    <string name="order_detail_order_label">Order</string>
+    <string name="order_detail_delivery_title">Delivery</string>
+    <string name="order_detail_delivery_address">Delivery address</string>
+    <string name="order_detail_cancel_btn">Cancel Order</string>
+    <string name="order_detail_composition_title">Order contents</string>
+    <string name="order_detail_seller_label">Seller:</string>
+    <string name="order_detail_payment_title">Payment details</string>
+    <string name="order_detail_buyer_label">Buyer</string>
+    <string name="order_detail_payment_method_label">Payment method</string>
+    <string name="order_detail_payment_status_label">Payment status</string>
+    <string name="order_detail_payment_status_paid">Paid</string>
+    <string name="order_detail_total_label">Total to pay:</string>
+    <string name="order_detail_show_details">Show payment details</string>
+    <string name="order_detail_support_btn">Support service</string>
+
+    <string name="my_cards_title">My Cards</string>
+    <string name="my_cards_empty">No saved cards</string>
+    <string name="my_cards_add_btn">+ Add new card</string>
+
+    <string name="add_card_title">Add new card</string>
+    <string name="add_card_type_label">Card type</string>
+    <string name="add_card_type_bank">Bank card</string>
+    <string name="add_card_type_birbank">Birbank installment</string>
+    <string name="add_card_number_label">Card number</string>
+    <string name="add_card_holder_hint">Cardholder name (optional)</string>
+    <string name="add_card_save_btn">Add card</string>
+
+    <string name="card_detail_title">Card details</string>
+    <string name="card_detail_type_label_visual">Bank card</string>
+    <string name="card_detail_holder_label">Cardholder</string>
+    <string name="card_detail_expiry_label_visual">Expiry date</string>
+    <string name="card_detail_type_row">Card type</string>
+    <string name="card_detail_number_row">Card number</string>
+    <string name="card_detail_expiry_row">Expiry date</string>
+    <string name="card_detail_cvv_tap">Tap to reveal</string>
+    <string name="card_detail_added_label">Added on</string>
+    <string name="card_detail_delete_btn">Delete card</string>
+
+    <string name="notifications_title">Notifications</string>
+    <string name="notifications_tab_all">All</string>
+    <string name="notifications_tab_orders">Orders</string>
+    <string name="notifications_empty">No notifications</string>
+
+    <string name="delivery_title">Delivery method</string>
+    <string name="delivery_city_label">Delivery city or district</string>
+    <string name="delivery_next_btn">Next</string>
 </resources>

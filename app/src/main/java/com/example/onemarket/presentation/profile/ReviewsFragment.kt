@@ -57,19 +57,17 @@ class ReviewsFragment : Fragment() {
 
     private fun selectTab(writeReview: Boolean) {
         if (writeReview) {
-
             binding.tabWriteReview.setBackgroundResource(R.drawable.bg_chip_selected)
-            binding.tabWriteReview.setTextColor(android.graphics.Color.parseColor("#1A237E"))
+            binding.tabWriteReview.setTextColor(android.graphics.Color.WHITE)
             binding.tabMyReviews.setBackgroundColor(android.graphics.Color.TRANSPARENT)
-            binding.tabMyReviews.setTextColor(android.graphics.Color.parseColor("#9E9E9E"))
+            binding.tabMyReviews.setTextColor(android.graphics.Color.parseColor("#E91E8C"))
             binding.contentWriteReview.visibility = View.VISIBLE
             binding.contentMyReviews.visibility = View.GONE
         } else {
-
             binding.tabMyReviews.setBackgroundResource(R.drawable.bg_chip_selected)
-            binding.tabMyReviews.setTextColor(android.graphics.Color.parseColor("#1A237E"))
+            binding.tabMyReviews.setTextColor(android.graphics.Color.WHITE)
             binding.tabWriteReview.setBackgroundColor(android.graphics.Color.TRANSPARENT)
-            binding.tabWriteReview.setTextColor(android.graphics.Color.parseColor("#9E9E9E"))
+            binding.tabWriteReview.setTextColor(android.graphics.Color.parseColor("#E91E8C"))
             binding.contentMyReviews.visibility = View.VISIBLE
             binding.contentWriteReview.visibility = View.GONE
         }

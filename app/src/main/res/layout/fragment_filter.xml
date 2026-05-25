@@ -327,7 +327,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:id="@+id/btnClear"
                 android:layout_width="0dp"
                 android:layout_height="52dp"
@@ -336,9 +337,14 @@
                 android:text="Təmizləmək"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:textColor="#E91E8C"
-                android:background="@drawable/bg_outline_pink"
-                android:stateListAnimator="@null" />
+                android:textColor="@color/pink_main"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:stateListAnimator="@null"
+                android:backgroundTint="#FFFFFF"
+                app:strokeColor="@color/pink_main"
+                app:strokeWidth="1.5dp"
+                app:cornerRadius="26dp" />
 
             <Button
                 android:id="@+id/btnApply"

@@ -151,8 +151,9 @@ class DeleteAccountOtpFragment : Fragment() {
                     as InputMethodManager
             imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
 
-            // Hesaba aid bütün məlumatları sil
             cardManager.clearAll()
+            requireContext().getSharedPreferences("saved_card", android.content.Context.MODE_PRIVATE).edit().clear().apply()
+            requireContext().getSharedPreferences("saved_card_birbank", android.content.Context.MODE_PRIVATE).edit().clear().apply()
             creditManager.clearAll()
             notificationManager.clearAllNotifications()
             cartManager.clearAll()
@@ -163,7 +164,6 @@ class DeleteAccountOtpFragment : Fragment() {
             personalInfoManager.clear()
             addressManager.clearAll()
             pickupHistoryManager.clearAll()
-
 
             userManager.logout()
 

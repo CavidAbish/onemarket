@@ -49,19 +49,16 @@ class CardDetailFragment : Fragment() {
             return
         }
 
-
         binding.tvDetailTypeLabel.text = card.typeLabel
         binding.tvDetailCardNumber.text = card.maskedNumber
         binding.tvDetailHolder.text = card.holderName.ifEmpty { "—" }
         binding.tvDetailExpiry.text = card.expiry
-
 
         binding.tvDetailType.text = card.typeLabel
         binding.tvDetailMasked.text = card.maskedNumber
         binding.tvDetailExpiryInfo.text = card.expiry
         val dateStr = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(Date(card.addedAt))
         binding.tvDetailAddedAt.text = dateStr
-
 
         var fullNumberVisible = false
         val maskToggle = {
@@ -73,12 +70,15 @@ class CardDetailFragment : Fragment() {
         binding.tvDetailMasked.setOnClickListener { maskToggle() }
         binding.tvDetailCardNumber.setOnClickListener { maskToggle() }
 
-        // CVV — clicklədikdə göstər / gizlət
         var cvvVisible = false
-        binding.tvDetailCvv.setOnClickListener {
+        val toggleCvv = {
             cvvVisible = !cvvVisible
-            binding.tvDetailCvv.text = if (cvvVisible && card.cvv.isNotEmpty()) card.cvv else "•••"
+            val cvvText = if (cvvVisible && card.cvv.isNotEmpty()) card.cvv else "•••"
+            binding.tvDetailCvv.text = cvvText
+            binding.tvCardCvv.text = cvvText
         }
+        binding.cvvRow.setOnClickListener { toggleCvv() }
+        binding.cvvCardSection.setOnClickListener { toggleCvv() }
 
         binding.btnDeleteCard.setOnClickListener {
             AlertDialog.Builder(requireContext())

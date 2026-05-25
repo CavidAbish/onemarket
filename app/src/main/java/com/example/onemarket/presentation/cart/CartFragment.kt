@@ -199,6 +199,10 @@ class CartFragment : Fragment() {
             updateTotal()
             val cartItems = cartManager.getCartItems()
             if (cartItems.isEmpty()) refreshCart()
+            else {
+                recommendedAdapter.notifyDataSetChanged()
+                recentlyViewedAdapter.notifyDataSetChanged()
+            }
         })
         binding.recyclerViewCart.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewCart.adapter = cartAdapter

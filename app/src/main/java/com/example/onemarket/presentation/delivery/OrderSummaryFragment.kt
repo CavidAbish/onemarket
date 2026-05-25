@@ -44,6 +44,8 @@ class OrderSummaryFragment : Fragment() {
     private var deliveryCostTotal = 0.0
     private var productCount = 0
     private var selectedMonths = 24
+    private var orderCount = 0
+    private val deliveryViews = mutableListOf<TextView>()
 
     companion object {
         private const val BIRBANK_MONTHS = 3
@@ -57,8 +59,15 @@ class OrderSummaryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnBack.setOnClickListener { findNavController().popBackStack() }
+        totalAmount = 0.0
+        originalAmountSum = 0.0
+        discountSum = 0.0
+        deliveryCostTotal = 0.0
+        productCount = 0
+        orderCount = 0
+        deliveryViews.clear()
 
+        binding.btnBack.setOnClickListener { findNavController().popBackStack() }
 
         binding.cardPayOnline.setOnClickListener { switchToOnline() }
         binding.cardPayCredit.setOnClickListener { switchToCredit() }
@@ -76,15 +85,14 @@ class OrderSummaryFragment : Fragment() {
             applySelectedPaymentMethod(method)
         }
 
-
         val contactName = personalInfoManager.getFullName().ifEmpty { userManager.getUserName() }
         binding.tvContactName.text = contactName.uppercase()
         binding.tvContactPhone.text = userManager.getUserPhone()
 
-
         val cartItems = cartManager.getSelectedItems().ifEmpty { cartManager.getCartItems() }
         val deliveryCost = 3.0
         productCount = cartItems.sumOf { it.quantity }
+        orderCount = cartItems.size
         deliveryCostTotal = deliveryCost * cartItems.size
 
         cartItems.forEachIndexed { index, item ->
@@ -110,6 +118,7 @@ class OrderSummaryFragment : Fragment() {
             }
 
             tvDelivery.text = String.format("%.2f ₼", deliveryCost)
+            deliveryViews.add(tvDelivery)
 
             totalAmount += item.product.price * item.quantity + deliveryCost
             originalAmountSum += item.product.price * item.quantity
@@ -121,7 +130,6 @@ class OrderSummaryFragment : Fragment() {
         binding.tvTotalPayment.text = String.format("%.2f ₼", totalAmount)
         binding.btnPay.text = String.format("%.2f ₼ ödə", totalAmount)
 
-
         binding.tvCreditOrderLabel.text = "Sifarişin məbləği ($productCount məhsul):"
         binding.tvCreditOrderAmount.text = String.format("%.2f ₼", originalAmountSum)
         if (discountSum > 0) {
@@ -130,12 +138,10 @@ class OrderSummaryFragment : Fragment() {
         }
         binding.tvCreditDelivery.text = String.format("%.2f ₼", deliveryCostTotal)
 
-
         val birbankContactName = personalInfoManager.getFullName().ifEmpty { userManager.getUserName() }
         binding.tvBirbankContactName.text = birbankContactName.uppercase()
         binding.tvBirbankContactPhone.text = userManager.getUserPhone()
 
-        // Birbank xülasəsi doldur
         binding.tvBirbankOrderLabel.text = "Sifarişin məbləği ($productCount məhsul):"
         binding.tvBirbankOrderAmount.text = String.format("%.2f ₼", originalAmountSum)
         if (discountSum > 0) {
@@ -146,7 +152,6 @@ class OrderSummaryFragment : Fragment() {
         binding.tvBirbankTaksit.text = "$BIRBANK_MONTHS ay ${String.format("%.2f ₼", birbankMonthly)}"
         binding.tvBirbankTotal.text = String.format("%.2f ₼", totalAmount)
         binding.tvBirbankDelivery.text = String.format("%.2f ₼", deliveryCostTotal)
-
 
         val piFirst = personalInfoManager.getFirstName()
         val piLast  = personalInfoManager.getLastName()
@@ -165,21 +170,17 @@ class OrderSummaryFragment : Fragment() {
         }
         binding.etCreditPhone.setText(userManager.getUserPhone())
 
-
         val savedFin = personalInfoManager.getFin()
         if (savedFin.isNotEmpty()) {
             binding.etCreditFin.setText(savedFin)
         }
 
-        // Promokod checkbox
         binding.cbPromoCode.setOnCheckedChangeListener { _, isChecked ->
             binding.cardPromoInput.visibility = if (isChecked) View.VISIBLE else View.GONE
         }
 
-        // Ay seçim düymələri
         setupMonthButtons()
 
-        // Kredit rejimi ilkin seçim
         if (args.isCredit) {
             selectPayment(1)
             selectedPaymentMethod = "CREDIT"
@@ -189,9 +190,37 @@ class OrderSummaryFragment : Fragment() {
         binding.btnPay.setOnClickListener { onPayButtonClicked() }
     }
 
+    private fun recalculateTotals(deliveryCost: Double) {
+        deliveryCostTotal = deliveryCost * orderCount
+        totalAmount = originalAmountSum + deliveryCostTotal
+
+        deliveryViews.forEach { tvDelivery ->
+            if (deliveryCost == 0.0) {
+                tvDelivery.text = "Pulsuz"
+                tvDelivery.setTextColor(android.graphics.Color.parseColor("#E91E8C"))
+            } else {
+                tvDelivery.text = String.format("%.2f ₼", deliveryCost)
+                tvDelivery.setTextColor(android.graphics.Color.parseColor("#1A1A1A"))
+            }
+        }
+
+        binding.tvTotalPayment.text = String.format("%.2f ₼", totalAmount)
+
+        val deliveryDisplay = if (deliveryCost == 0.0) "Pulsuz" else String.format("%.2f ₼", deliveryCostTotal)
+        binding.tvCreditDelivery.text = deliveryDisplay
+        binding.tvBirbankDelivery.text = deliveryDisplay
+
+        val birbankMonthly = if (totalAmount > 0) totalAmount / BIRBANK_MONTHS else 0.0
+        binding.tvBirbankTaksit.text = "$BIRBANK_MONTHS ay ${String.format("%.2f ₼", birbankMonthly)}"
+        binding.tvBirbankTotal.text = String.format("%.2f ₼", totalAmount)
+
+        updateMonthlyPayment()
+    }
+
     private fun switchToOnline() {
         selectedPaymentMethod = "ONLINE"
         selectPayment(0)
+        recalculateTotals(3.0)
         binding.iconPayOnline.visibility = View.VISIBLE
         binding.iconPayBirbank.visibility = View.GONE
         binding.iconPayCredit.visibility = View.GONE
@@ -205,6 +234,7 @@ class OrderSummaryFragment : Fragment() {
 
     private fun switchToCredit() {
         selectedPaymentMethod = "CREDIT"
+        recalculateTotals(3.0)
         selectPayment(1)
         showCreditUI(true)
     }
@@ -329,7 +359,6 @@ class OrderSummaryFragment : Fragment() {
             creditManager.addApplication(application)
             cartManager.removeSelectedItems()
 
-            // Kredit bildirişi
             val now = java.util.Date()
             val timeFmt = java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault())
             val dateFmt = java.text.SimpleDateFormat("dd.MM.yyyy", java.util.Locale.getDefault())
@@ -398,6 +427,7 @@ class OrderSummaryFragment : Fragment() {
 
         when (method) {
             "ONLINE" -> {
+                recalculateTotals(3.0)
                 selectPayment(0)
                 binding.iconPayOnline.visibility = View.VISIBLE
                 binding.tvSelectedPayTitle.text = "Bank kartı vasitəsi ilə onlayn"
@@ -407,6 +437,7 @@ class OrderSummaryFragment : Fragment() {
                 binding.btnPay.text = String.format("%.2f ₼ ödə", totalAmount)
             }
             "BIRBANK" -> {
+                recalculateTotals(3.0)
                 selectPayment(0)
                 binding.iconPayBirbank.visibility = View.VISIBLE
                 val birbankMonthly = if (totalAmount > 0) totalAmount / BIRBANK_MONTHS else 0.0
@@ -416,11 +447,12 @@ class OrderSummaryFragment : Fragment() {
                 showBirbankUI(true)
             }
             "CREDIT" -> {
-                // Don't change cardPayOnline - keep it as is
+                recalculateTotals(3.0)
                 selectPayment(1)
                 showCreditUI(true)
             }
             "DELIVERY" -> {
+                recalculateTotals(0.0)
                 selectPayment(0)
                 binding.iconPayDelivery.visibility = View.VISIBLE
                 binding.tvSelectedPayTitle.text = "Təhvil alarkən bank kartı vasitəsi ilə"

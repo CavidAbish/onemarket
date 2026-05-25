@@ -1,12 +1,11 @@
 package com.example.onemarket.presentation.cart
 
 import android.app.Dialog
+import android.graphics.Color
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.Button
-import android.widget.ImageButton
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.example.onemarket.R
 import com.example.onemarket.data.local.CartManager
 import com.example.onemarket.data.local.FavoritesManager
+import com.example.onemarket.databinding.DialogConfirmRemoveCartBinding
 import com.example.onemarket.databinding.ItemCartProductBinding
 import java.util.Calendar
 
@@ -23,7 +23,6 @@ class CartAdapter(
     private val onCartChanged: () -> Unit
 ) : ListAdapter<CartManager.CartItem, CartAdapter.ViewHolder>(DiffCallback()) {
 
-    // Seçilmiş məhsulların id-ləri
     private val selectedIds = mutableSetOf<Int>()
 
     fun getSelectedItems(): List<CartManager.CartItem> =
@@ -52,6 +51,11 @@ class CartAdapter(
 
             binding.tvSellerName.text = product.brand.ifEmpty { "OneMarket" }
             binding.tvProductName.text = product.title
+
+            Glide.with(binding.root)
+                .load(product.thumbnail)
+                .centerCrop()
+                .into(binding.ivSellerIcon)
             binding.tvDiscount.text = "-${product.discountPercentage.toInt()}%"
             binding.tvPrice.text = "${product.price} ₼"
             binding.tvOldPrice.text = "${product.originalPrice} ₼"
@@ -60,14 +64,12 @@ class CartAdapter(
             binding.tvQuantity.text = item.quantity.toString()
             binding.tvTotalPrice.text = String.format("%.2f ₼", product.price * item.quantity)
 
-            // Çatdırılma tarixi
             val cal = Calendar.getInstance()
             cal.add(Calendar.DAY_OF_YEAR, 3)
             val day = cal.get(Calendar.DAY_OF_MONTH)
             val months = listOf("yan","fev","mar","apr","may","iyn",
                 "iyl","avq","sen","okt","noy","dek")
             val month = months[cal.get(Calendar.MONTH)]
-            // Əgər layout-da tvDeliveryDate varsa yeniləyirik
             try {
                 binding.root.findViewWithTag<android.widget.TextView>("tvDeliveryDate")
                     ?.text = "Çatdırılma: $day $month"
@@ -78,7 +80,6 @@ class CartAdapter(
                 .centerCrop()
                 .into(binding.ivProductImage)
 
-            // Checkbox
             binding.checkbox.setOnCheckedChangeListener(null)
             binding.checkbox.isChecked = product.id in selectedIds
             binding.checkbox.setOnCheckedChangeListener { _, isChecked ->
@@ -121,7 +122,8 @@ class CartAdapter(
             val context = binding.root.context
             val dialog = Dialog(context)
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dialog.setContentView(R.layout.dialog_confirm_remove_cart)
+            val dialogBinding = DialogConfirmRemoveCartBinding.inflate(LayoutInflater.from(context))
+            dialog.setContentView(dialogBinding.root)
             dialog.window?.setBackgroundDrawableResource(R.drawable.bg_dialog_rounded)
             dialog.window?.setLayout(
                 (context.resources.displayMetrics.widthPixels * 0.88).toInt(),
@@ -129,13 +131,15 @@ class CartAdapter(
             )
             dialog.setCancelable(true)
 
-            dialog.findViewById<ImageButton>(R.id.btnDialogClose).setOnClickListener {
+            val isInFavorites = favoritesManager.isFavorite(item.product.id)
+            dialogBinding.btnAddToFavorites.setTextColor(Color.parseColor("#FF5722"))
+
+            dialogBinding.btnDialogClose.setOnClickListener {
                 dialog.dismiss()
             }
 
-
-            dialog.findViewById<Button>(R.id.btnAddToFavorites).setOnClickListener {
-                if (!favoritesManager.isFavorite(item.product.id)) {
+            dialogBinding.btnAddToFavorites.setOnClickListener {
+                if (!isInFavorites) {
                     favoritesManager.toggleFavorite(item.product)
                 }
                 selectedIds.remove(item.product.id)
@@ -145,8 +149,7 @@ class CartAdapter(
                 dialog.dismiss()
             }
 
-            // "Sil" — birbaşa sil
-            dialog.findViewById<Button>(R.id.btnDeleteConfirm).setOnClickListener {
+            dialogBinding.btnDeleteConfirm.setOnClickListener {
                 selectedIds.remove(item.product.id)
                 cartManager.removeFromCart(item.product.id)
                 submitList(cartManager.getCartItems())

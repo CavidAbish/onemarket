@@ -18,11 +18,12 @@
         android:padding="12dp">
 
         <ImageView
+            android:id="@+id/ivSellerIcon"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:src="@drawable/ic_notifications"
             android:background="#F0F0F0"
-            android:padding="6dp" />
+            android:padding="4dp"
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -62,11 +63,11 @@
         android:layout_height="wrap_content"
         android:padding="12dp">
 
-        <!-- Checkbox -->
         <CheckBox
             android:id="@+id/checkbox"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            app:buttonTint="@color/pink_main"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />

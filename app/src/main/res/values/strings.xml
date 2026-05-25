@@ -93,4 +93,383 @@
     <string name="address_saved">Ünvanlarım</string>
     <string name="phone_label">Telefon nömrəsi</string>
     <string name="country_code_select">Ölkə kodu seçin</string>
+
+    <string name="profile_my_orders">Mənim sifarişlərim</string>
+    <string name="profile_my_cards">Mənim Kartlarım</string>
+    <string name="profile_bir_id_desc">Bir ID profilinizi, məlumatlarınızı və tənzimləmələrinizi Bir ekosistemində idarə edin</string>
+    <string name="profile_support_service">Dəstək xidməti</string>
+    <string name="profile_pickup_list">Birmarket təhvil məntəqələrinin siyahısı</string>
+    <string name="profile_faq_label">Ən çox verilən suallar</string>
+    <string name="profile_delete_account_btn">Hesabı silmək</string>
+    <string name="profile_version">Version 1.0.0</string>
+    <string name="profile_city_baku">Bakı</string>
+    <string name="profile_lang_az">Azərbaycan</string>
+
+    <string name="login_desc">Alış-veriş etmək, sifarişləri izləmək və fərdi endirim­lər və bonuslardan istifadə etmək üçün.</string>
+    <string name="user_default_name">İstifadəçi</string>
+
+    <string name="home_search_hint">Məhsul axtar</string>
+    <string name="home_delivery_free">Çatdırılma — 0 ₼</string>
+    <string name="home_credit_installment">Kredit 0-0-12</string>
+    <string name="home_pickup_points">toplama nöqtələrinə</string>
+    <string name="home_all_products">bütün məhsullar üçün</string>
+    <string name="home_recently_viewed">Əvvəl baxdıqlarınız</string>
+    <string name="home_for_you">Sizin üçün seçdik</string>
+
+    <string name="cart_select_all">Hamısını seçmək</string>
+    <string name="cart_delete_selected">Seçilmişləri silin</string>
+    <string name="cart_empty_title">Səbət boşdur</string>
+    <string name="cart_empty_desc">Sizə lazım olan məhsulları tapmağınız üçün alış-verişə məhsul kataloquna keçərək başlayın</string>
+    <string name="cart_catalog_btn">Məhsul kataloqu</string>
+    <string name="cart_my_orders_btn">Mənim sifarişlərim</string>
+    <string name="cart_recently_viewed">Əvvəl baxdıqlarınız</string>
+    <string name="cart_for_you">Sizin üçün seçdik</string>
+    <string name="cart_may_interest">Sizi maraqlandıra bilər</string>
+    <string name="cart_order_amount">Sifarişin məbləği (0 məhsul):</string>
+    <string name="cart_checkout">Sifarişi rəsmiləşdirmək</string>
+    <string name="cart_checkout_credit">Sifarişi kreditlə rəsmiləşdirmək</string>
+
+    <string name="favorites_login_required">Giriş tələb olunur</string>
+    <string name="favorites_login_desc">Seçilmişləri görmək üçün hesabınıza daxil olun.</string>
+    <string name="favorites_login_btn">Daxil olmaq</string>
+    <string name="favorites_empty_title">SEÇİLMİŞLƏR bölümündə məhsul yoxdur</string>
+    <string name="favorites_empty_desc">Məhsulların sürətlə əldə edilməsi üçün, onları SEÇİLMİŞLƏR bölümünə əlavə edin.</string>
+    <string name="favorites_catalog_btn">Məhsul kataloqu</string>
+
+    <string name="search_history_title">Axtarış tarixçəsi</string>
+    <string name="search_clear_history">Silmək</string>
+    <string name="search_no_results">Nəticə tapılmadı</string>
+
+    <string name="category_default_title">Kateqoriya</string>
+    <string name="category_product_count">0 məhsul</string>
+    <string name="category_filter_filters">Filtrlər</string>
+    <string name="category_filter_brand">Brend</string>
+    <string name="category_filter_price">Qiymət</string>
+    <string name="category_filter_discount">Endirimlə</string>
+    <string name="category_no_results">Heç bir nəticə tapılmadı</string>
+    <string name="category_try_other_filters">Digər filter parametrləri sınayın</string>
+
+    <string name="order_summary_title">Sifarişin verilməsi</string>
+    <string name="order_payment_method_header">ÖDƏNİŞ ÜSULU</string>
+    <string name="order_pay_online_title">Bank kartı vasitəsi ilə onlayn</string>
+    <string name="order_pay_online_subtitle">Onlayn ödəmək</string>
+    <string name="order_credit_label">Kredit</string>
+    <string name="order_select_payment_btn">Başqa ödəniş üsulu seçmək</string>
+    <string name="order_credit_terms_header">BIR KREDİT BOKT MMC-DƏN KREDİT ŞƏRTLƏRI</string>
+    <string name="order_monthly_payment_label">Aylıq ödəniş 01.06-dan etibarən:</string>
+    <string name="order_credit_info_header">KREDİTİN VERİLMƏSİ ÜÇÜN MƏLUMATLAR</string>
+    <string name="order_credit_first_name_hint">Ad</string>
+    <string name="order_credit_last_name_hint">Soyad</string>
+    <string name="order_credit_phone_hint">Telefon</string>
+    <string name="order_credit_fin_hint">FİN-kod</string>
+    <string name="order_credit_section_header">SİFARİŞ</string>
+    <string name="order_credit_order_label">Sifarişin məbləği (1 məhsul):</string>
+    <string name="order_discount_label">Endirim:</string>
+    <string name="order_delivery_label">Çatdırılma:</string>
+    <string name="order_birbank_section_header">SİFARİŞ</string>
+    <string name="order_birbank_installment_label">Taksit:</string>
+    <string name="order_total_payment_label">Toplam ödəniş:</string>
+    <string name="order_buyer_contacts_header">ALICI KONTAKTLARI</string>
+    <string name="order_promo_header">PROMOKOD</string>
+    <string name="order_use_promo">Promokoddan istifadə etmək istəyirəm</string>
+    <string name="order_promo_hint">Promokodu daxil edin</string>
+    <string name="order_promo_note">Promokod tətbiq olunmadan ödəniş mümkündür</string>
+    <string name="order_total_label">Toplam ödəniş:</string>
+    <string name="order_legal_text">Davam etməklə, siz şəxsi məlumatlarınızın toplanması və emalı ilə razılaşırsınız və OneMarket-in istifadə və ödəniş şərtləri ilə razılaşırsınız</string>
+    <string name="order_consent_text">Məlumatların doğruluğunu təsdiqləyirəm və AKB-dən və digər dövlət qurumlarından məlumatlarımın alınmasına, OneMarket istifadə qaydalarına uyğun haqqımda məlumat toplanmasına razılıq verirəm</string>
+
+    <string name="my_orders_title">Mənim sifarişlərim</string>
+    <string name="my_orders_empty">Hələ sifariş yoxdur</string>
+
+    <string name="order_detail_order_label">Sifariş</string>
+    <string name="order_detail_delivery_title">Çatdırılma</string>
+    <string name="order_detail_delivery_address">Çatdırılma ünvanı</string>
+    <string name="order_detail_cancel_btn">Sifarişi ləğv et</string>
+    <string name="order_detail_composition_title">Sifarişin tərkibi</string>
+    <string name="order_detail_seller_label">Satıcı:</string>
+    <string name="order_detail_payment_title">Ödəniş məlumatları</string>
+    <string name="order_detail_buyer_label">Alıcı</string>
+    <string name="order_detail_payment_method_label">Ödəniş üsulu</string>
+    <string name="order_detail_payment_status_label">Ödənişin statusu</string>
+    <string name="order_detail_payment_status_paid">Ödənilib</string>
+    <string name="order_detail_total_label">Cəmi ödəniləcək:</string>
+    <string name="order_detail_show_details">Ödənişin detallarını göstər</string>
+    <string name="order_detail_support_btn">Dəstək xidməti</string>
+
+    <string name="my_cards_title">Mənim kartlarım</string>
+    <string name="my_cards_empty">Yadda saxlanılmış kart yoxdur</string>
+    <string name="my_cards_add_btn">+ Yeni kart əlavə etmək</string>
+
+    <string name="add_card_title">Yeni kart əlavə et</string>
+    <string name="add_card_type_label">Kart növü</string>
+    <string name="add_card_type_bank">Bank kartı</string>
+    <string name="add_card_type_birbank">Birbank taksit</string>
+    <string name="add_card_number_label">Kart nömrəsi</string>
+    <string name="add_card_holder_hint">Kart sahibinin adı (ixtiyari)</string>
+    <string name="add_card_save_btn">Kartı əlavə et</string>
+
+    <string name="card_detail_title">Kart məlumatları</string>
+    <string name="card_detail_type_label_visual">Bank kartı</string>
+    <string name="card_detail_holder_label">Kart sahibi</string>
+    <string name="card_detail_expiry_label_visual">Bitmə tarixi</string>
+    <string name="card_detail_type_row">Kart növü</string>
+    <string name="card_detail_number_row">Kart nömrəsi</string>
+    <string name="card_detail_expiry_row">Bitmə tarixi</string>
+    <string name="card_detail_cvv_tap">Görmək üçün klikləyin</string>
+    <string name="card_detail_added_label">Əlavə edilib</string>
+    <string name="card_detail_delete_btn">Kartı sil</string>
+
+    <string name="notifications_title">Bildirişlər</string>
+    <string name="notifications_tab_all">Hamısı</string>
+    <string name="notifications_tab_orders">Sifarişlər</string>
+    <string name="notifications_empty">Bildiriş yoxdur</string>
+
+    <string name="delivery_title">Çatdırılma üsulu</string>
+    <string name="delivery_city_label">Təhvilalma şəhəri və ya rayonu</string>
+    <string name="delivery_next_btn">Növbəti</string>
+
+    <string name="product_placeholder_name">Məhsul adı</string>
+    <string name="product_rating_count">0 rəy</string>
+    <string name="product_add_to_cart_short">Səbətə</string>
+    <string name="product_installment_badge">Taksitli ödəniş</string>
+    <string name="product_credit_label">Kreditlə: </string>
+    <string name="product_features_title">Xüsusiyyətlər</string>
+    <string name="product_brand_label">Brend:</string>
+    <string name="product_category_label">Kateqoriya:</string>
+    <string name="product_stock_label">Stokda:</string>
+    <string name="product_description_title">Təsvir</string>
+    <string name="product_reviews_title">Məhsul haqqında rəylər</string>
+    <string name="product_similar_title">Oxşar məhsullar</string>
+    <string name="btn_add_to_cart_full">Səbətə əlavə etmək</string>
+
+    <string name="info_special_offers">Xüsusi təkliflər</string>
+    <string name="info_delivery_free_title">Qəbul məntəqəsinə çatdırılma — 0 ₼</string>
+    <string name="info_delivery_free_desc">Sifariş məbləğindən asılı olmayaraq, bütün qəbul məntəqələrinə çatdırılma pulsuzdur</string>
+    <string name="info_credit_title">0-0-12 krediti — sadə və əlverişli</string>
+    <string name="info_credit_desc">Kreditlə alış-veriş edin: 0 ₼ komissiya, 0 ₼ ilkin ödəniş, 12 aylıq kredit</string>
+    <string name="btn_go_shopping">Alış-verişə keç</string>
+
+    <string name="item_placeholder_category">Kateqoriya</string>
+    <string name="item_placeholder_menu">Menyu</string>
+
+    <string name="otp_title">SMS vasitəsilə gələn kodu qeyd edin</string>
+    <string name="otp_description">SMS vasitəsilə telefon nömrənizə göndərilən kodu daxil edin</string>
+    <string name="otp_resend">Yenidən göndər</string>
+
+    <string name="map_picker_title">Ünvanın xəritədə seçimi</string>
+    <string name="map_picker_question">Sifariş hara çatdırılmalıdır?</string>
+    <string name="map_picker_detecting">Ünvan müəyyənləşdirilir...</string>
+    <string name="map_picker_not_found">Ünvanınızı tapa bilmədiniz?</string>
+    <string name="map_picker_confirm">Bu nöqtəyə gətizdirmək</string>
+
+    <string name="city_select_title">Şəhərini seç</string>
+
+    <string name="payment_failed_title">Sifarişin ödənişi</string>
+    <string name="payment_failed_message">Ödəniş keçmədi</string>
+    <string name="payment_failed_desc">Nəsə səhv getdi. Ödənişi təkrarlaya bilərsiniz.</string>
+    <string name="payment_failed_retry">Ödənişi onlayn təkrarlamaq</string>
+    <string name="payment_failed_continue">Davam etmək</string>
+
+    <string name="dialog_otp_title">SMS ilə təsdiq</string>
+    <string name="dialog_otp_subtitle">Nömrənizə göndərilən kodu daxil edin</string>
+    <string name="dialog_otp_resend">Kodu yenidən göndər</string>
+
+    <string name="secure_code_not_received">Kodu almadınız?</string>
+
+    <string name="pickup_point_up_to">qədər</string>
+    <string name="pickup_point_select">Seç</string>
+
+    <string name="pickup_list_show_on_map">Xəritədə görmək</string>
+
+    <string name="pickup_sheet_title">Təhvil məntəqəsi</string>
+    <string name="pickup_sheet_storage_info">Şöbədə bağlamanın saxlama müddəti 4 gündür.</string>
+    <string name="pickup_sheet_recent">Son seçimlər</string>
+    <string name="pickup_sheet_select_on_map">Xəritədən seçin</string>
+
+    <string name="pickup_map_search_hint">Filiallar, ünvanlar üzrə axtarış</string>
+    <string name="pickup_list_title">OneMarket təhvil məntəqələri</string>
+    <string name="filter_all">Hamısı</string>
+    <string name="filter_other">Digər</string>
+
+    <string name="address_sheet_title">Çatdırılma ünvanı</string>
+    <string name="address_sheet_history_label">Əvvəlki ünvanlar</string>
+    <string name="address_sheet_add_btn">Ünvan əlavə et</string>
+
+    <string name="payment_details_title">Ödəniş məlumatları</string>
+    <string name="payment_details_order_label">Sifarişin məbləği (1 məhsul):</string>
+    <string name="payment_details_discount_label">Məhsullara endirim:</string>
+    <string name="payment_details_delivery_label">Çatdırılma:</string>
+    <string name="payment_details_delivery_free">Pulsuz</string>
+    <string name="payment_details_total_label">Sifarişin məbləği:</string>
+
+    <string name="order_amount_label">Sifarişin məbləği:</string>
+
+    <string name="reviews_title">Rəylərim</string>
+    <string name="reviews_tab_write">Rəy yazmaq</string>
+    <string name="reviews_tab_mine">Mənim rəylərim</string>
+    <string name="reviews_no_delivered_title">Çatdırılmış məhsul yoxdur</string>
+    <string name="reviews_no_delivered_sub">Rəy yazmaq üçün əvvəlcə sifariş verin</string>
+    <string name="reviews_start_shopping">Alış-verişə başla</string>
+    <string name="reviews_no_reviews_title">Rəylərin bizim üçün vacibdir</string>
+    <string name="reviews_no_reviews_sub">Aldığınız məhsullar haqqında rəyinizi bizimlə bölüşün</string>
+    <string name="reviews_write_btn">Rəy yazmaq</string>
+
+    <string name="promo_title">Promokodlar</string>
+    <string name="promo_empty">Aktiv promokod yoxdur</string>
+
+    <string name="extra_services_title">Əlavə xidmətlər</string>
+    <string name="extra_smart_bonus_subtitle">Bonuslar üçün Birbank kartını əlavə edin</string>
+    <string name="extra_foreign_parcels">Xaricdən bağlamalar</string>
+    <string name="extra_declaration_subtitle">Bəyannamənin təsdiqi</string>
+    <string name="extra_vat_refund">ƏDV Geri Al (Kapital Bank)</string>
+    <string name="extra_scanner_cabinet">Skaner və kabinet</string>
+
+    <string name="personal_info_title">Şəxsi məlumatlar</string>
+    <string name="personal_info_first_name_label">Ad</string>
+    <string name="personal_info_first_name_hint">Adınızı daxil edin</string>
+    <string name="personal_info_last_name_label">Soyad</string>
+    <string name="personal_info_last_name_hint">Soyadınızı daxil edin</string>
+    <string name="personal_info_father_name_label">Ata adı</string>
+    <string name="personal_info_father_name_hint">Ata adınızı daxil edin</string>
+    <string name="personal_info_birth_date_label">Doğum tarixi</string>
+    <string name="personal_info_fin_label">FİN kodu</string>
+    <string name="personal_info_fin_hint">7 simvollu FİN kodu</string>
+    <string name="personal_info_email_label">E-poçt</string>
+
+    <string name="bir_id_personal_info_title">Şəxsi məlumatlar</string>
+    <string name="bir_id_personal_info_subtitle">Şəxsiyyət vəsiqəsi, əlaqə nömrələri, email ünvanları və s.</string>
+    <string name="bir_id_privacy_policy">Məxflilik siyasəti</string>
+
+    <string name="personal_sheet_phone_label">Bir ID mobil nömrəsi</string>
+    <string name="personal_sheet_fin_label">FİN</string>
+    <string name="personal_sheet_passport_label">Şəxsiyyət vəsiqəsinin seriya və nömrəsi</string>
+    <string name="personal_sheet_birth_date_label">Doğum tarixi</string>
+    <string name="personal_sheet_gender_label">Cins</string>
+    <string name="personal_sheet_cif_label">CIF</string>
+
+    <string name="faq_title">Ən çox verilən suallar</string>
+
+    <string name="saved_addresses_topbar_title">Əlavə edilmiş ünvanlar</string>
+    <string name="saved_addresses_add_btn">Ünvan əlavə etmək</string>
+    <string name="saved_addresses_my_addresses">Mənim ünvanlarım</string>
+    <string name="saved_addresses_subtitle">Ünvanları əlavə edin və sifarişlərin rəsmiləşdirilməsi prosesini asanlaşdırmaq və tezləşdirmək üçün istifadə edin</string>
+
+    <string name="add_address_title">Sifarişlərin çatdırılması üçün ünvan</string>
+    <string name="add_address_name_hint">Ünvanın adı</string>
+    <string name="add_address_name_helper">Misal üçün, \"Ev\" və ya \"İş\"</string>
+    <string name="add_address_warning_title">Diqqət!</string>
+    <string name="add_address_warning_text">Çatdırılma ərazisi: Bakı, Sumqayıt, Abşeron</string>
+    <string name="add_address_search_hint">Ünvan və ev nömrəsi</string>
+    <string name="add_address_pick_on_map">Xəritədə ünvanı seçmək</string>
+    <string name="add_address_apartment_hint">Blok / mənzil / digər</string>
+    <string name="add_address_set_default_label">Əsas kimi istifadə etmək</string>
+    <string name="add_address_set_default_subtitle">Susmaya görə sifarişlər bu ünvana çatdırılacaq</string>
+    <string name="add_address_save_btn">Yadda saxlamaq</string>
+    <string name="add_address_delete_btn">Silmək</string>
+
+    <string name="address_item_default_badge">Əsas ünvan</string>
+    <string name="address_history_item_placeholder">Çatdırılma ünvanı</string>
+
+    <string name="delivery_option_courier">Kuryerlə çatdırılma</string>
+    <string name="delivery_option_post">Azərpoçt şöbələrinə çatdırılma</string>
+    <string name="delivery_option_pickup">Təhvil məntəqəsindən özün götür</string>
+    <string name="delivery_option_add_address">Çatdırılma ünvanını əlavə et</string>
+    <string name="delivery_option_change_pickup">Təhvil məntəqəsini dəyişdirin</string>
+    <string name="delivery_option_free">pulsuz</string>
+    <string name="delivery_item_seller_label">Satıcı</string>
+
+    <string name="sort_title">Öncə göstər</string>
+    <string name="sort_popular">Populyar</string>
+    <string name="sort_cheapest">Ucuz</string>
+    <string name="sort_expensive">Baha</string>
+    <string name="sort_biggest_discount">Ən böyük endirimli</string>
+    <string name="sort_newest">Yeniliklər</string>
+
+    <string name="price_filter_title">Qiymət aralığı</string>
+    <string name="price_filter_min_hint">Minimum</string>
+    <string name="price_filter_max_hint">Maksimum</string>
+    <string name="price_filter_currency_hint">Qiymət ₼ ilə</string>
+    <string name="btn_apply">Tətbiq et</string>
+
+    <string name="filter_title">Filtr</string>
+    <string name="filter_category_all">Hamısı</string>
+    <string name="filter_price_section">Qiymət aralığı</string>
+    <string name="filter_seller_section">Satıcı</string>
+    <string name="filter_product_count">Məhsulların tapılması: 0</string>
+    <string name="filter_clear_btn">Təmizləmək</string>
+    <string name="filter_apply_btn">Tətbiq etmək</string>
+    <string name="filter_discount_label">Endirim ilə</string>
+
+    <string name="login_enter_phone_title">Əlaqə nömrənizi qeyd edin</string>
+    <string name="login_or_separator">və ya</string>
+    <string name="login_terms_text">Qeydiyyatdan keçərək və ya xidmətdən istifadə etməyə davam edərək, siz avtomatik olaraq istifadəçi razılaşmaları və məxfilik siyasəti ilə razılaşırsınız.</string>
+    <string name="login_country_search_hint">Ölkə axtar</string>
+
+    <string name="credit_detail_title">Kredit müraciəti</string>
+    <string name="credit_detail_composition_header">Sifarişin tərkibi</string>
+    <string name="credit_detail_payment_header">Ödəniş məlumatları</string>
+    <string name="credit_detail_payment_method_label">Ödəniş üsulu</string>
+    <string name="credit_detail_payment_method_value">Kredit ilə ödəniş</string>
+    <string name="credit_detail_payment_status_label">Ödənişin statusu</string>
+    <string name="credit_detail_payment_status_pending">Kredit müraciəti gözlənilir</string>
+    <string name="credit_detail_total_label">Cəmi:</string>
+
+    <string name="credit_status_pending">Gözləmədədir</string>
+
+    <string name="cart_item_seller_label">Satıcı-şirkət</string>
+    <string name="cart_item_price_label">Qiyməti:</string>
+
+    <string name="dialog_remove_title">Əminsiniz?</string>
+    <string name="dialog_remove_body">Məhsulu silmək istədiyinizdən əminsiniz? Məhsulu seçilmişlər siyahısına əlavə edə bilərsiniz</string>
+    <string name="dialog_add_to_favorites">Seçilmişlər</string>
+
+    <string name="dp_delivery_methods_title">Çatdırılma üsulları</string>
+    <string name="dp_delivery_methods_intro">Birmarket-də aşağıda qeyd olunan çatdırılma üsulları mövcuddur:</string>
+    <string name="dp_courier_planned_title">Kuryer ilə planlı çatdırılma (Bakı-Abşeron)</string>
+    <string name="dp_bullet_suitable_day_title">Uyğun gün</string>
+    <string name="dp_bullet_suitable_day_desc">Sifarişi təsdiqləyən zaman sizə uyğun olan çatdırılma gününü seçə bilərsiniz.</string>
+    <string name="dp_bullet_suitable_time_title">Uyğun vaxt</string>
+    <string name="dp_bullet_suitable_time_desc">Çatdırılma saat 9:00-dan saat 21:00-dək həyata keçirilir.</string>
+    <string name="dp_bullet_free_delivery_title">Pulsuz çatdırılma</string>
+    <string name="dp_bullet_free_delivery_desc">Məbləği 50 ₼ və daha yuxarı olan bütün sifarişlər üçün</string>
+    <string name="dp_bullet_paid_delivery_desc">Məbləği 50 ₼-dan daha aşağı olan sifarişlərin çatdırılması ödənişlidir.</string>
+    <string name="dp_courier_express_title">Kuryer ilə ekspress çatdırılma</string>
+    <string name="dp_bullet_express_same_day_title">Çatdırılma həmin gün ərzində olacaq.</string>
+    <string name="dp_bullet_express_same_day_desc">Sifarişin rəsmiləşdirilmə anından etibarən 2 saat ərzində çatdırılır.</string>
+    <string name="dp_bullet_express_price_desc">Ekspres çatdırılmanın qiymətini sifarişi yerləşdirərkən görmək mümkündür.</string>
+    <string name="dp_bullet_express_hours_desc">Ekspres çatdırılma saat 9:00-dan saat 21:00-dək həyata keçirilir.</string>
+    <string name="dp_bullet_express_seller_desc">Ekspres çatdırılma satıcıdan asılı olaraq dəyişir.</string>
+    <string name="dp_pickup_title">Təhvil məntəqələrinə çatdırılma</string>
+    <string name="dp_bullet_pickup_storage_desc">Məhsullar təhvil məntəqəsində 4 günə qədər müddətdə saxlanılır.</string>
+    <string name="dp_bullet_pickup_cancel_desc">Bu müddət ərzində götürülmədiyi təqdirdə sifariş ləğv edilir.</string>
+    <string name="dp_bullet_pickup_large_desc">Böyük həcmli məhsulların çatdırılması həyata keçirilmir.</string>
+    <string name="dp_azerpoct_title">Azərpoçt şöbələrinə çatdırılma</string>
+    <string name="dp_bullet_azerpoct_weight_desc">30 kq-dək məhsul çatdırılır</string>
+    <string name="dp_bullet_azerpoct_regions_desc">Bütün Azərbaycan ərazisindəki şöbələrə çatdırılma mümkündür (Bakı və Sumqayıt istisna olmaqla).</string>
+    <string name="dp_always_free_title">Həmişə pulsuz</string>
+    <string name="dp_bullet_always_free_courier_title">Kuryer ilə planlı çatdırılma</string>
+    <string name="dp_bullet_always_free_courier_desc">Məbləği 50 ₼-dən yuxarı olan bütün sifarişlər üçün.</string>
+    <string name="dp_bullet_always_free_pickup_title">Təhvil məntəqələrindən alınma</string>
+    <string name="dp_bullet_always_free_pickup_desc">Məbləği 5 ₼-dən yuxarı olan bütün sifarişlər üçün.</string>
+    <string name="dp_always_free_note">Məhsulun səhifəsində göstərilən çatdırılma üsulların istənilən növünü seçə bilərsiniz.</string>
+    <string name="dp_tracking_title">Sifarişin izlənilməsi</string>
+    <string name="dp_bullet_tracking_courier_desc">Kuryer ilə planlı və ya ekspres çatdırılmanı seçdikdə sifarişin çatdırılmaya verilməsi və kuryerin hərəkəti ilə bağlı SMS bildirişlərini alacaqsınız.</string>
+    <string name="dp_bullet_tracking_pickup_desc">Məhsulları özünüz götürəcəyiniz halda isə məhsullar təhvil məntəqəsinə və ya Azərpoçt şöbəsinə çatdırıldıqda bununla bağlı SMS bildirişi alacaqsınız.</string>
+    <string name="dp_reschedule_title">Çatdırılma vaxtının dəyişdirilməsi</string>
+    <string name="dp_bullet_reschedule_desc">Əgər planlarınız dəyişib və çatdırılma vaxtını və ya ünvanını dəyişmək lazımdırsa, 915 nömrəsinə zəng vuraraq Birmarket Çağrı Mərkəzi ilə əlaqə saxlamağınız xahiş olunur.</string>
+    <string name="dp_find_pickup_title">Təhvil məntəqəsini necə tapmaq olar?</string>
+    <string name="dp_bullet_find_pickup_desc">Birmarket-in təhvil məntəqələrinin aktual siyahısı ilə buradan tanış ola bilərsiniz.</string>
+    <string name="dp_inspect_title">Sifarişin yoxlanılması</string>
+    <string name="dp_bullet_inspect_desc">Kuryer tərəfindən çatdırılan məhsulları təhvil alarkən zədələrin olub-olmamasını, məhsul dəstinin tam olmasını və ya işlək vəziyyətdə olub-olmamasını yoxlaya bilərsiniz.</string>
+    <string name="dp_payment_methods_title">Ödəmə üsulları</string>
+    <string name="dp_payment_methods_intro">Birmarket-dən etdiyiniz sifarişləri aşağıdakı üsullarla ödəmək mümkündür:</string>
+    <string name="dp_payment_online_card">Bank kartı vasitəsi ilə onlayn</string>
+    <string name="dp_payment_online_bonus">Bonus vasitəsi ilə onlayn</string>
+    <string name="dp_payment_card_on_delivery">Bank kartı vasitəsi ilə məhsulu təhvil alarkən</string>
+    <string name="dp_payment_birbank_installment">İstənilən Birbank taksit kartı ilə hissəli ödəniş üsulu ilə</string>
+    <string name="dp_payment_credit">Kreditlə</string>
+    <string name="dp_refund_title">Sifariş ləğv edildikdə vəsaitlərin geri qaytarılması</string>
+    <string name="dp_refund_desc1">Onlayn ödəniş edərkən, kartınızdakı ödəniş məbləği bloklanır, amma sifariş təhvil olunana qədər hesabdan köçürülmür. Bu vaxt ərzində siz sifarişi ləğv etsəniz, biz vəsaitlərinizi blokdan çıxara bilərik.</string>
+    <string name="dp_refund_desc2">Ortalama ilə, vəsaitlərin hesaba qaytarılması bir neçə saatdan 3 günə qədər vaxt tutur.</string>
+    <string name="dp_page_title">Çatdırılma və ödəmə</string>
 </resources>

@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Sifarişin verilməsi"
+            android:text="@string/order_summary_title"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="#1A237E" />
@@ -66,7 +66,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ÖDƏNİŞ ÜSULU"
+                android:text="@string/order_payment_method_header"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:textColor="#888888"
@@ -212,7 +212,7 @@
                             android:id="@+id/tvSelectedPayTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Bank kartı vasitəsi ilə onlayn"
+                            android:text="@string/order_pay_online_title"
                             android:textSize="14sp"
                             android:textColor="#1A1A1A" />
 
@@ -220,7 +220,7 @@
                             android:id="@+id/tvSelectedPaySubtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Onlayn ödəmək"
+                            android:text="@string/order_pay_online_subtitle"
                             android:textSize="12sp"
                             android:textColor="#888888" />
 
@@ -291,7 +291,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Kredit"
+                            android:text="@string/order_credit_label"
                             android:textSize="14sp"
                             android:textColor="#1A1A1A" />
 
@@ -318,7 +318,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
                 android:layout_marginBottom="8dp"
-                android:text="Başqa ödəniş üsulu seçmək"
+                android:text="@string/order_select_payment_btn"
                 android:textColor="#E91E8C"
                 android:textSize="15sp"
                 app:backgroundTint="@android:color/transparent"
@@ -339,7 +339,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="BIR KREDİT BOKT MMC-DƏN KREDİT ŞƏRTLƏRI"
+                    android:text="@string/order_credit_terms_header"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:textColor="#888888"
@@ -378,7 +378,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Aylıq ödəniş 01.06-dan etibarən:"
+                                android:text="@string/order_monthly_payment_label"
                                 android:textSize="13sp"
                                 android:textColor="#555555" />
 
@@ -487,7 +487,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="KREDİTİN VERİLMƏSİ ÜÇÜN MƏLUMATLAR"
+                    android:text="@string/order_credit_info_header"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:textColor="#888888"
@@ -518,7 +518,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
-                            android:hint="Ad"
+                            android:hint="@string/order_credit_first_name_hint"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -535,7 +535,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
-                            android:hint="Soyad"
+                            android:hint="@string/order_credit_last_name_hint"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -552,7 +552,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
-                            android:hint="Telefon"
+                            android:hint="@string/order_credit_phone_hint"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -568,7 +568,7 @@
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="FİN-kod"
+                            android:hint="@string/order_credit_fin_hint"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             app:endIconMode="custom"
                             app:endIconDrawable="@drawable/ic_info">
@@ -591,7 +591,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="SİFARİŞ"
+                    android:text="@string/order_credit_section_header"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:textColor="#888888"
@@ -629,7 +629,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Sifarişin məbləği (1 məhsul):"
+                                android:text="@string/order_credit_order_label"
                                 android:textSize="14sp"
                                 android:textColor="#555555" />
 
@@ -656,7 +656,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Endirim:"
+                                android:text="@string/order_discount_label"
                                 android:textSize="14sp"
                                 android:textColor="#555555" />
 
@@ -681,7 +681,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Çatdırılma:"
+                                android:text="@string/order_delivery_label"
                                 android:textSize="14sp"
                                 android:textColor="#555555" />
 
@@ -712,7 +712,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:id="@+id/tvCreditMonthlySummaryLabel"
-                                android:text="Aylıq ödəniş 01.06-dan etibarən:"
+                                android:text="@string/order_monthly_payment_label"
                                 android:textSize="14sp"
                                 android:textStyle="bold"
                                 android:textColor="#1A237E" />
@@ -755,7 +755,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginStart="8dp"
-                        android:text="Məlumatların doğruluğunu təsdiqləyirəm və AKB-dən və digər dövlət qurumlarından məlumatlarımın alınmasına, OneMarket istifadə qaydalarına uyğun haqqımda məlumat toplanmasına razılıq verirəm"
+                        android:text="@string/order_consent_text"
                         android:textSize="12sp"
                         android:textColor="#555555"
                         android:lineSpacingMultiplier="1.3" />
@@ -777,7 +777,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="ALICI KONTAKTLARI"
+                    android:text="@string/order_buyer_contacts_header"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:textColor="#888888"
@@ -828,7 +828,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="SİFARİŞ"
+                    android:text="@string/order_birbank_section_header"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:textColor="#888888"
@@ -865,7 +865,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Sifarişin məbləği (1 məhsul):"
+                                android:text="@string/order_credit_order_label"
                                 android:textSize="14sp"
                                 android:textColor="#555555" />
 
@@ -891,7 +891,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Endirim:"
+                                android:text="@string/order_discount_label"
                                 android:textSize="14sp"
                                 android:textColor="#555555" />
 
@@ -915,7 +915,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Taksit:"
+                                android:text="@string/order_birbank_installment_label"
                                 android:textSize="14sp"
                                 android:textColor="#555555" />
 
@@ -945,7 +945,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Toplam ödəniş:"
+                                android:text="@string/order_total_payment_label"
                                 android:textSize="14sp"
                                 android:textStyle="bold"
                                 android:textColor="#1A1A1A" />
@@ -970,7 +970,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Çatdırılma:"
+                                android:text="@string/order_delivery_label"
                                 android:textSize="14sp"
                                 android:textColor="#555555" />
 
@@ -996,7 +996,7 @@
                 android:id="@+id/tvContactHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ALICI KONTAKTLARI"
+                android:text="@string/order_buyer_contacts_header"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:textColor="#888888"
@@ -1049,7 +1049,7 @@
                 android:id="@+id/tvPromoHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="PROMOKOD"
+                android:text="@string/order_promo_header"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:textColor="#888888"
@@ -1080,7 +1080,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Promokoddan istifadə etmək istəyirəm"
+                        android:text="@string/order_use_promo"
                         android:textSize="14sp"
                         android:textColor="#1A1A1A" />
 
@@ -1117,7 +1117,7 @@
                         android:id="@+id/etPromoCode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Promokodu daxil edin"
+                        android:hint="@string/order_promo_hint"
                         android:textSize="14sp"
                         android:textColor="#1A1A1A"
                         android:inputType="textCapCharacters"
@@ -1127,7 +1127,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Promokod tətbiq olunmadan ödəniş mümkündür"
+                        android:text="@string/order_promo_note"
                         android:textSize="11sp"
                         android:textColor="#888888"
                         android:layout_marginTop="8dp" />
@@ -1161,7 +1161,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Toplam ödəniş:"
+                    android:text="@string/order_total_label"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="#1A1A1A" />
@@ -1182,7 +1182,7 @@
                 android:id="@+id/tvLegal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Davam etməklə, siz şəxsi məlumatlarınızın toplanması və emalı ilə razılaşırsınız və OneMarket-in istifadə və ödəniş şərtləri ilə razılaşırsınız"
+                android:text="@string/order_legal_text"
                 android:textSize="12sp"
                 android:textColor="#888888"
                 android:gravity="center"
@@ -1224,7 +1224,7 @@
             android:id="@+id/tvCreditLegal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Davam etməklə, siz şəxsi məlumatlarınızın toplanması və emalı ilə razılaşırsınız və OneMarket-in istifadə və ödəniş şərtləri ilə razılaşırsınız"
+            android:text="@string/order_legal_text"
             android:textSize="11sp"
             android:textColor="#888888"
             android:gravity="center"

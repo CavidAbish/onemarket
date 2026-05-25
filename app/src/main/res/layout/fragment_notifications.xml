@@ -33,7 +33,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Bildirişlər"
+            android:text="@string/notifications_title"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="#1A237E"
@@ -71,7 +71,7 @@
             android:id="@+id/tabAll"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
-            android:text="Hamısı"
+            android:text="@string/notifications_tab_all"
             android:textSize="14sp"
             android:textColor="#FFFFFF"
             android:gravity="center"
@@ -83,7 +83,7 @@
             android:id="@+id/tabOrders"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
-            android:text="Sifarişlər"
+            android:text="@string/notifications_tab_orders"
             android:textSize="14sp"
             android:textColor="#555555"
             android:gravity="center"
@@ -123,7 +123,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bildiriş yoxdur"
+            android:text="@string/notifications_empty"
             android:textSize="16sp"
             android:textColor="#AAAAAA" />
 

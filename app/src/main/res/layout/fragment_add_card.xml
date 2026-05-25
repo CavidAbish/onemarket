@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="8dp"
-            android:text="Yeni kart əlavə et"
+            android:text="@string/add_card_title"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="#1A237E" />
@@ -66,7 +66,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kart növü"
+                android:text="@string/add_card_type_label"
                 android:textSize="13sp"
                 android:textColor="#888888"
                 android:layout_marginBottom="10dp" />
@@ -100,7 +100,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Bank kartı"
+                        android:text="@string/add_card_type_bank"
                         android:textSize="13sp"
                         android:textStyle="bold"
                         android:textColor="#E91E8C"
@@ -130,7 +130,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Birbank taksit"
+                        android:text="@string/add_card_type_birbank"
                         android:textSize="13sp"
                         android:textColor="#555555"
                         android:layout_marginStart="4dp" />
@@ -143,7 +143,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kart nömrəsi"
+                android:text="@string/add_card_number_label"
                 android:textSize="13sp"
                 android:textColor="#888888"
                 android:layout_marginBottom="6dp" />
@@ -229,7 +229,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
-                android:hint="Kart sahibinin adı (ixtiyari)"
+                android:hint="@string/add_card_holder_hint"
                 app:boxStrokeColor="#E91E8C"
                 app:hintTextColor="#888888">
 
@@ -248,7 +248,7 @@
                 android:id="@+id/btnSaveCard"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
-                android:text="Kartı əlavə et"
+                android:text="@string/add_card_save_btn"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"

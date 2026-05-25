@@ -26,7 +26,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Kabinet"
+            android:text="@string/profile_title"
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="#1A237E" />
@@ -93,7 +93,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Daxil olun"
+                    android:text="@string/login_title"
                     android:textSize="22sp"
                     android:textStyle="bold"
                     android:textColor="#1A237E"
@@ -102,7 +102,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Alış-veriş etmək, sifarişləri izləmək və fərdi endirim­lər və bonuslardan istifadə etmək üçün."
+                    android:text="@string/login_desc"
                     android:textSize="14sp"
                     android:textColor="#555555"
                     android:lineSpacingMultiplier="1.4"
@@ -112,7 +112,7 @@
                     android:id="@+id/btnLogin"
                     android:layout_width="160dp"
                     android:layout_height="52dp"
-                    android:text="Daxil ol"
+                    android:text="@string/btn_login"
                     android:textColor="#FFFFFF"
                     android:textSize="15sp"
                     android:textStyle="bold"
@@ -203,7 +203,7 @@
                                     android:id="@+id/tvUserName"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="İstifadəçi"
+                                    android:text="@string/user_default_name"
                                     android:textSize="17sp"
                                     android:textStyle="bold"
                                     android:textColor="#1A1A1A" />
@@ -269,7 +269,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Bir ID profilinizi, məlumatlarınızı və tənzimləmələrinizi Bir ekosistemində idarə edin"
+                                android:text="@string/profile_bir_id_desc"
                                 android:textSize="13sp"
                                 android:textColor="#555555"
                                 android:lineSpacingMultiplier="1.4" />
@@ -291,56 +291,56 @@
                 <!-- Menyu elementləri -->
                 <LinearLayout android:id="@+id/menuOrders" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="16dp" android:paddingBottom="16dp">
                     <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="16dp" android:alpha="0.7" android:src="@drawable/ic_profile_bag" />
-                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Mənim sifarişlərim" android:textSize="15sp" android:textColor="#1A1A1A" />
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/profile_my_orders" android:textSize="15sp" android:textColor="#1A1A1A" />
                     <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_back" android:rotation="180" android:alpha="0.3" />
                 </LinearLayout>
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginStart="56dp" />
 
                 <LinearLayout android:id="@+id/menuCards" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="16dp" android:paddingBottom="16dp">
                     <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="16dp" android:alpha="0.7" android:src="@drawable/ic_credit_card" />
-                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Mənim Kartlarım" android:textSize="15sp" android:textColor="#1A1A1A" />
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/profile_my_cards" android:textSize="15sp" android:textColor="#1A1A1A" />
                     <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_back" android:rotation="180" android:alpha="0.3" />
                 </LinearLayout>
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginStart="56dp" />
 
                 <LinearLayout android:id="@+id/menuPromo" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="16dp" android:paddingBottom="16dp">
                     <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="16dp" android:alpha="0.7" android:src="@drawable/ic_profile_promo" />
-                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Promokodlar" android:textSize="15sp" android:textColor="#1A1A1A" />
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/profile_promo" android:textSize="15sp" android:textColor="#1A1A1A" />
                     <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_back" android:rotation="180" android:alpha="0.3" />
                 </LinearLayout>
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginStart="56dp" />
 
                 <LinearLayout android:id="@+id/menuCredit" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="16dp" android:paddingBottom="16dp">
                     <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="16dp" android:alpha="0.7" android:src="@drawable/ic_profile_bank" />
-                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Kredit müraciətləri" android:textSize="15sp" android:textColor="#1A1A1A" />
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/profile_credit" android:textSize="15sp" android:textColor="#1A1A1A" />
                     <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_back" android:rotation="180" android:alpha="0.3" />
                 </LinearLayout>
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginStart="56dp" />
 
                 <LinearLayout android:id="@+id/menuReviews" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="16dp" android:paddingBottom="16dp">
                     <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="16dp" android:alpha="0.7" android:src="@drawable/ic_profile_chat" />
-                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Rəylərim" android:textSize="15sp" android:textColor="#1A1A1A" />
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/profile_reviews" android:textSize="15sp" android:textColor="#1A1A1A" />
                     <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_back" android:rotation="180" android:alpha="0.3" />
                 </LinearLayout>
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginStart="56dp" />
 
                 <LinearLayout android:id="@+id/menuAddresses" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="16dp" android:paddingBottom="16dp">
                     <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="16dp" android:alpha="0.7" android:src="@drawable/ic_location" />
-                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Sifarişlərin çatdırılması üçün ünvanlarım" android:textSize="15sp" android:textColor="#1A1A1A" />
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/profile_addresses" android:textSize="15sp" android:textColor="#1A1A1A" />
                     <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_back" android:rotation="180" android:alpha="0.3" />
                 </LinearLayout>
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginStart="56dp" />
 
                 <LinearLayout android:id="@+id/menuReturns" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="16dp" android:paddingBottom="16dp">
                     <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="16dp" android:alpha="0.7" android:src="@drawable/ic_profile_return" />
-                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Geri qaytarma müraciətləri" android:textSize="15sp" android:textColor="#1A1A1A" />
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/profile_returns" android:textSize="15sp" android:textColor="#1A1A1A" />
                     <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_back" android:rotation="180" android:alpha="0.3" />
                 </LinearLayout>
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginStart="56dp" />
 
                 <LinearLayout android:id="@+id/menuExtra" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="16dp" android:paddingBottom="16dp">
                     <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="16dp" android:alpha="0.7" android:src="@drawable/ic_profile_more" />
-                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Əlavə xidmətlər" android:textSize="15sp" android:textColor="#1A1A1A" />
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/profile_extra" android:textSize="15sp" android:textColor="#1A1A1A" />
                     <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_back" android:rotation="180" android:alpha="0.3" />
                 </LinearLayout>
 
@@ -349,13 +349,13 @@
             <!-- HƏR İKİ VƏZİYYƏTDƏ PARAMETRLƏRs -->
             <View android:layout_width="match_parent" android:layout_height="8dp" android:background="#F5F5F5" />
 
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Parametrlər" android:textSize="18sp" android:textStyle="bold" android:textColor="#1A237E" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="16dp" android:paddingBottom="8dp" />
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/profile_settings" android:textSize="18sp" android:textStyle="bold" android:textColor="#1A237E" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="16dp" android:paddingBottom="8dp" />
 
             <LinearLayout android:id="@+id/menuCity" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="12dp" android:paddingBottom="12dp">
                 <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="16dp" android:alpha="0.7" android:src="@drawable/ic_location" />
                 <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Şəhər" android:textSize="11sp" android:textColor="#888888" />
-                    <TextView android:id="@+id/titleCity" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Bakı" android:textSize="15sp" android:textColor="#1A1A1A" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/profile_city" android:textSize="11sp" android:textColor="#888888" />
+                    <TextView android:id="@+id/titleCity" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/profile_city_baku" android:textSize="15sp" android:textColor="#1A1A1A" />
                 </LinearLayout>
                 <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_back" android:rotation="180" android:alpha="0.3" />
             </LinearLayout>
@@ -364,8 +364,8 @@
             <LinearLayout android:id="@+id/menuLanguage" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="12dp" android:paddingBottom="12dp">
                 <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="16dp" android:alpha="0.7" android:src="@drawable/ic_profile_globe" />
                 <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Dil" android:textSize="11sp" android:textColor="#888888" />
-                    <TextView android:id="@+id/titleLanguage" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Azərbaycan" android:textSize="15sp" android:textColor="#1A1A1A" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/profile_language" android:textSize="11sp" android:textColor="#888888" />
+                    <TextView android:id="@+id/titleLanguage" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/profile_lang_az" android:textSize="15sp" android:textColor="#1A1A1A" />
                 </LinearLayout>
                 <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_back" android:rotation="180" android:alpha="0.3" />
             </LinearLayout>
@@ -374,45 +374,45 @@
 
             <LinearLayout android:id="@+id/menuNotifications" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="16dp" android:paddingBottom="16dp" android:visibility="gone">
                 <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="16dp" android:alpha="0.7" android:src="@drawable/ic_notifications" />
-                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Bildirişlər" android:textSize="15sp" android:textColor="#1A1A1A" />
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/profile_notifications" android:textSize="15sp" android:textColor="#1A1A1A" />
                 <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_back" android:rotation="180" android:alpha="0.3" />
             </LinearLayout>
 
             <View android:layout_width="match_parent" android:layout_height="8dp" android:background="#F5F5F5" android:layout_marginTop="8dp" />
 
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Kömək" android:textSize="18sp" android:textStyle="bold" android:textColor="#1A237E" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="16dp" android:paddingBottom="8dp" />
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/profile_help" android:textSize="18sp" android:textStyle="bold" android:textColor="#1A237E" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="16dp" android:paddingBottom="8dp" />
 
             <LinearLayout android:id="@+id/menuSupport" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="16dp" android:paddingBottom="16dp">
                 <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="16dp" android:alpha="0.7" android:src="@drawable/ic_profile_chat" />
-                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Dəstək xidməti" android:textSize="15sp" android:textColor="#1A1A1A" />
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/profile_support_service" android:textSize="15sp" android:textColor="#1A1A1A" />
                 <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_back" android:rotation="180" android:alpha="0.3" />
             </LinearLayout>
             <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginStart="56dp" />
 
             <LinearLayout android:id="@+id/menuDelivery" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="16dp" android:paddingBottom="16dp">
                 <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="16dp" android:alpha="0.7" android:src="@drawable/ic_delivery" />
-                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Çatdırılma və ödəmə" android:textSize="15sp" android:textColor="#1A1A1A" />
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/profile_delivery_payment" android:textSize="15sp" android:textColor="#1A1A1A" />
                 <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_back" android:rotation="180" android:alpha="0.3" />
             </LinearLayout>
             <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginStart="56dp" />
 
             <LinearLayout android:id="@+id/menuPickup" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="16dp" android:paddingBottom="16dp">
                 <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="16dp" android:alpha="0.7" android:src="@drawable/ic_profile_box" />
-                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Birmarket təhvil məntəqələrinin siyahısı" android:textSize="15sp" android:textColor="#1A1A1A" />
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/profile_pickup_list" android:textSize="15sp" android:textColor="#1A1A1A" />
                 <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_back" android:rotation="180" android:alpha="0.3" />
             </LinearLayout>
             <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginStart="56dp" />
 
             <LinearLayout android:id="@+id/menuServiceCenters" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="16dp" android:paddingBottom="16dp">
                 <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="16dp" android:alpha="0.7" android:src="@drawable/ic_profile_wrench" />
-                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Servis mərkəzləri" android:textSize="15sp" android:textColor="#1A1A1A" />
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/profile_service_centers" android:textSize="15sp" android:textColor="#1A1A1A" />
                 <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_back" android:rotation="180" android:alpha="0.3" />
             </LinearLayout>
             <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginStart="56dp" />
 
             <LinearLayout android:id="@+id/menuFaq" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="16dp" android:paddingBottom="16dp">
                 <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="16dp" android:alpha="0.7" android:src="@drawable/ic_profile_info" />
-                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Ən çox verilən suallar" android:textSize="15sp" android:textColor="#1A1A1A" />
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/profile_faq_label" android:textSize="15sp" android:textColor="#1A1A1A" />
                 <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_back" android:rotation="180" android:alpha="0.3" />
             </LinearLayout>
 
@@ -421,12 +421,12 @@
 
             <LinearLayout android:id="@+id/menuLogout" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="16dp" android:paddingBottom="16dp" android:visibility="gone">
                 <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="16dp" android:alpha="0.7" android:src="@drawable/ic_profile_logout" />
-                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Çıxış" android:textSize="15sp" android:textColor="#1A1A1A" />
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/profile_logout" android:textSize="15sp" android:textColor="#1A1A1A" />
             </LinearLayout>
 
-            <TextView android:id="@+id/tvDeleteAccount" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Hesabı silmək" android:textSize="14sp" android:textColor="#1A1A1A" android:gravity="center" android:paddingBottom="16dp" android:visibility="gone" />
+            <TextView android:id="@+id/tvDeleteAccount" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/profile_delete_account_btn" android:textSize="14sp" android:textColor="#1A1A1A" android:gravity="center" android:paddingBottom="16dp" android:visibility="gone" />
 
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Version 1.0.0" android:textSize="12sp" android:textColor="#AAAAAA" android:gravity="center" android:paddingTop="12dp" android:paddingBottom="16dp" />
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/profile_version" android:textSize="12sp" android:textColor="#AAAAAA" android:gravity="center" android:paddingTop="12dp" android:paddingBottom="16dp" />
 
         </LinearLayout>
 
